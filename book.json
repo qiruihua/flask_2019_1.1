@@ -1,0 +1,20 @@
+{
+  "title": "django项目",
+  "description": "传智播客-python学科",
+  "language": "zh",
+  "github": "",
+  "githubHost": "",
+  "plugins": [
+    "-search",
+    "toggle-chapters",
+    "splitter",
+    "emphasize",
+    "fontsettings"
+  ],
+  "pluginsConfig": {
+    "fontsettings": {
+      "family": "sans",
+      "size": 2
+    }
+  }
+}
