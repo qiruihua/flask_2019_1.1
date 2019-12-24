@@ -23,4 +23,5 @@
   * [关注用户](detail/follow.md)
   * [取消关注用户](detail/cancel.md)
   * [关注用户列表](detail/followlist.md)
+  * [comment](detail/comment.md)
 
