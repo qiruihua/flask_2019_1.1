@@ -24,4 +24,5 @@
   * [取消关注用户](detail/cancel.md)
   * [关注用户列表](detail/followlist.md)
   * [发布评论](detail/comment.md)
+  * [commentlist](detail/commentlist.md)
 
