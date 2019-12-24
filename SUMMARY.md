@@ -13,6 +13,7 @@
   * [获取验证码](login/sms.md)
   * [登录注册](login/login.md)
   * [用户信息](login/info.md)
+  * [userchannels](login/userchannels.md)
 * [首页](index.md)
   * [channels](index/channels.md)
 
