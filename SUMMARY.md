@@ -21,4 +21,6 @@
   * [文章详情](index/detail.md)
   * [关注](index/follow.md)
   * [取消关注](index/cancel.md)
+  * [followlist](index/followlist.md)
+* [detail](detail.md)
 
