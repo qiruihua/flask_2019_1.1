@@ -30,5 +30,21 @@ class Config(object):
     PERMANENT_SESSION_LIFETIME = 86400  # session 的有效期，单位是秒
 ```
 
+在`manager.py`中引入`Config`类，直接使用
+
+```
+from settings import Config
+
+app = Flask(__name__)
+
+
+# 配置
+
+app.config.from_object(Config)
+
+```
+
+> 运行测试
+
 
 
