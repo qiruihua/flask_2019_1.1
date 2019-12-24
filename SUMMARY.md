@@ -5,7 +5,7 @@
   * [Git版本控制](prepare/git.md)
   * [项目基本配置](prepare/app.md)
   * [Flask-Script](prepare/script.md)
-  * [Migrate](prepare/migrate.md)
+  * [Flask-Migrate](prepare/migrate.md)
   * [代码抽取](prepare/base.md)
   * [日志](prepare/log.md)
   * [蓝图](prepare/blueprint.md)
