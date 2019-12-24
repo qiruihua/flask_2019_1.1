@@ -20,4 +20,7 @@
   * [首页文章](index/index.md)
 * [详情页面](detail.md)
   * [detail](detail/detail.md)
+  * [a](detail/follow.md)
+  * [b](detail/cancel.md)
+  * [c](detail/followlist.md)
 
