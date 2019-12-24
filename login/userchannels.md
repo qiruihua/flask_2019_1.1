@@ -33,8 +33,8 @@
 | message | str | 是 | 消息内容 |
 | data | dict | 是 | 数据 |
 | channels | list | 是 | 频道列表 |
-| id | dict | 是 | 频道id |
-| name | dict | 是 | 频道名字 |
+| id | str | 是 | 频道id |
+| name | str | 是 | 频道名字 |
 
 ## 后端实现
 

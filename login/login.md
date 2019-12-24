@@ -24,7 +24,7 @@
 | :--- | :--- | :--- | :--- |
 | message | str | 是 | 消息内容 |
 | data | dict | 是 | 数据 |
-| token | dict | 是 | Token |
+| token | str | 是 | Token |
 
 ## 后端实现
 
