@@ -13,6 +13,7 @@ mkvirtualenv -p python3 py3_toutiao
 ```
 pip install Flask
 pip install flask-sqlalchemy
+pip install redis
 ```
 
 ## 创建项目

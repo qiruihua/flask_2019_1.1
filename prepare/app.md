@@ -10,7 +10,7 @@ app = Flask(__name__)
 class Config(object):
     """工程配置信息"""
     DEBUG = True
-    
+
     SERVER_NAME = '127.0.0.1:5000'
 
 #加载配置文件
