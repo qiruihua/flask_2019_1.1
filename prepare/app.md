@@ -94,5 +94,13 @@ Session(app)
 >
 > 文档地址：[http://pythonhosted.org/Flask-Session/](http://pythonhosted.org/Flask-Session/)
 
+## CORS
+
+```
+
+```
+
+> 文档地址：[http://flask-cors.corydolphin.com/en/latest/](http://flask-cors.corydolphin.com/en/latest/)
+
 
 
