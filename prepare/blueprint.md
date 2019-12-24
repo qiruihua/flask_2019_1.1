@@ -17,6 +17,37 @@
 
 ![](/assets/home蓝图.png)
 
+\`\_\__init\_\__.py\`代码
+
+```
+from flask import Blueprint
+from flask_restful import Api
+#创建蓝图
+home_blueprint=Blueprint('home',__name__,url_prefix='/')
+#Api接管蓝图
+home_api=Api(home_blueprint)
+
+#记住要导入过来
+from . import views
+```
+
+view.py代码
+
+```
+from project.apps.home import home_api
+from flask_restful import Resource
+
+class IndexResource(Resource):
+
+    def get(self):
+        return {
+                "message": "OK"
+        }
+
+
+home_api.add_resource(IndexResource, '/')
+```
+
 ## User蓝图
 
 
