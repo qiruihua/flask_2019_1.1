@@ -19,7 +19,7 @@
   * [获取所有频道](index/channels.md)
   * [首页文章](index/index.md)
 * [详情页面](detail.md)
-  * [detail](detail/detail.md)
+  * [详情](detail/detail.md)
   * [关注](detail/follow.md)
   * [b](detail/cancel.md)
   * [c](detail/followlist.md)
