@@ -105,5 +105,20 @@ if __name__ == '__main__':
 
 * 修改`settings.py`文件的配置文件如下
 
+```
+class Config(object):
+    ...
+    
+# 线上/生成
+class ProductionConfig(Config):
+    DEBUG = False
+# 线下/开发
+class DevelopmentConfig(Config):
+    DEBUG = True
+# 测试环境
+class TestingConfig(Config):
+    TESTING = True
+```
+
 
 
