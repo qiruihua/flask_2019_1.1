@@ -18,5 +18,5 @@
 * [首页](index.md)
   * [获取所有频道](index/channels.md)
   * [首页文章](index/index.md)
-  * detail
+  * [文章详情](index/detail.md)
 
