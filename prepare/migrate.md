@@ -11,7 +11,6 @@
 
 ```
 pip install flask-migrate
-
 ```
 
 * 代码文件内容：
@@ -70,7 +69,6 @@ class PeopleInfo(db.Model):
 
 if __name__ == '__main__':
     manager.run()
-
 ```
 
 ### 创建迁移仓库 {#创建迁移仓库}
@@ -78,10 +76,9 @@ if __name__ == '__main__':
 ```
 #这个命令会创建migrations文件夹，所有迁移文件都放在里面。
 python database.py db init
-
 ```
 
-![](../assets/db_init.png "创建迁移仓库")
+![](/assets/db_init.png "创建迁移仓库")
 
 ### 创建迁移脚本 {#创建迁移脚本}
 
@@ -93,7 +90,6 @@ python database.py db init
 
 ```
 python database.py db migrate -m 'initial migration'
-
 ```
 
 ![](../assets/migration.png "创建迁移脚本")
@@ -102,7 +98,6 @@ python database.py db migrate -m 'initial migration'
 
 ```
 python database.py db upgrade
-
 ```
 
 ### 返回以前的版本 {#返回以前的版本}
@@ -113,14 +108,12 @@ python database.py db upgrade
 python app.py db history
 
 输出格式：<base> ->  版本号 (head), initial migration
-
 ```
 
 * 回滚到指定版本
 
 ```
 python app.py db downgrade 版本号
-
 ```
 
 ### 实际操作顺序: {#实际操作顺序}
