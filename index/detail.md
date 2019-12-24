@@ -33,14 +33,14 @@
 | message | str | 是 | 消息内容 |
 | data | dict | 是 | 数据 |
 | art\_id | str | 是 | 文章id |
-| title |  |  |  |
-| pubdate |  |  |  |
-| aut\_id |  |  |  |
-| aut\_name |  |  |  |
-| content |  |  |  |
-| is\_followed |  |  |  |
-| attitude |  |  |  |
-| is\_collected |  |  |  |
+| title | str | 是 | 文章标题 |
+| pubdate | str | 是 | 发布日期 |
+| aut\_id | str | 是 | 作者id |
+| aut\_name | str | 是 | 作者name |
+| content | str | 是 | 内容 |
+| is\_followed | bool | 是 | 是否关注 |
+| attitude | int | 是 | 0不喜欢 1喜欢 -1无态度 |
+| is\_collected | bool | 是 | 是否喜欢 |
 
 ## 后端实现
 
