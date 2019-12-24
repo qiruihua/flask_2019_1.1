@@ -17,4 +17,5 @@
   * [修改关注频道](login/changechannels.md)
 * [首页](index.md)
   * [获取所有频道](index/channels.md)
+  * [首页文章](index/index.md)
 
