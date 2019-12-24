@@ -8,7 +8,7 @@
 mkvirtualenv -p python3 py3_toutiao
 ```
 
-安装Flask
+安装依赖包
 
 ```
 pip install Flask
