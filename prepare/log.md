@@ -37,6 +37,7 @@
 * 在软件开发阶段或部署开发环境时，为了尽可能详细的查看应用程序的运行状态来保证上线后的稳定性，我们可能需要把该应用程序所有的运行日志全部记录下来进行分析，这是非常耗费机器性能的
 
 * 当应用程序正式发布或在生产环境部署应用程序时，我们通常只需要记录应用程序的异常信息、错误信息等，这样既可以减小服务器的I/O压力，也可以更加方便的进行故障排查。
+
 * 那么，怎样才能在不改动应用程序代码的情况下实现在不同的环境记录不同详细程度的日志呢？这就是日志等级的作用了，我们通过配置文件指定我们需要的日志等级就可以了。
 
 * 不同的应用程序所定义的日志等级可能会有所差别，分的详细点的会包含以下几个等级：
@@ -95,7 +96,6 @@ formatter = logging.Formatter('%(levelname)s %(filename)s:%(lineno)d %(message)s
 file_log_handler.setFormatter(formatter)
 # 为全局的日志工具对象（flask app使用的）添加日志记录器
 logging.getLogger().addHandler(file_log_handler)
-
 ```
 
 ## 使用logging提供的模块级别的函数记录日志 {#使用logging提供的模块级别的函数记录日志}
@@ -112,7 +112,6 @@ logging.info("This is a info log.")
 logging.warning("This is a warning log.")
 logging.error("This is a error log.")
 logging.critical("This is a critical log.")
-
 ```
 
 * 也可以这样写：
@@ -123,7 +122,6 @@ logging.log(logging.INFO, "This is a info log.")
 logging.log(logging.WARNING, "This is a warning log.")
 logging.log(logging.ERROR, "This is a error log.")
 logging.log(logging.CRITICAL, "This is a critical log.")
-
 ```
 
 #### 修改配置改变输出内容 {#修改配置改变输出内容}
@@ -147,22 +145,15 @@ class Config(object):
 class ProductionConfig(Config):
     """生产模式下的配置"""
     LOG_LEVEL = logging.ERROR
-
 ```
 
 * 在`info`目录下的`init.py`文件中添加日志配置的相关方法
 
 * 在项目根目录下创建日志目录文件夹 logs，如下：
 
-
-
-
-
 运行项目，当前项目日志已输出到 logs 的目录下自动创建的 log 文件中
 
-
-
-在 logs 文件夹下创建 .gitkeep 文件，以便能将 logs 文件夹添加到远程仓库，并在 .gitignore 文件中添加忽略提交生成的日志文件
+在 .gitignore 文件中添加忽略提交生成的日志文件
 
 logs/log\*
 
