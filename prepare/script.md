@@ -8,7 +8,7 @@
 python manage.py runserver -h ip地址 -p 端口号
 ```
 
-## 代码实现 {#代码实现}
+## 脚本管理实现 {#代码实现}
 
 ```
 from flask import Flask
@@ -23,7 +23,7 @@ if __name__ == "__main__":
     manager.run()
 ```
 
-## 集成数据模型管理
+## 数据模型脚本管理实现
 
 ```
 from flask_script import Manager
