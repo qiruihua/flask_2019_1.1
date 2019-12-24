@@ -26,4 +26,5 @@
   * [发布评论](detail/comment.md)
   * [评论列表](detail/commentlist.md)
   * [回复评论](detail/reply.md)
+  * [回复评论列表](detail/replylist.md)
 
