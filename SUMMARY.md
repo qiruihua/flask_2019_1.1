@@ -20,5 +20,5 @@
   * [首页文章](index/index.md)
   * [文章详情](index/detail.md)
   * [关注](index/follow.md)
-  * [cancel](index/cancel.md)
+  * [取消关注](index/cancel.md)
 
