@@ -15,7 +15,7 @@ pip install Flask
 pip install flask-sqlalchemy
 pip install redis
 pip install flask-session
-
+pip install flask-script
 ```
 
 ## 创建项目

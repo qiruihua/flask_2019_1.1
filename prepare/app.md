@@ -11,8 +11,6 @@ class Config(object):
     """工程配置信息"""
     DEBUG = True
 
-    SERVER_NAME = '127.0.0.1:5000'
-
 #加载配置文件
 app.config.from_object(Config)
 ```
@@ -79,7 +77,7 @@ from flask_session import Session
 
 class Config(object):
     """工程配置信息"""
-    
+
     # flask_session的配置信息
     SECRET_KEY = "EjpNVSNQTyGi1VvWECj9TvC/+kq3oujee2kTfQUs8yCM6xX9Yjq52v54g+HVoknA"
     SESSION_TYPE = "redis" # 指定 session 保存到 redis 中
