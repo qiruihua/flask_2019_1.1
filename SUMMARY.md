@@ -6,6 +6,8 @@
   * [项目基本配置](prepare/app.md)
   * [Flask-Script](prepare/script.md)
   * [代码抽取](prepare/base.md)
+  * [日志](prepare/log.md)
+  * [蓝图](prepare/blueprint.md)
 * [登录注册](login.md)
 * [首页](index.md)
 
