@@ -7,7 +7,7 @@
 
 * 在`project`目录下创建`apps`Package，创建完成如下：
 
-![](../assets/创建蓝图目录.png)
+![](/assets/子应用.png)
 
 > apps 存放当前项目所有的模块
 
