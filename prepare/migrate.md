@@ -92,7 +92,7 @@ python database.py db init
 python database.py db migrate -m 'initial migration'
 ```
 
-![](../assets/migration.png "创建迁移脚本")
+![](/assets/migration.png "创建迁移脚本")
 
 ### 更新数据库 {#更新数据库}
 
