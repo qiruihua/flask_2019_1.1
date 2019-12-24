@@ -97,3 +97,13 @@ if __name__ == '__main__':
 
 > 运行测试
 
+## 项目多种配置
+
+[文档连接](http://docs.jinkan.org/docs/flask/config.html#id7)
+
+一个web程序在开发阶段可能与生产阶段所需要的配置信息可能不一样，所以为了实现此功能，可以给不同情况创建不同的配置类，比如开发阶段使用的配置类名为`DevelopementConfig`，生产阶段使用的配置类名为`ProdutionConfig`
+
+* 修改`settings.py`文件的配置文件如下
+
+
+
