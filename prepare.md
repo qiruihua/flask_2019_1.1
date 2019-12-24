@@ -31,5 +31,5 @@ if __name__ == '__main__':
     app.run()
 ```
 
-
+![](/assets/创建项目.png)
 
