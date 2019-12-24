@@ -17,7 +17,7 @@
 
 ![](/assets/home蓝图.png)
 
-\`\_\__init\_\_\_.py\`代码
+\_\__init_\_\_.py代码
 
 ```
 from flask import Blueprint
