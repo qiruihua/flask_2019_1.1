@@ -37,11 +37,8 @@ from settings import Config
 
 app = Flask(__name__)
 
-
 # 配置
-
 app.config.from_object(Config)
-
 ```
 
 > 运行测试
