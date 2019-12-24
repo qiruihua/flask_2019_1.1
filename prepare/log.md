@@ -153,30 +153,31 @@ class ProductionConfig(Config):
 from logging.handlers import RotatingFileHandler
 import logging
 
-class Config(object):
-    """工程配置信息"""
+def setup_log(config):
+    """配置日志"""
 
-    #默认日志等级
-    LOG_LEVEL = logging.DEBUG
-    
-    def __init__(self):
-        self.setup_log()
-    
-    def setup_log(self):
-        """配置日志"""
-    
-        # 设置日志的记录等级
-        logging.basicConfig(level=Config.LOG_LEVEL)  # 调试debug级
-        # 创建日志记录器，指明日志保存的路径、每个日志文件的最大大小、保存的日志文件个数上限
-        file_log_handler = RotatingFileHandler("logs/log", maxBytes=1024 * 1024 * 100, backupCount=10)
-        # 创建日志记录的格式 日志等级 输入日志信息的文件名 行数 日志信息
-        formatter = logging.Formatter('%(levelname)s %(filename)s:%(lineno)d %(message)s')
-        # 为刚创建的日志记录器设置日志记录格式
-        file_log_handler.setFormatter(formatter)
-        # 为全局的日志工具对象（flask app使用的）添加日志记录器
-        logging.getLogger().addHandler(file_log_handler)
+    # 设置日志的记录等级
+    logging.basicConfig(level=config.LOG_LEVEL)  # 调试debug级
+    # 创建日志记录器，指明日志保存的路径、每个日志文件的最大大小、保存的日志文件个数上限
+    file_log_handler = RotatingFileHandler("logs/log", maxBytes=1024 * 1024 * 100, backupCount=10)
+    # 创建日志记录的格式 日志等级 输入日志信息的文件名 行数 日志信息
+    formatter = logging.Formatter('%(levelname)s %(filename)s:%(lineno)d %(message)s')
+    # 为刚创建的日志记录器设置日志记录格式
+    file_log_handler.setFormatter(formatter)
+    # 为全局的日志工具对象（flask app使用的）添加日志记录器
+    logging.getLogger().addHandler(file_log_handler)
 ```
 
+* 在`apps`中\_\__init\_\_.py_调用上一步创建的方法，并传入配置类
+  ```
+  from settings import DevelopmentConfig
+  from settings import setup_log
+
+  setup_log(DevelopmentConfig)
+
+  app = Flask(__name__)
+  ...
+  ```
 * 在项目根目录下创建日志目录文件夹 logs，如下：
 
 ![](/assets/日志文件.png)
