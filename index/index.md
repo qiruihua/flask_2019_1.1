@@ -1,6 +1,6 @@
 ## 接口分析
 
-**请求方式**：GET /app/v1_0/articles?channel\_id=xxx&page=xxx_
+**请求方式**：GET /app/v1_0/articles?channel\_id=xxx&page=xxx&per\_page_
 
 **请求参数**：
 
@@ -9,6 +9,7 @@
 | token | str | 否 | 用户token |
 | channel\_id | str | 是 | 频道id |
 | page | int | 否 | 页码 |
+| per\_page | int | 否 | 每页条数 |
 
 **返回数据**： JSON
 
