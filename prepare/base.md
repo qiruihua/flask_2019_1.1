@@ -75,7 +75,6 @@ Session(app)
 @app.route('/')
 def index():
     return 'index'
-
 ```
 
 * `manage.py`的代码为
@@ -96,5 +95,5 @@ if __name__ == '__main__':
     manager.run()
 ```
 
-
+> 运行测试
 
