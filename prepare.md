@@ -17,6 +17,7 @@ pip install redis
 pip install flask-session
 pip install flask-script
 pip install flask_migrate
+pip install flask_restful
 ```
 
 ## 创建项目
