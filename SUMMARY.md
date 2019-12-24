@@ -23,4 +23,5 @@
   * [取消关注](index/cancel.md)
   * [followlist](index/followlist.md)
 * [详情页面](detail.md)
+  * detail
 
