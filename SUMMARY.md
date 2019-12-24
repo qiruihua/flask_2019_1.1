@@ -8,6 +8,7 @@
   * [代码抽取](prepare/base.md)
   * [日志](prepare/log.md)
   * [蓝图](prepare/blueprint.md)
+  * [model](prepare/model.md)
 * [登录注册](login.md)
 * [首页](index.md)
 
