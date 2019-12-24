@@ -168,7 +168,7 @@ def setup_log(config):
     logging.getLogger().addHandler(file_log_handler)
 ```
 
-* 在`apps`中\_\__init\_\_.py\_调用上一步创建的方法，并传入配置类
+* 在`project`中`__init_.py`调用上一步创建的方法，并传入配置类
 
   ```
   from settings import DevelopmentConfig
