@@ -52,5 +52,46 @@ home_api.add_resource(IndexResource, '/')
 
 ## User蓝图
 
+### \_\__init_\_\_.py代码
+
+```
+from flask import Blueprint
+from flask_restful import Api
+#创建蓝图
+home_blueprint=Blueprint('home',__name__,url_prefix='/')
+#Api接管蓝图
+home_api=Api(home_blueprint)
+
+#记住要导入过来
+from . import views
+```
+
+### view.py代码
+
+```
+from project.apps.home import home_api
+from flask_restful import Resource
+
+class IndexResource(Resource):
+
+    def get(self):
+        return {
+                "message": "OK"
+        }
+
+
+home_api.add_resource(IndexResource, '/')
+```
+
+### project包的\_\__init\_\_.py中注册路由_
+
+```
+# 注册蓝图
+from project.apps.home import home_blueprint
+app.register_blueprint(home_blueprint)
+```
+
+> 测试访问
+
 
 
