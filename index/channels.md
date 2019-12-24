@@ -29,8 +29,8 @@
 | message | str | 是 | 消息内容 |
 | data | dict | 是 | 数据 |
 | channels | list | 是 | 频道列表 |
-| id | str |  |  |
-|  |  |  |  |
+| id | str | 是 | 频道id |
+| name | str | 是 | 频道名 |
 
 ## 后端实现
 
