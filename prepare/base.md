@@ -43,5 +43,15 @@ app.config.from_object(Config)
 
 > 运行测试
 
+## 业务逻辑独立
+
+在整个项目文件夹中，除了启动文件`manage.py`和配置文件`setings.py`放在根目录，其他具体业务逻辑文件都放在一个单独的文件夹内，与`manage.py`同级
+
+* 创建`apps`Package，与`manage.py`同级
+
+![](../../assets/创建info文件夹.png)
+
+* `manage.py`只做最基本的启动工作，将`app`的创建操作移动到`apps`的`__init__.py`文件中
+
 
 
