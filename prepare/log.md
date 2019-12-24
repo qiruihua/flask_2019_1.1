@@ -168,7 +168,8 @@ def setup_log(config):
     logging.getLogger().addHandler(file_log_handler)
 ```
 
-* 在`apps`中\_\__init\_\_.py_调用上一步创建的方法，并传入配置类
+* 在`apps`中\_\__init\_\_.py\_调用上一步创建的方法，并传入配置类
+
   ```
   from settings import DevelopmentConfig
   from settings import setup_log
@@ -178,6 +179,7 @@ def setup_log(config):
   app = Flask(__name__)
   ...
   ```
+
 * 在项目根目录下创建日志目录文件夹 logs，如下：
 
 ![](/assets/日志文件.png)
@@ -186,5 +188,9 @@ def setup_log(config):
 
 在 .gitignore 文件中添加忽略提交生成的日志文件
 
-logs/log\*
+`logs/log*`
+
+> 如果需要将logs文件添加到远程，需要在 logs 文件夹下创建 .gitkeep 文件
+
+
 
