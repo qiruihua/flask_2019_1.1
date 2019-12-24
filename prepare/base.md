@@ -49,7 +49,7 @@ app.config.from_object(Config)
 
 * 创建`project`Package，与`manage.py`同级
 
-![](/assets/apps.png)
+![](/assets/project.png)
 
 * `manage.py`只做最基本的启动工作，将`project`的创建操作移动到`apps`的`__init__.py`文件中
 
