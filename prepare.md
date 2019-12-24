@@ -19,6 +19,7 @@ pip install flask-session
 pip install flask-script
 pip install flask_migrate
 pip install flask_restful
+pip install flask-cors
 ```
 
 ## 创建项目
