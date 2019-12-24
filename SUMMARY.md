@@ -14,7 +14,7 @@
   * [登录注册](login/login.md)
   * [用户信息](login/info.md)
   * [用户关注频道](login/userchannels.md)
-  * [changechannels](login/changechannels.md)
+  * [修改关注频道](login/changechannels.md)
 * [首页](index.md)
   * [channels](index/channels.md)
 
