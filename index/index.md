@@ -43,7 +43,14 @@
 | :--- | :--- | :--- | :--- |
 | message | str | 是 | 消息内容 |
 | data | dict | 是 | 数据 |
-|  |  |  |  |
+| per\_page | int | 否 |  |
+| results | dict |  |  |
+| art\_id |  |  |  |
+| title |  |  |  |
+| aut\_id |  |  |  |
+| pubdate |  |  |  |
+| aut\_name |  |  |  |
+| comm\_count |  |  |  |
 
 ## 后端实现
 
