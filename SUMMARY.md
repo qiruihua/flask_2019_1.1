@@ -1,7 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
-* [prepare](prepare.md)
+* [项目准备](prepare.md)
 * [login](login.md)
 * [index](index.md)
 
