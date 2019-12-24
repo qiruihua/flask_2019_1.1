@@ -16,7 +16,7 @@ pip install flask-sqlalchemy
 pip install redis
 pip install flask-session
 pip install flask-script
-pip install flask_migrate 
+pip install flask_migrate
 ```
 
 ## 创建项目
@@ -28,7 +28,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
-@app.route('/index')
+@app.route('/')
 def index():
     return 'index'
 

@@ -53,5 +53,48 @@ app.config.from_object(Config)
 
 * `manage.py`只做最基本的启动工作，将`app`的创建操作移动到`apps`的`__init__.py`文件中
 
+```
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+import redis
+from flask_session import Session
+from settings import Config
+
+app = Flask(__name__)
+
+#加载配置文件
+app.config.from_object(Config)
+# 数据库
+db = SQLAlchemy(app)
+# redis设置
+redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
+#session设置
+Session(app)
+
+
+@app.route('/')
+def index():
+    return 'index'
+
+```
+
+* `manage.py`的代码为
+
+```
+from apps import app,db
+from flask_script import Manager
+from flask_migrate import Migrate,MigrateCommand
+
+#Manager
+manager=Manager(app)
+#数据模型管理
+Migrate(app, db)
+manager.add_command('db', MigrateCommand)
+
+
+if __name__ == '__main__':
+    manager.run()
+```
+
 
 
