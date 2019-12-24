@@ -147,9 +147,39 @@ class ProductionConfig(Config):
     LOG_LEVEL = logging.ERROR
 ```
 
-* 在`info`目录下的`init.py`文件中添加日志配置的相关方法
+* 在`settings.py`文件中添加日志配置的相关方法
+
+```
+from logging.handlers import RotatingFileHandler
+import logging
+
+class Config(object):
+    """工程配置信息"""
+
+    #默认日志等级
+    LOG_LEVEL = logging.DEBUG
+    
+    def __init__(self):
+        self.setup_log()
+    
+    def setup_log(self):
+        """配置日志"""
+    
+        # 设置日志的记录等级
+        logging.basicConfig(level=Config.LOG_LEVEL)  # 调试debug级
+        # 创建日志记录器，指明日志保存的路径、每个日志文件的最大大小、保存的日志文件个数上限
+        file_log_handler = RotatingFileHandler("logs/log", maxBytes=1024 * 1024 * 100, backupCount=10)
+        # 创建日志记录的格式 日志等级 输入日志信息的文件名 行数 日志信息
+        formatter = logging.Formatter('%(levelname)s %(filename)s:%(lineno)d %(message)s')
+        # 为刚创建的日志记录器设置日志记录格式
+        file_log_handler.setFormatter(formatter)
+        # 为全局的日志工具对象（flask app使用的）添加日志记录器
+        logging.getLogger().addHandler(file_log_handler)
+```
 
 * 在项目根目录下创建日志目录文件夹 logs，如下：
+
+![](/assets/日志文件.png)
 
 运行项目，当前项目日志已输出到 logs 的目录下自动创建的 log 文件中
 
