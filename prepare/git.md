@@ -41,6 +41,8 @@ $ git add .
 $ git commit -m '第一次提交'
 ```
 
+![](/assets/git操作.png)
+
 ## 远程提交 {#远程提交}
 
 使用码云[https://gitee.com/](https://gitee.com/)作为在线 git 源代码仓库，免费注册账号
