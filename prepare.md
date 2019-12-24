@@ -1,8 +1,22 @@
 # 项目准备
 
+## 创建虚拟环境
+
+新建一个虚拟环境py3\_toutiao
+
+```
+mkvirtualenv -p python3 py3_toutiao
+```
+
+安装Flask
+
+```
+pip install Flask
+```
+
 ## 创建项目
 
-* 新建项目，新建虚拟环境，创建`manage.py`文件
+* 新建项目（例如 toutiao），创建`manage.py`文件
 
 ```
 from flask import Flask
