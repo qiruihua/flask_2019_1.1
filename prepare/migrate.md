@@ -15,6 +15,8 @@
 pip install flask-migrate
 ```
 
+### 定义模型并集成
+
 * 代码文件内容：
 
 ```
