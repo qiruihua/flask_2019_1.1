@@ -12,6 +12,7 @@ mkvirtualenv -p python3 py3_toutiao
 
 ```
 pip install Flask
+pip install flask-mysqldb
 pip install flask-sqlalchemy
 pip install redis
 pip install flask-session
