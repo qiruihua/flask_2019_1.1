@@ -7,6 +7,8 @@
 | 参数 | 类型 | 是否必须 | 说明 |
 | :--- | :--- | :--- | :--- |
 | token | str | 否 | 用户token |
+| channel\_id | str | 是 | 频道id |
+| page | int | 否 | 页码 |
 
 **返回数据**： JSON
 
