@@ -1,6 +1,6 @@
 ## 接口分析
 
-**请求方式**：GET /app/v1\_0/authorizations
+**请求方式**：POST /app/v1\_0/authorizations
 
 **请求参数**：
 
