@@ -10,9 +10,11 @@ app = Flask(__name__)
 class Config(object):
     """工程配置信息"""
     DEBUG = True
+    
+    SERVER_NAME = '127.0.0.1:5000'
 
+#加载配置文件
 app.config.from_object(Config)
-
 ```
 
 > 运行测试
@@ -35,14 +37,12 @@ class Config(object):
 
 app.config.from_object(Config)
 db = SQLAlchemy(app)
-
 ```
 
 * 在终端创建数据库
 
 ```
 mysql > create database toutiao charset utf8;
-
 ```
 
 > 运行测试
@@ -65,12 +65,9 @@ class Config(object):
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
-
 ```
 
 > 运行测试
-
-
 
 ## Session {#session}
 
@@ -93,7 +90,6 @@ class Config(object):
 app.config.from_object(Config)
 ...
 Session(app)
-
 ```
 
 > 运行测试
