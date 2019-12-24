@@ -63,6 +63,8 @@ $ git remote add origin 仓库地址
 $ git push -u origin master
 ```
 
+![](/assets/git 提交成功.png)
+
 ## 回滚代码 {#回滚代码}
 
 * 回滚到上一版本
