@@ -17,7 +17,7 @@
 
 ![](/assets/home蓝图.png)
 
-\_\__init_\_\_.py代码
+### \_\__init_\_\_.py代码
 
 ```
 from flask import Blueprint
@@ -31,7 +31,7 @@ home_api=Api(home_blueprint)
 from . import views
 ```
 
-view.py代码
+### view.py代码
 
 ```
 from project.apps.home import home_api
@@ -46,6 +46,14 @@ class IndexResource(Resource):
 
 
 home_api.add_resource(IndexResource, '/')
+```
+
+### project包的\_\__init_\_.py中注册路由\_
+
+```
+# 注册蓝图
+from project.apps.home import home_blueprint
+app.register_blueprint(home_blueprint)
 ```
 
 > 测试访问首页
@@ -83,7 +91,7 @@ class IndexResource(Resource):
 home_api.add_resource(IndexResource, '/')
 ```
 
-### project包的\_\__init\_\_.py中注册路由_
+### project包的\_\__init_\_.py中注册路由\_
 
 ```
 # 注册蓝图
