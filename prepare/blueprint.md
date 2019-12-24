@@ -66,37 +66,41 @@ app.register_blueprint(home_blueprint)
 from flask import Blueprint
 from flask_restful import Api
 #创建蓝图
-home_blueprint=Blueprint('home',__name__,url_prefix='/')
+user_blueprint=Blueprint('user',__name__,url_prefix='/app/v1_0')
 #Api接管蓝图
-home_api=Api(home_blueprint)
-
-#记住要导入过来
+user_api=Api(user_blueprint)
+#记住 导入
 from . import views
+
 ```
 
 ### view.py代码
 
 ```
-from project.apps.home import home_api
 from flask_restful import Resource
+from project.apps.user import user_api
 
-class IndexResource(Resource):
+class LoginResource(Resource):
 
     def get(self):
         return {
-                "message": "OK"
-        }
+              "message": "ok",
+              "data": {
+                "token": "123"
+              }
+            }
 
 
-home_api.add_resource(IndexResource, '/')
+user_api.add_resource(LoginResource,'/login')
 ```
 
 ### project包的\_\__init_\_.py中注册路由\_
 
 ```
 # 注册蓝图
-from project.apps.home import home_blueprint
-app.register_blueprint(home_blueprint)
+
+from project.apps.user import user_blueprint
+app.register_blueprint(user_blueprint)
 ```
 
 > 测试访问
