@@ -17,7 +17,7 @@
 
 ![](/assets/home蓝图.png)
 
-\`\_\__init\_\__.py\`代码
+\`\_\__init\_\_\_.py\`代码
 
 ```
 from flask import Blueprint
@@ -47,6 +47,8 @@ class IndexResource(Resource):
 
 home_api.add_resource(IndexResource, '/')
 ```
+
+> 测试访问首页
 
 ## User蓝图
 
