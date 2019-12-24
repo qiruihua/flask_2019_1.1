@@ -1,6 +1,6 @@
 ## 接口分析
 
-**请求方式**：GET /app/v1\_0/user/channels
+**请求方式**：PUT /app/v1\_0/user/channels
 
 **请求参数**：
 
