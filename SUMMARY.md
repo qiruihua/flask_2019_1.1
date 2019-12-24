@@ -20,7 +20,7 @@
   * [首页文章](index/index.md)
 * [详情页面](detail.md)
   * [详情](detail/detail.md)
-  * [关注](detail/follow.md)
-  * [b](detail/cancel.md)
+  * [关注用户](detail/follow.md)
+  * [取消关注用户](detail/cancel.md)
   * [c](detail/followlist.md)
 
