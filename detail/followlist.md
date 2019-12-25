@@ -36,7 +36,15 @@
 | :--- | :--- | :--- | :--- |
 | message | str | 是 | 消息内容 |
 | data | dict | 是 | 数据 |
-| token | str | 是 | Token |
+| total\_count | int | 是 | 总记录数 |
+| page | int | 是 | 当前页码 |
+| per\_page | int | 是 | 每页多少条记录 |
+| results | list | 是 | 记录数 |
+| id | str | 否 | id |
+| name | str | 否 | 名字 |
+| photo | str | 否 | 头像路由 |
+| fans\_count | int | 否 | 粉丝数量 |
+| mutual\_follow | bool | 否 | 是否互相关注 |
 
 ## 后端实现
 
