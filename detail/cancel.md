@@ -6,8 +6,8 @@
 
 | 参数 | 类型 | 是否必须 | 说明 |
 | :--- | :--- | :--- | :--- |
-| mobile | str | 是 | 手机号 |
-| code | str | 是 | 验证码 |
+| token | str | 是 | token |
+| target | str | 是 | 取消关注用户id |
 
 **返回数据**： JSON
 
