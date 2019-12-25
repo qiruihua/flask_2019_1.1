@@ -1,6 +1,6 @@
 ## 接口分析
 
-**请求方式**：POST /app/v1\_0/user/followings/&lt;target&gt;/
+**请求方式**：DELETE /app/v1\_0/user/followings/&lt;target&gt;/
 
 **请求参数**：
 
@@ -13,10 +13,7 @@
 
 ```
 {
-  "message": "ok",
-  "data": {
-    "token": "xxxxxxxx"
-  }
+    "message": "OK"
 }
 ```
 
