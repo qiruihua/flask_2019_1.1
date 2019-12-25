@@ -13,10 +13,10 @@
 
 ```
 {
-  "message": "ok",
-  "data": {
-    "token": "xxxxxxxx"
-  }
+    "message": "OK",
+    "data": {
+        "target": 1
+    }
 }
 ```
 
