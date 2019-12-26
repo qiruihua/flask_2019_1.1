@@ -26,7 +26,8 @@
 | :--- | :--- | :--- | :--- |
 | message | str | 是 | 消息内容 |
 | data | dict | 是 | 数据 |
-| token | str | 是 | Token |
+| com\_id | str | 是 | 评论id |
+| target | str | 是 | 文章id |
 
 ## 后端实现
 
