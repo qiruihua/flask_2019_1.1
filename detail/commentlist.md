@@ -8,7 +8,7 @@
 | :--- | :--- | :--- | :--- |
 | source | int | 是 | 文章id |
 | offset | int | 否 | 开始索引 |
-| limit | int | 否 |  |
+| limit | int | 否 | 条数 |
 
 **返回数据**： JSON
 
