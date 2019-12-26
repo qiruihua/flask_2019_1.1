@@ -1,13 +1,14 @@
 ## 接口分析
 
-**请求方式**：GET /app/v1\_0/comments
+**请求方式**：GET /app/v1\_0/comments?source=x&offset=xxx&limit=xxx
 
 **请求参数**：
 
 | 参数 | 类型 | 是否必须 | 说明 |
 | :--- | :--- | :--- | :--- |
-| mobile | str | 是 | 手机号 |
-| code | str | 是 | 验证码 |
+| source | int | 是 | 文章id |
+| offset | int | 否 | 开始索引 |
+| limit | int | 否 |  |
 
 **返回数据**： JSON
 
@@ -26,8 +27,8 @@
                 "aut_photo": "",
                 "pubdate": "2019-08-07T08:53:01",
                 "content": "你写的真好",
-      					"reply_count": 0,
-      					"like_count": 0
+                          "reply_count": 0,
+                          "like_count": 0
             }
         ]
     }
