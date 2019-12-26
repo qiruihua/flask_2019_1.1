@@ -1,6 +1,6 @@
 ## 接口分析
 
-**请求方式**：POST /app/v1\_0/authorizations
+**请求方式**：POST /app/v1\_0/comments
 
 **请求参数**：
 
@@ -13,10 +13,11 @@
 
 ```
 {
-  "message": "ok",
-  "data": {
-    "token": "xxxxxxxx"
-  }
+    "message": "OK",
+    "data": {
+        "com_id": 108,
+        "target": 138154
+    }
 }
 ```
 

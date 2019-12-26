@@ -1,6 +1,6 @@
 ## 接口分析
 
-**请求方式**：POST /app/v1\_0/authorizations
+**请求方式**：GET /app/v1\_0/comments
 
 **请求参数**：
 
@@ -13,10 +13,22 @@
 
 ```
 {
-  "message": "ok",
-  "data": {
-    "token": "xxxxxxxx"
-  }
+    "message": "OK",
+    "data": {
+        "total_count": 1,
+        "end_id": 108,  # 最后一条评论的id, offset < end_id时才会发请求获取更多评论, 无值返回None
+        "last_id": 108,  # 本次请求最后一条评论的id, 作为下次请求的offset, 无值返回None
+        "results": [
+            {
+                "com_id": 108,
+                "aut_id": 1155989075455377414,
+                "aut_name": "18310820688",
+                "aut_photo": "",
+                "pubdate": "2019-08-07T08:53:01",
+                "content": "你写的真好"
+            }
+        ]
+    }
 }
 ```
 
