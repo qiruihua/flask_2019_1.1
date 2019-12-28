@@ -1,3 +1,5 @@
+# 关注用户列表
+
 ## 接口分析
 
 **请求方式**：GET /app/v1_0/user/followings?page=xxx&per\_page=xxx_

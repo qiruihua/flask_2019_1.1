@@ -1,3 +1,5 @@
+# 回复评论
+
 ## 接口分析
 
 **请求方式**：POST /app/v1\_0/comments
@@ -18,7 +20,7 @@
     "data": {
         "com_id": 108,
         "target": 138154,
-      	"parent_id": 107
+          "parent_id": 107
     }
 }
 ```

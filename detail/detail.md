@@ -1,3 +1,5 @@
+# 详情页面
+
 ## 接口分析
 
 **请求方式**：GET /app/v1\_0/articles/&lt;article\_id&gt;/

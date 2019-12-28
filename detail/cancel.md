@@ -1,3 +1,5 @@
+# 取消关注用户
+
 ## 接口分析
 
 **请求方式**：DELETE /app/v1\_0/user/followings/&lt;target&gt;/
