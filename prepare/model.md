@@ -8,7 +8,7 @@
 
 ## 创建数据库并创建表
 
-执行sql文件
+执行sql文件,创建数据表并导入数据
 
 ```
 source create_table.sql
