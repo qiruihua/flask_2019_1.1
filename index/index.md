@@ -46,14 +46,14 @@
 | :--- | :--- | :--- | :--- |
 | message | str | 是 | 消息内容 |
 | data | dict | 是 | 数据 |
-| per\_page | int | 否 |  |
-| results | dict |  |  |
-| art\_id |  |  |  |
-| title |  |  |  |
-| aut\_id |  |  |  |
-| pubdate |  |  |  |
-| aut\_name |  |  |  |
-| comm\_count |  |  |  |
+| per\_page | int | 否 | 文章数 |
+| results | dict | 否 | 文章列表 |
+| art\_id | str | 否 | 文章id |
+| title | str | 否 | 文章标题 |
+| aut\_id | str | 否 | 作者id |
+| pubdate | str | 否 | 发布日期 |
+| aut\_name | str | 否 | 作者名字 |
+| comm\_count | int | 否 | 评论数量 |
 
 ## 后端实现
 
