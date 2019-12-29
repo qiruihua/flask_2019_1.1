@@ -36,5 +36,27 @@
 
 ## 后端实现
 
+```
+from flask_restful import fields
+#将频道列表对象转换
+channels_fields = {
+    'id': fields.Integer,
+    'name': fields.String,
+}
+class ChannelsResource(Resource):
+
+    def get(self):
+        """
+        1.获取所有频道
+        2.将频道列表对象转换
+        3.返回相应
+        :return:
+        """
+        # 1.获取所有频道
+        channels = Channel.query.all()
+        # 3.返回数据
+        return marshal(channels, channels_fields,envelope='channels')
+```
+
 
 
