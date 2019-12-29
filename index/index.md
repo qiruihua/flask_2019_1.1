@@ -57,5 +57,51 @@
 
 ## 后端实现
 
+```
+class IndexResource(Resource):
+
+    def get(self):
+        """
+        1.获取参数
+        2.根据参数查询数据
+        3.分页处理
+        4.将对象列表数据转换为字典，返回相应
+        :return:
+        """
+        # 1.获取参数
+        channel_id=request.args.get('channel_id',0)
+        page=request.args.get('page',1)
+        per_page=request.args.get('per_page',10)
+
+        try:
+            page=int(page)
+            per_page=int(per_page)
+        except Exception:
+            page=1
+            per_page=10
+
+        if int(channel_id) == 0:
+            channel_id=1
+        # 2.根据参数查询数据
+        # 3.分页处理
+        page_articles=Article.query.filter_by(channel_id=channel_id,
+                                   status=Article.STATUS.APPROVED).paginate(page=page,
+                                                                            per_page=per_page)
+
+        # 4.将对象列表数据转换为字典，返回相应
+        results = []
+        for item in page_articles.items:
+            results.append({
+                "art_id": item.id,
+                "title": item.title,
+                "aut_id": item.user.id,
+                "pubdate": item.ctime.strftime('%Y-%m-%d %H:%M:%S'),
+                "aut_name": item.user.name,
+                "comm_count": item.comment_count
+            })
+
+        return {'per_page': per_page, 'results': results}
+```
+
 
 
