@@ -53,7 +53,7 @@ class FollowDeleteResource(Resource):
             current_app.logger.error(e)
 
 
-        return {}
+        return {"message": "OK"}
 ```
 
 
