@@ -8,5 +8,12 @@
 
 ## 创建数据库并创建表
 
+执行sql文件
+
+```
+source create_table.sql
+source article_data.sql
+```
+
 
 
