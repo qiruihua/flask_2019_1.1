@@ -26,5 +26,35 @@
 
 ## 后端实现
 
+```
+class FollowDeleteResource(Resource):
+
+    method_decorators = [loginrequired]
+
+    def delete(self,target):
+        """
+        1.接收参数
+        2.验证参数
+        3.删除数据
+        4.返回相应
+        :return:
+        """
+
+        user_id=current_app.user_id
+        try:
+            relation=Relation.query.filter_by(user_id=user_id,target_user_id=target).first()
+        except Exception as e:
+            current_app.logger.error(e)
+            abort(404)
+        try:
+            db.session.delete(relation)
+            db.session.commit()
+        except Exception as e:
+            current_app.logger.error(e)
+
+
+        return {}
+```
+
 
 
