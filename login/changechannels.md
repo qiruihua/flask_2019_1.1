@@ -42,5 +42,40 @@
 
 ## 后端实现
 
+```
+from project.models.news import UserChannel
+class UserChannelsResource(Resource):
+    method_decorators = [loginrequired]
+
+    def put(self):
+        """
+        1.接收数据
+        2.更新数据
+        3.返回相应
+        """
+        user_id=current_app.user_id
+        # 1.接收数据
+        channel_list=request.json.get('channels')
+        # 2.更新数据
+        UserChannel.query.filter_by(user_id=user_id, is_deleted=False).update({'is_deleted': True})
+
+        for channel in channel_list:
+            data={"sequence":channel['seq'], "is_deleted":False}
+            flag=UserChannel.query.filter_by(user_id=user_id,
+                                        channel_id=channel['id']).update(data)
+            if flag == 0:
+                user_channel=UserChannel()
+                user_channel.user_id=user_id
+                user_channel.sequence=channel.get('seq')
+                user_channel.channel_id=channel.get('id')
+                db.session.add(user_channel)
+
+            db.session.commit()
+
+        # 3.返回相应
+        return {'channels': channel_list}, 201
+
+```
+
 
 
