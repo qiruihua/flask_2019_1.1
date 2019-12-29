@@ -50,5 +50,61 @@
 
 ## 后端实现
 
+```
+from project.models.user import Relation
+class FollowResource(Resource):
+
+    method_decorators = [loginrequired]
+
+    def get(self):
+        """
+        1.获取用户id
+        2.查询关注列表
+        3.将对象列表转换为字典，返回相应
+        :return:
+        """
+        page = request.args.get('page', 1)
+        per_page = request.args.get('per_page', 10)
+
+        try:
+            page = int(page)
+            per_page = int(per_page)
+        except Exception:
+            page = 1
+            per_page = 10
+        # 1.获取用户id
+        user_id=current_app.user_id
+        # 2.查询关注列表
+        page_relations=Relation.query.filter_by(user_id=user_id,
+                                          relation=Relation.RELATION.FOLLOW).paginate(page=page,
+                                                                                       per_page=per_page)
+        results = []
+        for item in page_relations.items:
+            user=User.query.get(item.target_user_id)
+
+            #相互关注判断
+            mutual_follow=False
+            for rel in user.followings:
+                if rel.target_user_id == user_id:
+                    mutual_follow=True
+                    break
+
+            results.append( {
+                    "id": item.id,
+                    "name": user.name,
+                    "photo": user.profile_photo,
+                    "fans_count": user.fans_count,
+                    "mutual_follow": mutual_follow  # 是否为互相关注
+                })
+        # 3.将对象列表转换为字典，返回相应
+
+        return {
+            "total_count": page_relations.total,
+            "page": page,
+            "per_page": per_page,
+            "results": results
+        }
+```
+
 
 
