@@ -46,5 +46,54 @@
 
 ## 后端实现
 
+```
+class DetailResource(Resource):
+
+    def get(self,article_id):
+        """
+        1.根据文章id查询文章详情
+        2.返回相应
+        :param article_id:
+        :return:
+        """
+        # 1.根据文章id查询文章详情
+        try:
+            artile=Article.query.get(article_id)
+        except Exception as e:
+            current_app.logger.error(e)
+            abort(404)
+
+        # 判断是否关注
+        is_followed=False
+
+        if current_app.user_id:
+            try:
+
+                user_id=current_app.user_id
+                target_user_id=artile.user.id
+                relation=Relation.query.filter_by(user_id=user_id,target_user_id=target_user_id).first()
+            except Exception as e:
+                current_app.logger.error(e)
+            else:
+                is_followed=True
+        # 判断是否喜欢
+        attitude=1
+        # 判断是否收藏
+        is_collected = True
+        # 2.返回相应
+        return {
+            "art_id": artile.id,
+            "title": artile.title,
+            "pubdate": artile.ctime.strftime(''),
+            "aut_id": artile.user.id,
+            "aut_name": artile.user.name,
+            "aut_photo": artile.user.profile_photo,
+            "content": artile.content.content,
+            "is_followed": is_followed,
+            "attitude": attitude,  # 不喜欢0 喜欢1 无态度-1
+            "is_collected": is_collected
+        }
+```
+
 
 
