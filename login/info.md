@@ -60,7 +60,7 @@ def check_user_login_token(token):
         return None
     else:
         return result.get('user_id')
- 
+
 #验证请求钩子   
 from project.apps.user.utils import check_user_login_token
 @app.before_request
@@ -76,10 +76,9 @@ def before_request():
         current_app.user_id=user_id
 ```
 
-视图
+用户信息类视图
 
 ```
-
 #必须登录装饰器
 def loginrequired(func):
 
