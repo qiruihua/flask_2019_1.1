@@ -71,7 +71,6 @@ user_blueprint=Blueprint('user',__name__,url_prefix='/app/v1_0')
 user_api=Api(user_blueprint)
 #记住 导入
 from . import views
-
 ```
 
 ### view.py代码
