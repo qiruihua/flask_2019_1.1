@@ -94,7 +94,7 @@ Session(app)
 >
 > 文档地址：[http://pythonhosted.org/Flask-Session/](http://pythonhosted.org/Flask-Session/)
 
-## CORS
+## CORS（了解）
 
 ```
 from flask import Flask
