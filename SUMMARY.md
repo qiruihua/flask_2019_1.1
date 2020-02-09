@@ -14,7 +14,7 @@
   * [获取验证码](login/sms.md)
   * [登录注册](login/login.md)
     * [JWT Python库](login/login/jwt.md)
-    * [toutiaotoken](login/login/toutiaotoken.md)
+    * [头条项目Token方案](login/login/toutiaotoken.md)
     * [snowflake](login/login/snowflake.md)
     * [cache](login/login/cache.md)
   * [刷新用户token](login/refreshtoken.md)

@@ -27,7 +27,6 @@
 | message | str | 是 | 消息内容 |
 | data | dict | 是 | 数据 |
 | token | str | 是 | 用户token |
-| refresh\_token | str | 是 | 刷新token |
 
 ## 后端实现
 
