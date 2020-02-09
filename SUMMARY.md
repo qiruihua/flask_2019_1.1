@@ -12,7 +12,7 @@
 * [登录注册](login.md)
   * [获取验证码](login/sms.md)
   * [登录注册](login/login.md)
-  * [refresh\_token](login/refreshtoken.md)
+  * [刷新用户token](login/refreshtoken.md)
   * [用户信息](login/info.md)
   * [用户关注频道](login/userchannels.md)
   * [修改关注频道](login/changechannels.md)
