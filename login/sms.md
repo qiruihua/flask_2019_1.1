@@ -104,6 +104,17 @@ register_converters(app)
 user_api.add_resource(SmsCodeResource,'/sms/codes/<mobile:mobile>/')
 ```
 
+### 关于接口通用返回格式 {#31-关于接口通用返回格式}
+
+我们项目接口采用**RESTful**风格定义，接口通用返回数据格式如下：
+
+```
+{
+    "message": "接口信息",
+    "data": {/*实际返回的数据*/}    // 接口数据
+}
+```
+
 ### 设置返回响应的装饰器
 
 ```
