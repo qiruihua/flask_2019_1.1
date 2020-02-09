@@ -13,13 +13,12 @@
 
   ```
     $ pip install pyjwt
-
   ```
 
   ### 用例 {#用例}
 
   ```
-  >>> import jwt
+    >>> import jwt
 
     >>> encoded_jwt = jwt.encode({'some': 'payload'}, 'secret', algorithm='HS256')
     >>> encoded_jwt
