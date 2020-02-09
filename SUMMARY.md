@@ -13,7 +13,7 @@
 * [登录注册](login.md)
   * [获取验证码](login/sms.md)
   * [登录注册](login/login.md)
-    * [jwt](login/login/jwt.md)
+    * [JWT Python库](login/login/jwt.md)
     * [toutiaotoken](login/login/toutiaotoken.md)
     * [snowflake](login/login/snowflake.md)
     * [cache](login/login/cache.md)
