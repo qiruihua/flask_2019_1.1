@@ -14,6 +14,7 @@
   * [获取验证码](login/sms.md)
   * [登录注册](login/login.md)
     * [jwt](login/login/jwt.md)
+    * [toutiaotoken](login/login/toutiaotoken.md)
   * [刷新用户token](login/refreshtoken.md)
   * [验证token](login/verify.md)
   * [用户信息](login/info.md)
