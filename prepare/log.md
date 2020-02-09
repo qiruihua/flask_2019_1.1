@@ -174,9 +174,12 @@ def setup_log(config):
   from settings import DevelopmentConfig
   from settings import setup_log
 
-  setup_log(DevelopmentConfig)
-
   app = Flask(__name__)
+  Config=config_dict['dev']
+  #加载配置文件
+  app.config.from_object(Config)
+  #加载日志配置
+  setup_log(Config)
   ...
   ```
 
