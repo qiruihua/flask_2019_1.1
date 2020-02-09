@@ -108,6 +108,32 @@ class DevelopmentConfig(Config):
 # 测试环境
 class TestingConfig(Config):
     TESTING = True
+    
+config_dict = {
+    'prod':ProductionConfig,
+    'dev':DevelopmentConfig,
+    'test':TestingConfig
+}
+```
+
+`project`的`__init__.py`文件修改后的代码
+
+```
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+import redis
+from settings import config_dict
+
+app = Flask(__name__)
+Config=config_dict['dev']
+#加载配置文件
+app.config.from_object(Config)
+db = SQLAlchemy(app)
+redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
+
+@app.route('/')
+def index():
+    return 'index'
 ```
 
 
