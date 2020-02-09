@@ -2,7 +2,7 @@
 
 ## 准备 {#1-准备}
 
-将资料中**heimatoutiaomobile**拷贝到前端项目目录。
+将中**toutiaomobile**解压到桌面。
 
 将以下配置文件中的**target**修改为后端服务的**IP**和端口\(**vue.config.js**\)。
 
@@ -11,11 +11,11 @@
     port: '8081',
     open: true,
     proxy: {
-      '/api/app': {
+      '/api': {
         target: 'http://127.0.0.1:5000',
         changeOrigin: true,
         pathRewrite: {
-          '^/api/app': ''
+          '^/api': ''
         }
       }
     }
