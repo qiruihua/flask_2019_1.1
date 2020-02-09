@@ -41,8 +41,6 @@
 
 ## 后端实现
 
-
-
 用户信息类视图
 
 ```
@@ -51,7 +49,9 @@ def loginrequired(func):
 
     def wrapper(*args,**kwargs):
 
-        if current_app.user_id is None:
+        if True: 
+            return func(*args,**kwargs)
+        else:
             return {
             "id": -1,
             "name": "",
@@ -61,9 +61,6 @@ def loginrequired(func):
             "follow_count": 0,
             "fans_count": 0
             }
-        else:
-            return func(*args,**kwargs)
-
     return wrapper
 
 #定义字段
