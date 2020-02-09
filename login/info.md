@@ -99,7 +99,6 @@ class UserInfoResource(Resource):
             "fans_count": 0
             }
         else:
-
             return marshal(user, resource_fields)
 ```
 
