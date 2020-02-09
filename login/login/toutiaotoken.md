@@ -26,7 +26,7 @@
 
   注意：Bearer前缀与token中间有一个空格
 
-## 接口分析
+## 接口修改
 
 **请求方式**：POST /app/v1\_0/authorizations
 
