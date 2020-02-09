@@ -22,3 +22,5 @@ app.id_worker = IdWorker(app.config['DATACENTER_ID'],
 
 ## 使用
 
+
+
