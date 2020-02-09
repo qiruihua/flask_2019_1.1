@@ -108,7 +108,7 @@ class DevelopmentConfig(Config):
 # 测试环境
 class TestingConfig(Config):
     TESTING = True
-    
+
 config_dict = {
     'prod':ProductionConfig,
     'dev':DevelopmentConfig,

@@ -44,14 +44,14 @@ class SmsCodeResource(Resource):
         #发送短信验证码
         code = ''.join([random.choice(digits) for _ in range(6)])
         current_app.redis_store.setex('app:code:{}'.format(mobile), constants.SMS_VERIFICATION_CODE_EXPIRES, code)
-        
+
         #返回相应
         return {
             'mobile':mobile
         }
 
 
-user_api.add_resource(SmsCodeResource,'/sms/codes/<mobile>/') 
+user_api.add_resource(SmsCodeResource,'/sms/codes/<mobile>/')
 ```
 
 将系统常量提取出来集中管理\(**/user/constants.py**\)：
@@ -86,6 +86,14 @@ def register_converters(app):
     :return:
     """
     app.url_map.converters['mobile'] = MobileConverter
+```
+
+在`project`的`__init__.py`文件中注册转换器
+
+```
+# 注册url转换器
+from project.utils.converters import register_converters
+register_converters(app)
 ```
 
 ### 设置返回响应的装饰器
