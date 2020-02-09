@@ -16,7 +16,7 @@
     * [JWT Python库](login/login/jwt.md)
     * [头条项目Token方案](login/login/toutiaotoken.md)
     * [生成用户id](login/login/snowflake.md)
-    * [cache](login/login/cache.md)
+    * [用户信息缓存](login/login/cache.md)
   * [刷新用户token](login/refreshtoken.md)
   * [验证token](login/verify.md)
   * [用户信息](login/info.md)
