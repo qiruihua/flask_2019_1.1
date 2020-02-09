@@ -96,6 +96,12 @@ from project.utils.converters import register_converters
 register_converters(app)
 ```
 
+修改路由
+
+```
+user_api.add_resource(SmsCodeResource,'/sms/codes/<mobile:mobile>/')
+```
+
 ### 设置返回响应的装饰器
 
 ```
