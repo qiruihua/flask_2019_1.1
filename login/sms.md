@@ -96,6 +96,8 @@ from project.utils.converters import register_converters
 register_converters(app)
 ```
 
+> **注意**：在注册蓝图前添加转换器
+
 修改路由
 
 ```
