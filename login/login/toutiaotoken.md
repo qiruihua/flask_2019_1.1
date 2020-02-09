@@ -24,5 +24,23 @@
 
   注意：Bearer前缀与token中间有一个空格
 
+```
+def generate_tokens(self, user_id, with_refresh_token=True):
+        """
+        生成token 和refresh_token
+        :param user_id: 用户id
+        :return: token, refresh_token
+        """
+        # 颁发JWT
+        now = datetime.utcnow()
+        expiry = now + timedelta(hours=current_app.config['JWT_EXPIRY_HOURS'])
+        token = generate_jwt({'user_id': user_id, 'refresh': False}, expiry)
+        refresh_token = None
+        if with_refresh_token:
+            refresh_expiry = now + timedelta(days=current_app.config['JWT_REFRESH_DAYS'])
+            refresh_token = generate_jwt({'user_id': user_id, 'refresh': True}, refresh_expiry)
+        return token, refresh_token
+```
+
 
 
