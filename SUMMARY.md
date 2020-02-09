@@ -9,6 +9,7 @@
   * [日志](prepare/log.md)
   * [蓝图](prepare/blueprint.md)
   * [模型](prepare/model.md)
+* [运行前端vue](front.md)
 * [登录注册](login.md)
   * [获取验证码](login/sms.md)
   * [登录注册](login/login.md)
