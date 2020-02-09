@@ -32,5 +32,7 @@
 npm run dev
 ```
 
+> 如果启动报错在终端中执行 npm install 之后再执行启动命令
+
 
 
