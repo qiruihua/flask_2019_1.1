@@ -63,17 +63,6 @@ def loginrequired(func):
             }
     return wrapper
 
-#定义字段
-from flask_restful import fields
-resource_fields = {
-    'id': fields.Integer,
-    'name': fields.String,
-    'photo': fields.String,
-    'intro': fields.String,
-    'art_count': fields.Integer,
-    'follow_count': fields.Integer,
-    'fans_count': fields.Integer
-}
 #返回用户信息
 class UserInfoResource(Resource):
 
