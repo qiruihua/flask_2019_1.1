@@ -67,6 +67,20 @@ redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
 
 > 运行测试
 
+## CORS
+
+```
+from flask import Flask
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app)
+```
+
+> 文档地址：[http://flask-cors.corydolphin.com/en/latest/](http://flask-cors.corydolphin.com/en/latest/)
+
+
+
 ## Session\(了解\) {#session}
 
 * 利用 flask-session扩展，将 session 数据保存到 Redis 中
@@ -94,17 +108,7 @@ Session(app)
 >
 > 文档地址：[http://pythonhosted.org/Flask-Session/](http://pythonhosted.org/Flask-Session/)
 
-## CORS（了解）
-
-```
-from flask import Flask
-from flask_cors import CORS
-
-app = Flask(__name__)
-CORS(app)
-```
-
-> 文档地址：[http://flask-cors.corydolphin.com/en/latest/](http://flask-cors.corydolphin.com/en/latest/)
+## 
 
 
 
