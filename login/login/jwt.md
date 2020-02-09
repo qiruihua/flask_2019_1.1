@@ -9,13 +9,13 @@
 
   [https://pyjwt.readthedocs.io/en/latest/](https://pyjwt.readthedocs.io/en/latest/)
 
-  ### 安装 {#安装}
+  ## 安装
 
   ```
     $ pip install pyjwt
   ```
 
-  ### 用例 {#用例}
+  ## 用例
 
   ```
     >>> import jwt
