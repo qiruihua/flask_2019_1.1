@@ -13,7 +13,7 @@
   * [获取验证码](login/sms.md)
   * [登录注册](login/login.md)
   * [刷新用户token](login/refreshtoken.md)
-  * [verify](login/verify.md)
+  * [验证token](login/verify.md)
   * [用户信息](login/info.md)
   * [用户关注频道](login/userchannels.md)
   * [修改关注频道](login/changechannels.md)
