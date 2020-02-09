@@ -30,4 +30,5 @@
   * [回复评论](detail/reply.md)
   * [回复评论列表](detail/replylist.md)
 * [用户中心](center.md)
+  * [collection](center/collection.md)
 
