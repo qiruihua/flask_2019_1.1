@@ -30,6 +30,7 @@
   * [关注用户](detail/follow.md)
   * [取消关注用户](detail/cancel.md)
   * [点赞](detail/good.md)
+  * [喜欢](detail/like.md)
   * [发布评论](detail/comment.md)
   * [评论列表](detail/commentlist.md)
   * [回复评论](detail/reply.md)
