@@ -1,4 +1,4 @@
-# 喜欢文章
+# 收藏文章
 
 ## 接口分析
 
@@ -43,7 +43,6 @@ class Collection(db.Model):
     ctime = db.Column('create_time', db.DateTime, default=datetime.now, doc='创建时间')
     is_deleted = db.Column(db.Boolean, default=False, doc='是否删除')
     utime = db.Column('update_time', db.DateTime, default=datetime.now, onupdate=datetime.now, doc='更新时间')
-
 ```
 
 ## 后端实现
@@ -51,31 +50,37 @@ class Collection(db.Model):
 ```
 from project.utils.decorators import loginrequired
 from flask_restful.reqparse import RequestParser
-from models.news import Attitude
+from models.news import Collection
 
-class DislikeResource(Resource):
+class CollectionResource(Resource):
     """
-    用户不喜欢
+    文章收藏
     """
-    method_decorators = [loginrequired]
+    method_decorators = {
+        'post': [loginrequired]
+    }
 
     def post(self):
         """
-        不喜欢
+        用户收藏文章
         """
-        json_parser = RequestParser()
-        json_parser.add_argument('target', type=int, required=True, location='json')
-        args = json_parser.parse_args()
+        # 参数验证
+        req_parser = RequestParser()
+        req_parser.add_argument('target', type=int, required=True, location='json')
+        args = req_parser.parse_args()
         target = args.target
 
-        atti = Attitude.query.filter_by(user_id=g.user_id, article_id=target).first()
-        if atti is None:
-            atti = Attitude(user_id=g.user_id, article_id=target, attitude=Attitude.ATTITUDE.DISLIKE)
-        else:
-            atti.attitude = Attitude.ATTITUDE.DISLIKE
-
-        db.session.add(atti)
-        db.session.commit()
+        # 创建或更新数据
+        ret = 1
+        try:
+            collection = Collection(user_id=g.user_id, article_id=target)
+            db.session.add(collection)
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+            ret = Collection.query.filter_by(user_id=g.user_id, article_id=target, is_deleted=True) \
+                .update({'is_deleted': False})
+            db.session.commit()
 
         return {'target': target}, 201
 ```
