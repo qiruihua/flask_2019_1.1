@@ -48,8 +48,6 @@ class Relation(db.Model):
     relation = db.Column(db.Integer, doc='关系')
     ctime = db.Column('create_time', db.DateTime, default=datetime.now, doc='创建时间')
     utime = db.Column('update_time', db.DateTime, default=datetime.now, onupdate=datetime.now, doc='更新时间')
-
-
 ```
 
 ## 后端实现
@@ -95,6 +93,12 @@ class FollowResource(Resource):
             return {'message':'error','data':{}}
         # 4.返回相应
         return {'target':args.get('target')}
+```
+
+## 缓存关注信息
+
+```
+
 ```
 
 
