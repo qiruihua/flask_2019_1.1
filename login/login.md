@@ -54,7 +54,7 @@ def check_mobile(mobile_str):
 from itsdangerous import TimedJSONWebSignatureSerializer
 from settings import Config
 #生成token
-def get_user_login_token(user_id):
+def get_user_token(user_id):
 
     serializer=TimedJSONWebSignatureSerializer(secret_key=Config.SECRET_KEY,expires_in=3600)
 
@@ -72,7 +72,7 @@ from flask import request
 from flask_restful import reqparse
 from models.user import User
 from project import db
-from project.apps.user.utils import get_user_login_token
+from project.apps.user.utils import get_user_token
 from project.utils.parsers import check_mobile
 
 class LoginResource(Resource):
@@ -122,7 +122,7 @@ class LoginResource(Resource):
             user.last_login = datetime.now()
             db.session.commit()
         # 4.生成token
-        token = get_user_login_token(user.id)
+        token = get_user_token(user.id)
         # 5.返回相应
         return {'token': token}
 ```

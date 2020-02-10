@@ -61,7 +61,7 @@ from datetime import datetime, timedelta
 from flask import current_app
 from auth.auth_jwt import generate_jwt
 
-def get_user_login_token(user_id):
+def get_user_token(user_id):
     """
     生成token 和refresh_token
     :param user_id: 用户id
