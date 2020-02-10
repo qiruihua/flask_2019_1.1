@@ -32,13 +32,6 @@ class FollowDeleteResource(Resource):
     method_decorators = [loginrequired]
 
     def delete(self,target):
-        """
-        1.接收参数
-        2.验证参数
-        3.删除数据
-        4.返回相应
-        :return:
-        """
 
         Relation.query.filter(Relation.user_id == g.user_id,
                                     Relation.target_user_id == target,
