@@ -32,7 +32,7 @@
   * [点赞](detail/good.md)
   * [取消点赞](detail/ungood.md)
   * [不喜欢](detail/like.md)
-  * [canceldislike](detail/canceldislike.md)
+  * [取消不喜欢](detail/canceldislike.md)
   * [收藏](detail/collection.md)
   * [发布评论](detail/comment.md)
 * [用户中心](center.md)
