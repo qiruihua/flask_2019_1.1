@@ -44,8 +44,6 @@
 | message | str | 是 | 消息内容 |
 | data | dict | 是 | 数据 |
 | total\_count | int | 是 | 评论总数或评论回复总数 |
-| end\_id | int | 是 | 所有评论或回复的最后一个id（截止offset值，小于此值的offset可以不用发送请求获取评论数据，已经没有数据），若无评论或回复数据，此值为NULL |
-| last\_id | int | 是 | 本次返回结果的最后一个评论id，作为请求下一页数据的offset参数，若本次无具体数据，此值为NULL |
 | results | list | 是 | 数据列表 |
 | com\_id | int | 是 | 评论或回复id |
 | aut\_id | int | 是 | 评论或回复用户id |
