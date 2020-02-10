@@ -9,7 +9,7 @@
 | 参数 | 类型 | 是否必须 | 说明 |
 | :--- | :--- | :--- | :--- |
 | token**\(headers\)** | str | 是 | 用户token |
-| target**\(body\)** | str | 是 | 点赞用户id |
+| target**\(body\)** | str | 是 | 不喜欢的文章id |
 
 **返回数据**： JSON
 
@@ -26,7 +26,7 @@
 | :--- | :--- | :--- | :--- |
 | message | str | 是 | 消息内容 |
 | data | dict | 是 | 数据 |
-| target | str | 是 | 点赞id |
+| target | str | 是 | 不喜欢的文章id |
 
 ## 模型类
 
