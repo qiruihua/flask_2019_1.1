@@ -149,10 +149,7 @@ class CommentsResource(Resource):
         last_id = page_last_comment.ctime.timestamp() if page_last_comment else None
 
         return {'total_count': total_count, 'end_id': end_id, 'last_id': last_id, 'results': page_comments}
-
 ```
-
-
 
 
 
