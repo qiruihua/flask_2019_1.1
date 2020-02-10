@@ -17,7 +17,10 @@ app.id_worker = IdWorker(app.config['DATACENTER_ID'],
 然后在配置文件中增加相关配置：
 
 ```
-
+    # Snowflake ID Worker 参数
+    DATACENTER_ID = 0
+    WORKER_ID = 0
+    SEQUENCE = 0
 ```
 
 ## 使用
