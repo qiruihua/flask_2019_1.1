@@ -52,15 +52,7 @@ def loginrequired(func):
         if True: 
             return func(*args,**kwargs)
         else:
-            return {
-            "id": -1,
-            "name": "",
-            "photo": "",
-            "intro": "",
-            "art_count": 0,
-            "follow_count": 0,
-            "fans_count": 0
-            }
+            pass
     return wrapper
 
 #返回用户信息
