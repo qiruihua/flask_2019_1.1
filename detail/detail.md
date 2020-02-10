@@ -110,3 +110,75 @@ class DetailResource(Resource):
 
 ## 设置缓存
 
+```
+import json
+from flask_restful import fields, marshal
+from flask import current_app
+from redis import RedisError
+from sqlalchemy.orm import load_only
+from cache import constants
+from cache.user import UserProfileCache
+from models.news import Article
+
+article_fields = {
+    'art_id': fields.Integer(attribute='id'),
+    'title': fields.String(attribute='title'),
+    'pubdate': fields.DateTime(attribute='ctime', dt_format='iso8601'),
+    'content': fields.String(attribute='content.content'),
+    'aut_id': fields.Integer(attribute='user_id'),
+    'ch_id': fields.Integer(attribute='channel_id'),
+}
+
+class ArticleDetailCache(object):
+    """
+    文章详细内容缓存
+    """
+    def __init__(self, article_id):
+        self.key = 'art:{}:detail'.format(article_id)
+        self.article_id = article_id
+
+    def get(self):
+        """
+        获取文章详情信息
+        :return:
+        """
+        # 查询文章数据
+        try:
+            article_bytes = current_app.redis_store.get(self.key)
+        except RedisError as e:
+            print(e)
+            article_bytes = None
+
+        if article_bytes:
+            # 使用缓存
+            article_dict = json.loads(article_bytes.decode())
+        else:
+            # 查询数据库
+            article = Article.query.options(load_only(
+                Article.id,
+                Article.user_id,
+                Article.title,
+                Article.is_advertising,
+                Article.ctime,
+                Article.channel_id
+            )).filter_by(id=self.article_id, status=Article.STATUS.APPROVED).first()
+
+            article_dict = marshal(article, article_fields)
+
+            # 缓存
+            article_cache = json.dumps(article_dict)
+            try:
+                current_app.redis_store.setex(self.key, constants.ArticleDetailCacheTTL.get_val(), article_cache)
+            except RedisError:
+                pass
+
+        user = UserProfileCache(article_dict['aut_id']).get()
+
+        article_dict['aut_name'] = user['name']
+        article_dict['aut_photo'] = user['photo']
+
+        return article_dict
+```
+
+
+
