@@ -26,7 +26,7 @@
 | :--- | :--- | :--- | :--- |
 | message | str | 是 | 消息内容 |
 | data | dict | 是 | 数据 |
-| token | str | 是 | Token |
+| target | str | 是 | 关注id |
 
 ## 模型类
 
