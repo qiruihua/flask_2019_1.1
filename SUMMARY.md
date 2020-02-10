@@ -24,7 +24,7 @@
   * [获取所有频道](home/channels.md)
   * [用户关注频道](login/userchannels.md)
   * [修改关注频道](login/changechannels.md)
-  * [首页文章](home/index.md)
+  * [文章列表](home/index.md)
 * [详情页面](detail.md)
   * [详情](detail/detail.md)
   * [关注用户](detail/follow.md)
