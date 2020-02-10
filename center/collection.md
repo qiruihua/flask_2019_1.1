@@ -18,19 +18,21 @@
 {
     "message": "OK",
     "data": {
-        "total_count": 1,
-        "end_id": 108,  # 最后一条评论的id, 前端用于判断是否剩余评论, 无值返回None
-        "last_id": 108,  # 本次请求最后一条评论的id, 作为下次请求的offset, 无值返回None
+        "page": 1,
+        "per_page": 10, 
+        "total_count": 100,  
         "results": [
             {
-                "com_id": 108,
+                "art_id": 108,
+                "title":"Python如何学好"
                 "aut_id": 1155989075455377414,
                 "aut_name": "18310820688",
                 "aut_photo": "",
                 "pubdate": "2019-08-07T08:53:01",
-                "content": "你写的真好",
-                          "reply_count": 0,
-                          "like_count": 0
+                "cover": "封面",
+                  "type": 0,
+                  "images":[]
+                  "is_liking": 0
             }
         ]
     }
