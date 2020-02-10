@@ -58,5 +58,7 @@ class ChannelsResource(Resource):
         return marshal(channels, channels_fields,envelope='channels')
 ```
 
+## 设置缓存
+
 
 
