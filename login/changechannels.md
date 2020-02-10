@@ -76,5 +76,7 @@ class UserChannelsResource(Resource):
         return {'channels': channel_list}, 201
 ```
 
+设置缓存
+
 
 
