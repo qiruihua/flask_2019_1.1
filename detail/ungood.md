@@ -26,20 +26,22 @@
 ## 后端实现
 
 ```
-class FollowDeleteResource(Resource):
-
+class ArticleLikeDeleteResource(Resource):
+    """
+    文章点赞取消
+    """
     method_decorators = [loginrequired]
 
-    def delete(self,target):
-
-        Relation.query.filter(Relation.user_id == g.user_id,
-                                    Relation.target_user_id == target,
-                                    Relation.relation == Relation.RELATION.FOLLOW)\
-            .update({'relation': Relation.RELATION.DELETE})
+    def delete(self, target):
+        """
+        取消文章点赞
+        """
+        # 修改数据
+        ret = Attitude.query.filter_by(user_id=g.user_id, article_id=target, attitude=Attitude.ATTITUDE.LIKING) \
+            .update({'attitude': 0})
         db.session.commit()
-
-
-        return {"message": "OK"}
+        
+        return {'message': 'OK'}, 204
 ```
 
 ## 更新缓存数据
