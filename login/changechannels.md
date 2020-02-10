@@ -74,7 +74,6 @@ class UserChannelsResource(Resource):
 
         # 3.返回相应
         return {'channels': channel_list}, 201
-
 ```
 
 
