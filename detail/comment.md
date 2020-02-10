@@ -59,7 +59,6 @@ class Comment(db.Model):
 
     user = db.relationship('User', uselist=False)
     article = db.relationship('Article', uselist=False)
-
 ```
 
 ## 后端实现
@@ -103,5 +102,5 @@ class CommentsResource(Resource):
         }
 ```
 
-
+## 缓存设置
 
