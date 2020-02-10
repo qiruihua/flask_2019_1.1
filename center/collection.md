@@ -2,16 +2,15 @@
 
 ## 接口分析
 
-**请求方式**：GET /app/v1\_0/comments?source=x&offset=xxx&limit=xxx
+**请求方式**：GET /app/v1\_0/article/collections
 
 **请求参数**：
 
 | 参数 | 类型 | 是否必须 | 说明 |
 | :--- | :--- | :--- | :--- |
-| type | str | 是 | 评论类型，a表示文章评论 c表示回复评论 |
-| source | int | 是 | 文章id或者评论id |
-| offset | int | 否 | 获取评论数据的偏移量 |
-| limit | int | 否 | 评论条数 |
+| token | str | 是 | 用户token |
+| page | int | 否 | 页数，默认是1 |
+| per\_page | int | 否 | 每页数量 |
 
 **返回数据**： JSON
 
