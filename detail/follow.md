@@ -28,6 +28,43 @@
 | data | dict | 是 | 数据 |
 | token | str | 是 | Token |
 
+## 模型类
+
+```
+class Collection(db.Model):
+    """
+    用户收藏表
+    """
+    __tablename__ = 'news_collection'
+
+    id = db.Column('collection_id', db.Integer, primary_key=True, doc='主键ID')
+    user_id = db.Column(db.Integer, doc='用户ID')
+    article_id = db.Column(db.Integer, doc='文章ID')
+    ctime = db.Column('create_time', db.DateTime, default=datetime.now, doc='创建时间')
+    is_deleted = db.Column(db.Boolean, default=False, doc='是否删除')
+    utime = db.Column('update_time', db.DateTime, default=datetime.now, onupdate=datetime.now, doc='更新时间')
+
+
+class Attitude(db.Model):
+    """
+    用户文章态度表
+    """
+    __tablename__ = 'news_attitude'
+
+    class ATTITUDE:
+        DISLIKE = 0  # 不喜欢
+        LIKING = 1  # 点赞
+
+    id = db.Column('attitude_id', db.Integer, primary_key=True, doc='主键ID')
+    user_id = db.Column(db.Integer, doc='用户ID')
+    article_id = db.Column(db.Integer, db.ForeignKey('news_article_basic.article_id'), doc='文章ID')
+    attitude = db.Column(db.Integer, doc='态度')
+    ctime = db.Column('create_time', db.DateTime, default=datetime.now, doc='创建时间')
+    utime = db.Column('update_time', db.DateTime, default=datetime.now, onupdate=datetime.now, doc='更新时间')
+
+    article = db.relationship('Article', uselist=False)
+```
+
 ## 后端实现
 
 ```
@@ -71,7 +108,6 @@ class FollowResource(Resource):
             return {'message':'error','data':{}}
         # 4.返回相应
         return {'target':args.get('target')}
-
 ```
 
 

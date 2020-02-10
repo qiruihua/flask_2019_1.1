@@ -155,7 +155,5 @@ class IndexResource(Resource):
         return {'per_page': per_page, 'results': results}
 ```
 
-## 缓存实现
-
 
 

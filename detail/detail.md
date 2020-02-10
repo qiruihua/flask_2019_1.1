@@ -47,6 +47,21 @@
 ## 后端实现
 
 ```
+from flask_restful import fields
+from flask import current_app,abort
+from sqlalchemy.orm import load_only
+from cache.user import UserProfileCache
+
+article_fields = {
+    'art_id': fields.Integer(attribute='id'),
+    'title': fields.String(attribute='title'),
+    'pubdate': fields.DateTime(attribute='ctime', dt_format='iso8601'),
+    'content': fields.String(attribute='content.content'),
+    'aut_id': fields.Integer(attribute='user_id'),
+    'ch_id': fields.Integer(attribute='channel_id'),
+}
+
+
 class DetailResource(Resource):
 
     def get(self,article_id):
@@ -57,43 +72,41 @@ class DetailResource(Resource):
         :return:
         """
         # 1.根据文章id查询文章详情
+        article=None
         try:
-            artile=Article.query.get(article_id)
+            article = Article.query.options(load_only(
+                Article.id,
+                Article.user_id,
+                Article.title,
+                Article.is_advertising,
+                Article.ctime,
+                Article.channel_id
+            )).filter_by(id=article_id, status=Article.STATUS.APPROVED).first()
         except Exception as e:
             current_app.logger.error(e)
             abort(404)
 
-        # 判断是否关注
+        article_dict = marshal(article, article_fields)
+
+        user = UserProfileCache(article_dict['aut_id']).get()
+
+        article_dict['aut_name'] = user['name']
+        article_dict['aut_photo'] = user['photo']
+
+        ## 判断是否关注
         is_followed=False
-
-        if current_app.user_id:
-            try:
-
-                user_id=current_app.user_id
-                target_user_id=artile.user.id
-                relation=Relation.query.filter_by(user_id=user_id,target_user_id=target_user_id).first()
-            except Exception as e:
-                current_app.logger.error(e)
-            else:
-                is_followed=True
         # 判断是否喜欢
         attitude=1
         # 判断是否收藏
         is_collected = True
+
+        article_dict['is_followed']=is_followed
+        article_dict['attitude']=attitude
+        article_dict['is_collected']=is_collected
+
         # 2.返回相应
-        return {
-            "art_id": artile.id,
-            "title": artile.title,
-            "pubdate": artile.ctime.strftime(''),
-            "aut_id": artile.user.id,
-            "aut_name": artile.user.name,
-            "aut_photo": artile.user.profile_photo,
-            "content": artile.content.content,
-            "is_followed": is_followed,
-            "attitude": attitude,  # 不喜欢0 喜欢1 无态度-1
-            "is_collected": is_collected
-        }
+        return article_dict
 ```
 
-
+## 设置缓存
 
