@@ -8,8 +8,8 @@
 
 | 参数 | 类型 | 是否必须 | 说明 |
 | :--- | :--- | :--- | :--- |
-| token\(headers\) | str | 是 | 用户token |
-| target\(body\) | str | 是 | 关注用户id |
+| token**\(headers\)** | str | 是 | 用户token |
+| target**\(body\)** | str | 是 | 关注用户id |
 
 **返回数据**： JSON
 
