@@ -41,7 +41,7 @@
 
 ## 后端实现
 
-用户信息类视图
+判断用户是否登录的装饰器
 
 ```
 #必须登录装饰器
@@ -56,7 +56,13 @@ def loginrequired(func):
 
     return wrapper
 
-#返回用户信息
+from project.utils.decorators import loginrequired
+
+```
+
+返回用户信息
+
+```
 class UserInfoResource(Resource):
 
     method_decorators = [loginrequired]
@@ -68,20 +74,40 @@ class UserInfoResource(Resource):
         2.返回用户信息
         :return:
         """
-        user_id=current_app.user_id
-        user=User.query.get(user_id)
-        if user is None:
-            return {
-            "id": -1,
-            "name": "",
-            "photo": "",
-            "intro": "",
-            "art_count": 0,
-            "follow_count": 0,
-            "fans_count": 0
-            }
-        else:
-            return marshal(user, resource_fields)
+        user_data=UserProfileCache(g.user_id).get()
+        user_data['id']=g.user_id
+        del user_data['mobile']
+        return user_data
+    
+```
+
+缓存类完善
+
+```
+class UserProfileCache(object):
+    """
+    用户信息缓存
+    """
+
+    def get(self):
+        """
+        获取用户数据
+        :return:
+        """
+        try:
+            ret = current_app.redis_store.get(self.key)
+        except RedisError as e:
+            current_app.logger.error(e)
+            ret = None
+            
+        user_data = None
+        if ret:
+            user_data = json.loads(ret)
+
+        if not user_data['photo']:
+            user_data['photo'] = constants.DEFAULT_USER_PROFILE_PHOTO
+        return user_data
+  
 ```
 
 
