@@ -57,5 +57,102 @@
 
 ## 后端实现
 
+```
+from project.apps.home import constants
+from flask_restful.inputs import positive,int_range
+
+class CommentsResource(Resource):
+    method_decorators = {
+        'post': [loginrequired]
+    }
+
+    def post(self):
+        """
+        1.接收数据
+        2.验证数据
+        3.数据入库
+        4.返回相应
+        :return:
+        """
+
+        user_id = g.user_id
+
+        parse = reqparse.RequestParser()
+        parse.add_argument('target', required=True)
+        parse.add_argument('content', required=True)
+        args = parse.parse_args()
+
+        comment = Comment()
+        comment.article_id = args.get('target')
+        comment.content = args.get('content')
+        comment.user_id = user_id
+        try:
+            db.session.add(comment)
+            db.session.commit()
+        except Exception:
+            return {}
+
+        return {
+            "com_id": comment.id,
+            "target": comment.article_id
+        }
+
+    def get(self):
+        qs_parser = RequestParser()
+        qs_parser.add_argument('type', type=str, required=True, location='args')
+        qs_parser.add_argument('source', type=positive, required=True, location='args')
+        qs_parser.add_argument('offset', type=positive, required=False, location='args')
+        qs_parser.add_argument('limit', type=int_range(constants.DEFAULT_COMMENT_PER_PAGE_MIN,
+                                                       constants.DEFAULT_COMMENT_PER_PAGE_MAX,
+                                                       argument='limit'), required=False, location='args')
+        args = qs_parser.parse_args()
+
+        limit = args.limit if args.limit is not None else constants.DEFAULT_COMMENT_PER_PAGE_MIN
+        offset = args.offset
+
+
+        # 文章评论
+        article_id = args.source
+        comments=Comment.query.filter(Comment.article_id == article_id,
+                                    Comment.parent_id == None,
+                                    Comment.status == Comment.STATUS.APPROVED).\
+            order_by(Comment.is_top.desc(),
+                                                                                                                    Comment.id.desc()).all()
+
+        page_comments = []
+        page_count = 0
+        total_count = len(comments)
+        page_last_comment = None
+
+        for comment in comments:
+            score = comment.ctime.timestamp()
+            if comment.is_top:
+                score += constants.COMMENTS_CACHE_MAX_SCORE
+
+            # 构造返回数据
+            if ((offset is not None and score < offset) or offset is None) and page_count <= limit:
+                page_comments.append({
+                    'com_id': comment.id,
+                    'aut_id': comment.user.id,
+                    'aut_name':comment.user.name,
+                    'aut_photo':comment.user.profile_photo,
+                    'pubdate': '2020-01-01 12:12:12',
+                    'content': comment.content,
+                    'is_top': comment.is_top,
+                    'is_liking':False,
+                    'reply_count':0
+                })
+                page_count += 1
+                page_last_comment = comment
+
+        end_id = comments[-1].ctime.timestamp()
+        last_id = page_last_comment.ctime.timestamp() if page_last_comment else None
+
+        return {'total_count': total_count, 'end_id': end_id, 'last_id': last_id, 'results': page_comments}
+
+```
+
+
+
 
 
