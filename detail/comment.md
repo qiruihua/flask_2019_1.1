@@ -31,6 +31,37 @@
 | com\_id | str | 是 | 评论id |
 | target | str | 是 | 文章id |
 
+## 模型类
+
+```
+class Comment(db.Model):
+    """
+    文章评论
+    """
+    __tablename__ = 'news_comment'
+
+    class STATUS:
+        UNREVIEWED = 0  # 待审核
+        APPROVED = 1  # 审核通过
+        FAILED = 2  # 审核失败
+        DELETED = 3  # 已删除
+
+    id = db.Column('comment_id', db.Integer, primary_key=True, doc='评论ID')
+    user_id = db.Column(db.Integer, db.ForeignKey('user_basic.user_id'), doc='用户ID')
+    article_id = db.Column(db.Integer, db.ForeignKey('news_article_basic.article_id'), doc='文章ID')
+    parent_id = db.Column(db.Integer, doc='被评论的评论id')
+    like_count = db.Column(db.Integer, default=0, doc='点赞数')
+    reply_count = db.Column(db.Integer, default=0, doc='回复数')
+    content = db.Column(db.String, doc='评论内容')
+    is_top = db.Column(db.Boolean, default=False, doc='是否置顶')
+    status = db.Column(db.Integer, default=1, doc='评论状态')
+    ctime = db.Column('create_time', db.DateTime, default=datetime.now, doc='创建时间')
+
+    user = db.relationship('User', uselist=False)
+    article = db.relationship('Article', uselist=False)
+
+```
+
 ## 后端实现
 
 ```
