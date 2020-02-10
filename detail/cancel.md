@@ -40,21 +40,17 @@ class FollowDeleteResource(Resource):
         :return:
         """
 
-        user_id=current_app.user_id
-        try:
-            relation=Relation.query.filter_by(user_id=user_id,target_user_id=target).first()
-        except Exception as e:
-            current_app.logger.error(e)
-            abort(404)
-        try:
-            db.session.delete(relation)
-            db.session.commit()
-        except Exception as e:
-            current_app.logger.error(e)
+        Relation.query.filter(Relation.user_id == g.user_id,
+                                    Relation.target_user_id == target,
+                                    Relation.relation == Relation.RELATION.FOLLOW)\
+            .update({'relation': Relation.RELATION.DELETE})
+        db.session.commit()
 
 
         return {"message": "OK"}
 ```
 
 ## 添加缓存功能
+
+
 
