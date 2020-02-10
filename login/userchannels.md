@@ -38,6 +38,26 @@
 | id | str | 是 | 频道id |
 | name | str | 是 | 频道名字 |
 
+## 模型类
+
+```
+class UserChannel(db.Model):
+    """
+    用户关注频道表
+    """
+    __tablename__ = 'news_user_channel'
+
+    id = db.Column('user_channel_id', db.Integer, primary_key=True, doc='主键ID')
+    user_id = db.Column(db.Integer, doc='用户ID')
+    channel_id = db.Column(db.Integer, db.ForeignKey('news_channel.channel_id'), doc='频道ID')
+    ctime = db.Column('create_time', db.DateTime, default=datetime.now, doc='创建时间')
+    is_deleted = db.Column(db.Boolean, default=False, doc='是否删除')
+    utime = db.Column('update_time', db.DateTime, default=datetime.now, onupdate=datetime.now, doc='更新时间')
+    sequence = db.Column(db.Integer, default=0, doc='序号')
+
+    channel = db.relationship('Channel', uselist=False)
+```
+
 ## 后端实现
 
 ```
@@ -67,9 +87,7 @@ class UserChannelsResource(Resource):
                 'name':channel.channel.name
             })
         return {"channels":data_list}
-
-
 ```
 
-
+## 添加缓存
 
