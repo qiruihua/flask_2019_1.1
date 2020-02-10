@@ -35,7 +35,7 @@
   * [取消不喜欢](detail/canceldislike.md)
   * [收藏](detail/collection.md)
   * [取消收藏](detail/cancelcollection.md)
-  * [comment](detail/comment.md)
+  * [发布评论](detail/comment.md)
 * [用户中心](center.md)
   * [用户收藏列表](center/collection.md)
   * [用户关注列表](center/following.md)
