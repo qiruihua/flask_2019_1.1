@@ -48,11 +48,12 @@
 def loginrequired(func):
 
     def wrapper(*args,**kwargs):
-
-        if True: 
+        is_login=True
+        if is_login:
             return func(*args,**kwargs)
         else:
-            pass
+            return {'message': 'login'}, 403
+
     return wrapper
 
 #返回用户信息
