@@ -47,7 +47,7 @@ class DisLikeDeleteResource(Resource):
 
 ```
 
-## 完善详情页面是否关注的功能
+## 完善详情页面是否不喜欢的功能
 
 ```
 

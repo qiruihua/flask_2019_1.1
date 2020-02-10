@@ -1,15 +1,15 @@
-# 取消点赞
+# 取消收藏
 
 ## 接口分析
 
-**请求方式**：DELETE /app/v1\_0/article/dislikes/&lt;target&gt;/
+**请求方式**：DELETE /app/v1\_0/article/collections/&lt;target&gt;/
 
 **请求参数**：
 
 | 参数 | 类型 | 是否必须 | 说明 |
 | :--- | :--- | :--- | :--- |
 | token\(**headers**\) | str | 是 | token |
-| target\(**url**\) | str | 是 | 取消不喜欢的文章id |
+| target\(**url**\) | str | 是 | 取消收藏的文章id |
 
 **返回数据**： JSON
 
@@ -26,18 +26,18 @@
 ## 后端实现
 
 ```
-class DisLikeDeleteResource(Resource):
+class CollectionDeleteResource(Resource):
 
     method_decorators = [loginrequired]
 
     def delete(self, target):
         """
-        取消不喜欢
+        用户取消收藏
         """
-        # 更新数据
-        ret = Attitude.query.filter_by(user_id=g.user_id, article_id=target, attitude=Attitude.ATTITUDE.DISLIKE) \
-            .update({'attitude': None})
+        ret = Collection.query.filter_by(user_id=g.user_id, article_id=target, is_deleted=False) \
+            .update({'is_deleted': True})
         db.session.commit()
+
         return {'message': 'OK'}, 204
 ```
 
@@ -47,7 +47,7 @@ class DisLikeDeleteResource(Resource):
 
 ```
 
-## 完善详情页面是否关注的功能
+## 完善详情页面是否收藏的功能
 
 ```
 

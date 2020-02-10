@@ -50,7 +50,7 @@ class ArticleLikeDeleteResource(Resource):
 
 ```
 
-## 完善详情页面是否关注的功能
+## 完善详情页面是否点赞的功能
 
 ```
 
