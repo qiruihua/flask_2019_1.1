@@ -42,7 +42,18 @@
 | :--- | :--- | :--- | :--- |
 | message | str | 是 | 消息内容 |
 | data | dict | 是 | 数据 |
-| token | str | 是 | Token |
+| total\_count | int | 是 | 评论总数或评论回复总数 |
+| end\_id | int | 是 | 所有评论或回复的最后一个id（截止offset值，小于此值的offset可以不用发送请求获取评论数据，已经没有数据），若无评论或回复数据，此值为NULL |
+| last\_id | int | 是 | 本次返回结果的最后一个评论id，作为请求下一页数据的offset参数，若本次无具体数据，此值为NULL |
+| results | list | 是 | 数据列表 |
+| com\_id | int | 是 | 评论或回复id |
+| aut\_id | int | 是 | 评论或回复用户id |
+| aut\_name | str | 是 | 用户昵称 |
+| aut\_photo | str | 是 | 用户头像 |
+| pubdate | str | 是 | 创建时间 |
+| content | str | 是 | 评论或回复内容 |
+| is\_top | int | 是 | 是否置顶，0表示不置顶 1表示置顶 |
+| is\_liking | bool | 是 | 当前用户是否点赞 |
 
 ## 后端实现
 
