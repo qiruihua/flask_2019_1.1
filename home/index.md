@@ -2,7 +2,7 @@
 
 ## 接口分析
 
-**请求方式**：GET /app/v1_0/articles?channel\_id=xxx&page=xxx&per\_page=xxx_
+**请求方式**：GET /app/v1\__0/articles?channel\_id=xxx&page=xxx&per\_page=xxx_
 
 **请求参数**：
 
