@@ -49,52 +49,39 @@ class Attitude(db.Model):
     utime = db.Column('update_time', db.DateTime, default=datetime.now, onupdate=datetime.now, doc='更新时间')
 
     article = db.relationship('Article', uselist=False)
-
 ```
 
 ## 后端实现
 
 ```
-from project.models.user import Relation
-class FollowResource(Resource):
+from project.utils.decorators import loginrequired
+from flask_restful.reqparse import RequestParser
+from models.news import Attitude
 
+class ArticleLikeResource(Resource):
+    """
+    文章点赞
+    """
     method_decorators = [loginrequired]
 
     def post(self):
         """
-        1.接收参数
-        2.验证参数
-        3.数据入库
-        4.返回相应
-        :return:
+        文章点赞
         """
-        user_id=current_app.user_id
-        # 1.接收参数
-        # 2.验证参数
-        parse=reqparse.RequestParser()
-        parse.add_argument('target',location='json',required=True)
-        args=parse.parse_args()
-        user=None
-        try:
-            user=User.query.get(args.get('target'))
-        except Exception as e:
-            current_app.logger.error(e)
+        # 入参检验
+        json_parser = RequestParser()
+        json_parser.add_argument('target', type=int, required=True, location='json')
+        args = json_parser.parse_args()
+        target = args.target
 
-        if user is None:
-            abort(404)
-        # 3.数据入库
-        relation=Relation()
-        relation.user_id=user_id
-        relation.target_user_id=args.get('target')
-        relation.relation=Relation.RELATION.FOLLOW
-        try:
-            db.session.add(relation)
-            db.session.commit()
-        except Exception as e:
-            current_app.logger.error(e)
-            return {'message':'error','data':{}}
-        # 4.返回相应
-        return {'target':args.get('target')}
+        # 更新或创建数据
+        atti = Attitude.query.filter_by(user_id=g.user_id, article_id=target).first()
+        if atti is None:
+            atti = Attitude(user_id=g.user_id, article_id=target, attitude=Attitude.ATTITUDE.LIKING)
+        db.session.add(atti)
+        db.session.commit()
+
+        return {'target': target}, 201
 ```
 
 ## 缓存关注信息
