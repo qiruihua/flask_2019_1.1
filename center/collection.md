@@ -1,4 +1,4 @@
-# 评论列表
+# 用户收藏列表
 
 ## 接口分析
 
@@ -60,8 +60,6 @@
 ```
 from project.apps.home import constants
 from flask_restful.inputs import positive,int_range
-
-
 ```
 
 
