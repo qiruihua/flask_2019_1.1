@@ -50,7 +50,7 @@ class FollowDeleteResource(Resource):
         return {"message": "OK"}
 ```
 
-## 添加缓存功能
+## 更新缓存数据
 
 
 
