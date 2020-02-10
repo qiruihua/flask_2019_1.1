@@ -3,103 +3,62 @@
 ## 判断请求头的token信息
 
 ```
-#验证请求钩子   
-from project.apps.user.utils import check_user_login_token
+#验证请求钩子
+from flask import g,request
+from auth.auth_jwt import verify_jwt
 @app.before_request
 def before_request():
     #初始化 user_id
-    current_app.user_id=None
+    g.user_id=None
     #获取请求头的token
-    token = request.headers.get('Authorization')
+    authorization = request.headers.get('Authorization')
     # 对token进行解析验证，获取用户信息
-    if token and token.startswith('Bearer '):
-        data = token[7:]
-        user_id = check_user_login_token(data)
-        current_app.user_id=user_id
+    if authorization and authorization.startswith('Bearer '):
+        token = authorization[7:]
+        payload = verify_jwt(token)
+        if payload:
+            g.user_id = payload.get('user_id')
+            g.is_refresh_token = payload.get('refresh')
 ```
 
 ## 验证token
 
 ```
-#验证token
-from itsdangerous import TimedJSONWebSignatureSerializer,BadData
-from settings import Config
+def verify_jwt(token,secret=None):
+    """
+    检验jwt
+    :param token: jwt
+    :param secret: 密钥
+    :return: dict: payload
+    """
+    if not secret:
+        secret = current_app.config['JWT_SECRET']
 
-def check_user_login_token(token):
-
-    if token is None:
-        return None
-
-    serializer = TimedJSONWebSignatureSerializer(secret_key=Config.SECRET_KEY, expires_in=3600)
     try:
-        result = serializer.loads(token)
-    except BadData:
-        return None
-    else:
-        return result.get('user_id')
+        payload = jwt.decode(token, secret, algorithm=['HS256'])
+    except jwt.PyJWTError:
+        payload = None
+
+    return payload
 ```
 
 ## 判断用户登录完善
 
 ```
 #必须登录装饰器
+from flask import g
 def loginrequired(func):
 
     def wrapper(*args,**kwargs):
 
-        if current_app.user_id is None:
-            return {
-            "id": -1,
-            "name": "",
-            "photo": "",
-            "intro": "",
-            "art_count": 0,
-            "follow_count": 0,
-            "fans_count": 0
-            }
+        if g.user_id is None:
+            return {'message': 'User must be authorized.'}, 401
+        elif g.is_refresh_token:
+            return {'message': 'Do not use refresh token.'}, 403
         else:
             return func(*args,**kwargs)
 
     return wrapper
-
-#定义字段
-from flask_restful import fields
-resource_fields = {
-    'id': fields.Integer,
-    'name': fields.String,
-    'photo': fields.String,
-    'intro': fields.String,
-    'art_count': fields.Integer,
-    'follow_count': fields.Integer,
-    'fans_count': fields.Integer
-}
-#返回用户信息
-class UserInfoResource(Resource):
-
-    method_decorators = [loginrequired]
-
-    def get(self):
-
-        """
-        1.根据用户id查询用户信息
-        2.返回用户信息
-        :return:
-        """
-        user_id=current_app.user_id
-        user=User.query.get(user_id)
-        if user is None:
-            return {
-            "id": -1,
-            "name": "",
-            "photo": "",
-            "intro": "",
-            "art_count": 0,
-            "follow_count": 0,
-            "fans_count": 0
-            }
-        else:
-
-            return marshal(user, resource_fields)
 ```
 
 
