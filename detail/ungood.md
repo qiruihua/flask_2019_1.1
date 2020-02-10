@@ -2,7 +2,7 @@
 
 ## 接口分析
 
-**请求方式**：DELETE /app/v1\_0/user/likings/&lt;target&gt;/
+**请求方式**：DELETE /app/v1\_0/article/likings/&lt;target&gt;/
 
 **请求参数**：
 
@@ -40,7 +40,7 @@ class ArticleLikeDeleteResource(Resource):
         ret = Attitude.query.filter_by(user_id=g.user_id, article_id=target, attitude=Attitude.ATTITUDE.LIKING) \
             .update({'attitude': 0})
         db.session.commit()
-        
+
         return {'message': 'OK'}, 204
 ```
 
