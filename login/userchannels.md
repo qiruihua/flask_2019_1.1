@@ -61,9 +61,9 @@ class UserChannel(db.Model):
 ## 后端实现
 
 ```
-from project.models.news import UserChannel
+from models.news import UserChannel
 class UserChannelsResource(Resource):
-    method_decorators = [loginrequired]
+    
 
     def get(self):
         """
@@ -90,4 +90,6 @@ class UserChannelsResource(Resource):
 ```
 
 ## 添加缓存
+
+
 
