@@ -58,7 +58,61 @@ class ChannelsResource(Resource):
         return marshal(channels, channels_fields,envelope='channels')
 ```
 
-## 设置缓存
+## 定义缓存类
+
+```
+class AllChannelsCache(object):
+    """
+    全部频道缓存
+    """
+    key = 'ch:all'
+
+    @classmethod
+    def get(cls):
+        """
+        获取
+        :return: [{'name': 'python', 'id': '123'}, {}]
+        """
+
+        # 先从缓存取数据，能取到缓存数据就直接返回
+        ret = current_app.redis_store.get(cls.key)
+        if ret:
+            results = json.loads(ret)
+            return results
+
+        # 取不到缓存数据，则进行数据库查询
+        results = []
+
+        channels = Channel.query.options(load_only(Channel.id, Channel.name)) \
+            .filter(Channel.is_visible==True).order_by(Channel.sequence, Channel.id).all()
+        if not channels:
+            return results
+
+        for channel in channels:
+            results.append({
+                'id': channel.id,
+                'name': channel.name
+            })
+
+        # 返回前，先将数据缓存起来，这样下次就可以直接在缓存中取数据了
+        try:
+            current_app.redis_store.setex(cls.key, constants.ALL_CHANNELS_CACHE_TTL, json.dumps(results))
+        except RedisError as e:
+            print(e)
+
+        return results
+```
+
+修改视图
+
+```
+from cache.channel import AllChannelsCache
+class ChannelsResource(Resource):
+
+    def get(self):
+        channels=AllChannelsCache.get()
+        return {'channels':channels}
+```
 
 
 
