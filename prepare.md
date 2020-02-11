@@ -22,7 +22,7 @@ pip install -r requirements.txt
 
 ## 创建头条目录
 
-* 新建目录（例如 toutiao），创建`manage.py`文件
+* 新建目录（例如 toutiao），并创建`manage.py`文件
 
 ```
 from flask import Flask
