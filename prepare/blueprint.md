@@ -85,10 +85,7 @@ class LoginResource(Resource):
 
     def get(self):
         return {
-              "message": "ok",
-              "data": {
-                "token": "123"
-              }
+              "login": "login"
             }
 
 
