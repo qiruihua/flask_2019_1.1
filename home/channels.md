@@ -81,6 +81,12 @@ class ChannelsResource(Resource):
 
 ## 定义缓存类
 
+| key | 类型 | 说明 | 举例 |
+| :--- | :--- | :--- | :--- |
+| ch:all | string | 所有频道 | key:value |
+
+
+
 ```
 from flask import current_app
 import json

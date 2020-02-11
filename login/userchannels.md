@@ -109,8 +109,9 @@ class UserChannelsResource(Resource):
 
 | key | 类型 | 说明 | 举例 |
 | :--- | :--- | :--- | :--- |
-| ch:all | string | 所有频道 |  |
-| user:{user\_id}:ch | string | 用户频道 |  |
+| ch:all | string | 所有频道 | key:value |
+| ch:user:default | string | 默认用户频道 | key:value |
+| user:{user\_id}:ch | string | 用户频道 | key:value |
 
 ###  {#4-announcement-cache}
 
