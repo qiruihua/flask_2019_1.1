@@ -83,7 +83,7 @@ class UserChannelsResource(Resource):
         return {'channels': channel_list}, 201
 ```
 
-> 修改用户关注频道之后，要清除缓存
+> 修改用户关注频道之后，要清除用户关注的缓存
 
 ### 添加清除缓存功能
 
