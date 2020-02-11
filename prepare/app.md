@@ -62,7 +62,8 @@ class Config(object):
 
 app.config.from_object(Config)
 db = SQLAlchemy(app)
-redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
+#redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
+app.redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
 ```
 
 > 运行测试
@@ -78,8 +79,6 @@ CORS(app)
 ```
 
 > 文档地址：[http://flask-cors.corydolphin.com/en/latest/](http://flask-cors.corydolphin.com/en/latest/)
-
-
 
 ## Session\(了解\) {#session}
 
