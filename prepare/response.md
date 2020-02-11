@@ -162,5 +162,22 @@ class BaseApi(Api):
 
 ### 修改蓝图中的Api为BaseApi
 
+在setting文件中添加common路径
+
+```
+import sys
+sys.path.insert(0,os.path.join(BASE_DIR, 'common'))
+```
+
+修改蓝图api
+
+```
+from toutiaoapi.restful import BaseApi
+#创建蓝图
+home_blueprint=Blueprint('home',__name__,url_prefix='/')
+#Api接管蓝图
+home_api=BaseApi(home_blueprint)
+```
+
 
 
