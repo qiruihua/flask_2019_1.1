@@ -105,7 +105,7 @@ class UserChannelsCache(object):
         try:
             current_app.redis_store.delete(self.key)
         except RedisError as e:
-            print(e)
+            current_app.logger.error(e)
 ```
 
 在UserChannelsResource的put方法中添加清除缓存功能
