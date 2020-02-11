@@ -29,8 +29,7 @@
                 "aut_name": "黑马头条号",
                 "comm_count": 0,
                 "is_top":0,
-                "cover":[],
-                "type":0
+                "cover":[{"type": 0, "images": []}]
             },
             {
                 "art_id": 139940,
@@ -40,8 +39,7 @@
                 "aut_name": "黑马头条号",
                 "comm_count": 0,
                 "is_top":0,
-                "cover":[],
-                "type":0
+                "cover":[{"type": 0, "images": []}]
             }
         ]
     }
