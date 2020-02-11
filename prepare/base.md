@@ -112,7 +112,7 @@ config_dict = {
 }
 ```
 
-`project`的`__init__.py`文件修改后的代码
+`toutiao`的`__init__.py`文件修改后的代码
 
 ```
 from flask import Flask
