@@ -2,13 +2,13 @@
 
 ## 接口分析
 
-**请求方式**：GET /app/v1\_0/sms/codes/&lt;mobile&gt;/
+**请求方式**：**GET** /app/v1\_0/sms/codes/&lt;**mobile**&gt;/
 
 **请求参数**：
 
 | 参数 | 类型 | 是否必须 | 说明 |
 | :--- | :--- | :--- | :--- |
-| mobile | str | 是 | 手机号 |
+| mobile（**url**） | str | 是 | 手机号 |
 
 **返回数据**： JSON
 
@@ -35,7 +35,7 @@
 from flask import current_app
 import random
 from string import digits
-from project.apps.user import constants
+from toutiao.apps.user import constants
 
 class SmsCodeResource(Resource):
 
@@ -58,7 +58,6 @@ user_api.add_resource(SmsCodeResource,'/sms/codes/<mobile>/')
 
 ```
 # 短信验证码有效期, 秒
-
 SMS_VERIFICATION_CODE_EXPIRES = 5 * 60
 ```
 
