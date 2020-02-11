@@ -80,7 +80,7 @@ class DetailResource(Resource):
             abort(404)
 
         article_dict = marshal(article, article_fields)
-        
+
         #获取用户信息
         user = UserProfileCache(article_dict['aut_id']).get()
         #追加作者信息
@@ -103,6 +103,8 @@ class DetailResource(Resource):
 ```
 
 ## 设置缓存
+
+在common的cache包中创建article.py文件
 
 ```
 import json
