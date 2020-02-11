@@ -87,7 +87,7 @@ if __name__ == '__main__':
 
 在整个项目文件夹中，除了启动文件`manage.py`和配置文件`setings.py`放在根目录，其他具体业务逻辑文件都放在一个单独的文件夹内，与`manage.py`同级
 
-* 创建`project`Package，与`manage.py`同级
+* 创建`apps`Package，与`manage.py`同级
 
 ![](/assets/project.png)
 
