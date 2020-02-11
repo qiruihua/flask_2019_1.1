@@ -44,5 +44,16 @@ app.id_worker = IdWorker(app.config['DATACENTER_ID'],
 
 指定用户id，不让系统自己生成
 
+```
+if user is None:
+    user = User()
+    user_id = current_app.id_worker.get_id()
+    user.id=user_id
+    user.mobile = args.get('mobile')
+    user.name = args.get('mobile')
+    db.session.add(user)
+    db.session.commit()
+```
+
 
 
