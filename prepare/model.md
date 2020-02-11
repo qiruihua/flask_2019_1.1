@@ -2,7 +2,7 @@
 
 ## 导入模型
 
-创建models包并将模型文件拷贝到项目中
+在common下创建models包并将模型文件拷贝到项目中
 
 ![](/assets/models.png)
 
