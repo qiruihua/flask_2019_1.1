@@ -52,7 +52,7 @@
 def loginrequired(func):
 
     def wrapper(*args,**kwargs):
-
+        g.user_id=1
         if g.user_id is None:
             return {'message': 'login'}, 401
         else:
@@ -123,7 +123,6 @@ class UserProfileCache(object):
 ```
 # 默认用户头像
 DEFAULT_USER_PROFILE_PHOTO = 'http://140.143.37.139:10000/media/avatar/20191210/2017072915070200.jpg'
-
 ```
 
 
