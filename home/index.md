@@ -2,7 +2,7 @@
 
 ## 接口分析
 
-**请求方式**：GET /app/v1\__0/articles?channel\_id=xxx&page=xxx&per\_page=xxx_
+**请求方式**：GET /app/v1\__0/articles?channel\_id=xxx&_timestamp_=xxx&_with\_top_=xxx_
 
 **请求参数**：
 
@@ -10,8 +10,8 @@
 | :--- | :--- | :--- | :--- |
 | token | str | 否 | 用户token |
 | channel\_id | str | 是 | 频道id |
-| page | int | 否 | 页码 |
-| per\_page | int | 否 | 每页条数 |
+| timestamp | int | 是 | 时间戳，请求新的推荐数据传当前的时间戳，请求历史推荐传指定的时间戳 |
+| with\_top | bool | 是 | 是否包含置顶。进入页面第一次请求要包含指定文章，1表示包含 0表示不包含 |
 
 **返回数据**： JSON
 
