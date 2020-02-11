@@ -6,6 +6,8 @@
 
 ![](/assets/snowflake.png)
 
+> 测试运行id\_worker文件
+
 ## 配置
 
 然后在中创建**id生成器**\(**app/**`__init__`**.py**\)：
