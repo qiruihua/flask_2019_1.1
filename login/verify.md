@@ -29,6 +29,8 @@ def before_request():
 
 ## 验证token
 
+验证token的代码在common目录中auth\_jwt.py文件中
+
 ```
 def verify_jwt(token,secret=None):
     """
