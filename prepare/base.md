@@ -35,9 +35,9 @@ app.config.from_object(Config)
 
 ## manage脚本管理
 
-在toutiao项目文件夹中，除了启动文件`manage.py`主要实现脚本管理，`setings.py`主要是配置文件，flask，db等实例创建可以抽取到\_\__init\_\_.py_文件中
+在toutiao项目文件夹中，除了启动文件`manage.py`主要实现脚本管理，`setings.py`主要是配置文件，flask，db等实例创建可以抽取到\_\__init\_\_.py\_文件中
 
-### \_\__init\_\_.py_文件代码
+### \_\__init\_\_.py\_文件代码
 
 ```
 from flask import Flask
@@ -80,6 +80,8 @@ def index():
 if __name__ == '__main__':
     manager.run()
 ```
+
+> 测试运行
 
 ## 业务逻辑独立
 
