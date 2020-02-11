@@ -8,6 +8,7 @@
   * [代码抽取](prepare/base.md)
   * [日志](prepare/log.md)
   * [蓝图](prepare/blueprint.md)
+  * [响应数据](prepare/response.md)
   * [模型](prepare/model.md)
 * [运行前端vue](front.md)
 * [登录注册](login.md)
