@@ -104,7 +104,7 @@ class DetailResource(Resource):
 
 ## 设置缓存
 
-###  {#3-article-cache}
+
 
 | key | 类型 | 说明 | 举例 |
 | :--- | :--- | :--- | :--- |
