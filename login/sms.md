@@ -67,6 +67,8 @@ SMS_VERIFICATION_CODE_EXPIRES = 5 * 60
 
 ![](/assets/project_utils.png)
 
+> toutiao中utils包文件主要存放该工程公共中的类或者函数
+
 ```
 from werkzeug.routing import BaseConverter
 
