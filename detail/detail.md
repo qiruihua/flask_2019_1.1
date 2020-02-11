@@ -104,13 +104,11 @@ class DetailResource(Resource):
 
 ## 设置缓存
 
-
-
 | key | 类型 | 说明 | 举例 |
 | :--- | :--- | :--- | :--- |
 | art:{article\_id}:detail | string | 文章的基本信息 | key:value |
 
-###  {#4-announcement-cache}
+
 
 在common的cache包中创建article.py文件
 
