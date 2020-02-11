@@ -11,14 +11,16 @@
 }
 ```
 
-## 设置返回响应的装饰器
+## 单个蓝图设置
+
+在home子应用的\_\__init\_\_.py_设置返回响应的装饰器
 
 ```
 from flask import make_response, current_app
 from flask_restful.utils import PY3
 from json import dumps
 
-@user_api.representation('application/json')
+@home_api.representation('application/json')
 def output_json(data, code, headers=None):
     """Makes a Flask response with a JSON encoded body"""
 
@@ -48,9 +50,9 @@ def output_json(data, code, headers=None):
     return resp
 ```
 
-## 单个蓝图设置
-
 ## 所有蓝图设置
+
+
 
 
 
