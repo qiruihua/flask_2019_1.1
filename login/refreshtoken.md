@@ -39,6 +39,7 @@ class LoginResource(Resource):
         user_id = g.user_id
         if user_id and g.is_refresh_token:
             # 判断用户状态
+            from cache.user import UserStatusCache
             user_enable = UserStatusCache(g.user_id).get()
             if not user_enable:
                 return {'message': 'User denied.'}, 403
@@ -48,14 +49,9 @@ class LoginResource(Resource):
             return {'message': 'Wrong refresh token.'}, 403
 ```
 
-然后在**UserStatusCache**类中定义获取用户状态的方法**get**\(**common/cache/user.py**\)：
+然后在**UserStatusCache**类中定义获取用户状态的方法get\(**common/cache/user.py**\)：
 
 ```
-class UserStatusCache(object):
-    """
-    用户状态缓存
-    """
-
     def get(self):
         """
         获取用户状态
@@ -65,13 +61,13 @@ class UserStatusCache(object):
         try:
             status = current_app.redis_store.get(self.key)
         except RedisError as e:
-            print(e)
+            current_app.logger.error(e)
             status = None
 
         if status is not None:
-            return status
+            return status.decode()
         else:
-            user = User.query.options(load_only(User.status)).filter_by(id=self.user_id).first()
+            user = User.query.query.filter_by(id=self.user_id).first()
             if user:
                 self.save(user.status)
                 return user.status
