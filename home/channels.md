@@ -34,6 +34,26 @@
 | id | str | 是 | 频道id |
 | name | str | 是 | 频道名 |
 
+## 模型类
+
+```
+
+class Channel(db.Model):
+    """
+    新闻频道
+    """
+    __tablename__ = 'news_channel'
+
+    id = db.Column('channel_id', db.Integer, primary_key=True, doc='频道ID')
+    name = db.Column('channel_name', db.String, doc='频道名称')
+    ctime = db.Column('create_time', db.DateTime, default=datetime.now, doc='创建时间')
+    utime = db.Column('update_time', db.DateTime, default=datetime.now, onupdate=datetime.now, doc='更新时间')
+    sequence = db.Column(db.Integer, default=0, doc='序号')
+    is_visible = db.Column(db.Boolean, default=False, doc='是否可见')
+    is_default = db.Column(db.Boolean, default=False, doc='是否默认')
+
+```
+
 ## 后端实现
 
 ```
