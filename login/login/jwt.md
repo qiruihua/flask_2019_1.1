@@ -78,5 +78,3 @@ def verify_jwt(token,secret=None):
 
 
 
-
-
