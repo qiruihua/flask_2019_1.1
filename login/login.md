@@ -35,10 +35,11 @@
 ```
 from flask import request
 from flask_restful import reqparse
+from flask_restful.inputs import regex
 from models.user import User
 from project import db
-from project.apps.user.utils import get_user_token
-from project.utils.parsers import check_mobile
+from toutiao.utils.parsers import check_mobile
+from toutiao.utils.token import get_user_token
 
 class LoginResource(Resource):
 
@@ -56,7 +57,7 @@ class LoginResource(Resource):
         # 2.验证数据
         parser = reqparse.RequestParser()
         parser.add_argument('mobile', type=check_mobile, location='json', required=True, )
-        parser.add_argument('code', type=str, location='json', required=True)
+        parser.add_argument('code', type=regex(r'\d{6}'), location='json', required=True)
         args = parser.parse_args()
         mobile=args.get('mobile')
         sms_code=args.get('code')
@@ -142,7 +143,7 @@ def get_user_token(user_id):
 在settings.py文件中添加SECRET\_KEY
 
 ```
-
+SECRET_KEY = 'AHBvaWtqaGdmZHh6cXdlZHJmZ2hqbSwuLz0tMDk4NzY1NDMyMXEALg'
 ```
 
 
