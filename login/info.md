@@ -41,6 +41,10 @@
 
 ## 后端实现
 
+在toutiao的utlis中信息decorators.py文件，添加判断用户是否登录的装饰器
+
+![](/assets/utils_decorators.png)
+
 判断用户是否登录的装饰器
 
 ```
