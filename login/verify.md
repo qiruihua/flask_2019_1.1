@@ -50,7 +50,7 @@ def verify_jwt(token,secret=None):
     return payload
 ```
 
-## 判断用户是否登录完善
+## 完善用户是否登录判断
 
 如果用户使用refresh\_token进行用户信息的获取，则是不允许操作的
 
