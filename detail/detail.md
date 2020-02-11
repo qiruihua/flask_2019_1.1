@@ -169,5 +169,7 @@ class ArticleDetailCache(object):
         return article_dict
 ```
 
+## 详细页面添加缓存实现
+
 
 
