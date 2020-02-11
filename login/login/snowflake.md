@@ -24,7 +24,6 @@ Snowflake是Twitter提出来的一个算法，其目的是生成一个64bit的�
 然后在toutiao目录的`__init__`.py中创建id生成器
 
 ```
-
 from snowflake.id_worker import IdWorker
 # 创建Snowflake ID worker
 app.id_worker = IdWorker(app.config['DATACENTER_ID'],
@@ -32,7 +31,7 @@ app.id_worker = IdWorker(app.config['DATACENTER_ID'],
                          app.config['SEQUENCE'])
 ```
 
-然后在配置文件中增加相关配置：
+然后在settings.py配置文件中增加相关配置：
 
 ```
     # Snowflake ID Worker 参数
@@ -42,6 +41,8 @@ app.id_worker = IdWorker(app.config['DATACENTER_ID'],
 ```
 
 ## 使用
+
+指定用户id，不让系统自己生成
 
 
 
