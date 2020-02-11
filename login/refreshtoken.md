@@ -27,6 +27,8 @@
 
 ## 后端实现
 
+在登录注册的视图中添加put请求
+
 ```
 class LoginResource(Resource):
 
