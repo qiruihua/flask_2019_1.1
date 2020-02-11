@@ -19,7 +19,7 @@
 {
     "message": "OK",
     "data": {
-        "pre_page": 2,
+        "pre_timestamp": 2,
         "results": [
             {
                 "art_id": 140901,
@@ -27,7 +27,10 @@
                 "aut_id": 1,
                 "pubdate": "2018-11-29T17:18:33",
                 "aut_name": "黑马头条号",
-                "comm_count": 0
+                "comm_count": 0,
+                "is_top":0,
+                "cover":[],
+                "type":0
             },
             {
                 "art_id": 139940,
@@ -35,7 +38,10 @@
                 "aut_id": 1,
                 "pubdate": "2018-11-29T17:17:46",
                 "aut_name": "黑马头条号",
-                "comm_count": 0
+                "comm_count": 0,
+                "is_top":0,
+                "cover":[],
+                "type":0
             }
         ]
     }
@@ -46,14 +52,17 @@
 | :--- | :--- | :--- | :--- |
 | message | str | 是 | 消息内容 |
 | data | dict | 是 | 数据 |
-| per\_page | int | 否 | 文章数 |
-| results | dict | 否 | 文章列表 |
-| art\_id | str | 否 | 文章id |
-| title | str | 否 | 文章标题 |
-| aut\_id | str | 否 | 作者id |
-| pubdate | str | 否 | 发布日期 |
-| aut\_name | str | 否 | 作者名字 |
-| comm\_count | int | 否 | 评论数量 |
+| per\_timestamp | int | 是 | 请求前一页数据的时间戳 |
+| results | list | 是 | 文章列表 |
+| art\_id | str | 是 | 文章id |
+| title | str | 是 | 文章标题 |
+| aut\_id | str | 是 | 作者id |
+| pubdate | str | 是 | 发布日期 |
+| aut\_name | str | 是 | 作者名字 |
+| comm\_count | int | 是 | 评论数量 |
+| is\_top | int | 是 | 是否置顶 0不置顶1置顶 |
+| cover | list | 是 | 封面 |
+| type | int | 是 | 0无封面 1一张 3 三张 |
 
 ## 模型类
 
