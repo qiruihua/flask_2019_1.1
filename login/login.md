@@ -30,42 +30,7 @@
 
 ## 后端实现
 
-定义验证手机号方法
-
-```
-import re
-
-#验证手机号规格
-def check_mobile(mobile_str):
-    """
-    检验手机号格式
-    :param mobile_str: str 被检验字符串
-    :return: mobile_str
-    """
-    if re.match(r'^1[3-9]\d{9}$', mobile_str):
-        return mobile_str
-    else:
-        raise ValueError('{} is not a valid mobile'.format(mobile_str))
-```
-
-定义生成token的方法
-
-```
-from itsdangerous import TimedJSONWebSignatureSerializer
-from settings import Config
-#生成token
-def get_user_token(user_id):
-
-    serializer=TimedJSONWebSignatureSerializer(secret_key=Config.SECRET_KEY,expires_in=3600)
-
-    data = {
-        'user_id':user_id
-    }
-
-    return serializer.dumps(data).decode()
-```
-
-登录视图实现
+### 登录视图逻辑实现
 
 ```
 from flask import request
@@ -125,6 +90,59 @@ class LoginResource(Resource):
         token = get_user_token(user.id)
         # 5.返回相应
         return {'token': token}
+```
+
+### 验证手机号格式
+
+在toutiao目录的utlis下创建parsers
+
+![](/assets/toutiao_utils_parsers.png)
+
+定义验证手机号方法
+
+```
+import re
+
+#验证手机号规格
+def check_mobile(mobile_str):
+    """
+    检验手机号格式
+    :param mobile_str: str 被检验字符串
+    :return: mobile_str
+    """
+    if re.match(r'^1[3-9]\d{9}$', mobile_str):
+        return mobile_str
+    else:
+        raise ValueError('{} is not a valid mobile'.format(mobile_str))
+```
+
+### 生成token
+
+在toutiao目录的utlis下创建token
+
+![](/assets/toutiao_utils_token.png)
+
+定义生成token的方法
+
+```
+from itsdangerous import TimedJSONWebSignatureSerializer
+from settings import Config
+#生成token
+def get_user_token(user_id):
+
+    serializer=TimedJSONWebSignatureSerializer(secret_key=Config.SECRET_KEY,expires_in=3600)
+
+    data = {
+        'user_id':user_id
+    }
+
+    return serializer.dumps(data).decode()
+```
+
+在settings.py文件中添加SECRET\_KEY
+
+```
+
 ```
 
 
