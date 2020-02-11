@@ -11,11 +11,11 @@
     port: '8081',
     open: true,
     proxy: {
-      '/api': {
+      '/api/app': {
         target: 'http://127.0.0.1:5000',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          '^/api/app': ''
         }
       }
     }
@@ -29,7 +29,7 @@
 执行以下命令启动前端项目：
 
 ```
-npm run dev
+npm run serve
 ```
 
 > 如果启动报错在终端中执行 npm install 之后再执行启动命令
