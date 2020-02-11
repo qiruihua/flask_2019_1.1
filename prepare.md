@@ -39,3 +39,7 @@ if __name__ == '__main__':
 
 ![](/assets/创建项目.png)
 
+> 运行manage文件
+
+
+
