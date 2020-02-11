@@ -80,9 +80,10 @@ class DetailResource(Resource):
             abort(404)
 
         article_dict = marshal(article, article_fields)
-
+        
+        #获取用户信息
         user = UserProfileCache(article_dict['aut_id']).get()
-
+        #追加作者信息
         article_dict['aut_name'] = user['name']
         article_dict['aut_photo'] = user['photo']
 
