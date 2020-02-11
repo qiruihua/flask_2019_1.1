@@ -7,7 +7,6 @@
 * 在与`manage.py`同级目录下创建`setting.py`文件，用作于项目的配置文件
 
 ```
-
 class Config(object):
     """工程配置信息"""
     DEBUG = True
@@ -21,7 +20,7 @@ class Config(object):
     REDIS_PORT = 6379
 ```
 
-在`manager.py`中引入`Config`类，直接使用
+在`manage.py`中引入`Config`类，直接使用
 
 ```
 from toutiao.settings import Config
@@ -33,6 +32,54 @@ app.config.from_object(Config)
 ```
 
 > 运行测试
+
+## manage脚本管理
+
+在toutiao项目文件夹中，除了启动文件`manage.py`主要实现脚本管理，`setings.py`主要是配置文件，flask，db等实例创建可以抽取到\_\__init\_\_.py_文件中
+
+### \_\__init\_\_.py_文件代码
+
+```
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+import redis
+from flask_cors import CORS
+from toutiao.settings import Config
+
+
+app = Flask(__name__)
+
+
+#加载配置文件
+app.config.from_object(Config)
+#创建db
+db = SQLAlchemy(app)
+#创建redis客户端
+redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
+#添加CORS
+CORS(app)
+```
+
+### `manage.py`文件代码
+
+```
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
+from toutiao import app,db
+
+# 把 Manager 类和应用程序实例进行关联
+manager = Manager(app)
+#使用脚本管理模型迁移
+Migrate(app, db)
+manager.add_command('db', MigrateCommand)
+
+@app.route('/')
+def index():
+    return 'index'
+
+if __name__ == '__main__':
+    manager.run()
+```
 
 ## 业务逻辑独立
 
