@@ -108,8 +108,6 @@ class DetailResource(Resource):
 | :--- | :--- | :--- | :--- |
 | art:{article\_id}:detail | string | 文章的基本信息 | key:value |
 
-
-
 在common的cache包中创建article.py文件
 
 ```
@@ -186,6 +184,36 @@ class ArticleDetailCache(object):
 ```
 
 ## 详细页面添加缓存实现
+
+```
+class DetailResource(Resource):
+
+    def get(self,article_id):
+        """
+        1.根据文章id查询文章详情
+        2.返回相应
+        :param article_id:
+        :return:
+        """
+        # 1.根据文章id查询文章详情
+
+        from cache.article import ArticleDetailCache
+        article_dict=ArticleDetailCache(article_id).get()
+
+        ## 判断是否关注
+        is_followed=False
+        # 判断是否喜欢
+        attitude=1
+        # 判断是否收藏
+        is_collected = True
+
+        article_dict['is_followed']=is_followed
+        article_dict['attitude']=attitude
+        article_dict['is_collected']=is_collected
+
+        # 2.返回相应
+        return article_dict
+```
 
 
 
