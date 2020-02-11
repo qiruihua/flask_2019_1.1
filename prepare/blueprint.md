@@ -31,6 +31,8 @@ home_api=Api(home_blueprint)
 
 #记住要导入过来
 from . import views
+
+home_api.add_resource(views.IndexResource, '/')
 ```
 
 ### view.py代码
@@ -47,7 +49,7 @@ class IndexResource(Resource):
         }
 
 
-home_api.add_resource(IndexResource, '/')
+
 ```
 
 ### project包的\_\__init_\_.py中注册路由\_
@@ -73,6 +75,8 @@ user_blueprint=Blueprint('user',__name__,url_prefix='/app/v1_0')
 user_api=Api(user_blueprint)
 #记住 导入
 from . import views
+
+user_api.add_resource(views.LoginResource,'/login')
 ```
 
 ### view.py代码
@@ -89,7 +93,7 @@ class LoginResource(Resource):
             }
 
 
-user_api.add_resource(LoginResource,'/login')
+
 ```
 
 ### project包的\_\__init_\_.py中注册路由\_
