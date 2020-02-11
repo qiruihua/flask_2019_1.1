@@ -43,7 +43,7 @@ class IndexResource(Resource):
 
     def get(self):
         return {
-                "message": "OK"
+                "index": "index"
         }
 
 

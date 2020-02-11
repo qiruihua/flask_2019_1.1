@@ -13,7 +13,7 @@
 
 ## 单个蓝图设置
 
-在home子应用的\_\__init\_\_.py_设置返回响应的装饰器
+在home子应用的\_\__init\_\_.py\_设置返回响应的装饰器
 
 ```
 from flask import make_response, current_app
@@ -51,8 +51,6 @@ def output_json(data, code, headers=None):
 ```
 
 ## 所有蓝图设置
-
-
 
 
 
