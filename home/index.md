@@ -117,49 +117,56 @@ class ArticleContent(db.Model):
 ## 后端实现
 
 ```
+from flask_restful.reqparse import RequestParser
+from flask_restful import inputs
+from . import constants
+from models.news import Article
+
 class IndexResource(Resource):
 
     def get(self):
         """
-        1.获取参数
-        2.根据参数查询数据
-        3.分页处理
-        4.将对象列表数据转换为字典，返回相应
+        1.接收参数，并验证参数
+        2.查询数据
+        3.将数据转换为字典
+        4.返回数据
         :return:
         """
-        # 1.获取参数
-        channel_id=request.args.get('channel_id',0)
-        page=request.args.get('page',1)
-        per_page=request.args.get('per_page',10)
+        # 1.验证参数
+        qs_parser = RequestParser()
+        qs_parser.add_argument('channel_id', type=int, required=True, location='args')
+        qs_parser.add_argument('timestamp', type=inputs.positive, required=True, location='args')
+        qs_parser.add_argument('with_top', type=inputs.boolean, required=True, location='args')
+        args = qs_parser.parse_args()
+        channel_id = args.channel_id
+        per_page = constants.DEFAULT_ARTICLE_PER_PAGE_MIN
 
-        try:
-            page=int(page)
-            per_page=int(per_page)
-        except Exception:
-            page=1
-            per_page=10
+        #不为0会一直获取数据 我们就获取一次数据
+        pre_timestamp = 0
+        #偏移量
+        offset = 0
 
-        if int(channel_id) == 0:
-            channel_id=1
-        # 2.根据参数查询数据
-        # 3.分页处理
-        page_articles=Article.query.filter_by(channel_id=channel_id,
-                                   status=Article.STATUS.APPROVED).paginate(page=page,
-                                                                            per_page=per_page)
-
+        # 获取文章列表
+        articles=Article.query.filter_by(channel_id=channel_id,
+                                status=Article.STATUS.APPROVED).\
+            order_by(Article.id.desc()).\
+            offset(offset).limit(per_page).all()
         # 4.将对象列表数据转换为字典，返回相应
         results = []
-        for item in page_articles.items:
+        for item in articles:
             results.append({
                 "art_id": item.id,
                 "title": item.title,
                 "aut_id": item.user.id,
                 "pubdate": item.ctime.strftime('%Y-%m-%d %H:%M:%S'),
                 "aut_name": item.user.name,
-                "comm_count": item.comment_count
+                "comm_count": item.comment_count,
+                "is_top":False,
+                'cover':item.cover,
             })
 
-        return {'per_page': per_page, 'results': results}
+        return {'pre_timestamp': pre_timestamp, 'results': results}
+
 ```
 
 
