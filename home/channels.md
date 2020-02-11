@@ -37,7 +37,6 @@
 ## 模型类
 
 ```
-
 class Channel(db.Model):
     """
     新闻频道
@@ -51,18 +50,20 @@ class Channel(db.Model):
     sequence = db.Column(db.Integer, default=0, doc='序号')
     is_visible = db.Column(db.Boolean, default=False, doc='是否可见')
     is_default = db.Column(db.Boolean, default=False, doc='是否默认')
-
 ```
 
 ## 后端实现
 
 ```
-from flask_restful import fields
+from models.news import Channel
+from flask_restful import fields,marshal
+
 #将频道列表对象转换
 channels_fields = {
     'id': fields.Integer,
     'name': fields.String,
 }
+
 class ChannelsResource(Resource):
 
     def get(self):
@@ -81,6 +82,18 @@ class ChannelsResource(Resource):
 ## 定义缓存类
 
 ```
+from flask import current_app
+import json
+from redis import RedisError
+from models.news import Channel
+from flask_restful import fields,marshal
+from . import constants
+#将频道列表对象转换
+channels_fields = {
+    'id': fields.Integer,
+    'name': fields.String,
+}
+
 class AllChannelsCache(object):
     """
     全部频道缓存
@@ -97,41 +110,31 @@ class AllChannelsCache(object):
         # 先从缓存取数据，能取到缓存数据就直接返回
         ret = current_app.redis_store.get(cls.key)
         if ret:
-            results = json.loads(ret)
+            results = json.loads(ret.decode())
             return results
 
+        channels = Channel.query.order_by(Channel.sequence,Channel.id).all()
         # 取不到缓存数据，则进行数据库查询
-        results = []
-
-        channels = Channel.query.options(load_only(Channel.id, Channel.name)) \
-            .filter(Channel.is_visible==True).order_by(Channel.sequence, Channel.id).all()
-        if not channels:
-            return results
-
-        for channel in channels:
-            results.append({
-                'id': channel.id,
-                'name': channel.name
-            })
+        results=marshal(channels, channels_fields, envelope='channels')
 
         # 返回前，先将数据缓存起来，这样下次就可以直接在缓存中取数据了
         try:
             current_app.redis_store.setex(cls.key, constants.ALL_CHANNELS_CACHE_TTL, json.dumps(results))
         except RedisError as e:
-            print(e)
+            current_app.logger.error(e)
 
         return results
 ```
 
-修改视图
+### 修改获取所有频道视图实现逻辑
 
 ```
 from cache.channel import AllChannelsCache
 class ChannelsResource(Resource):
 
     def get(self):
-        channels=AllChannelsCache.get()
-        return {'channels':channels}
+        return AllChannelsCache.get()
+        
 ```
 
 
