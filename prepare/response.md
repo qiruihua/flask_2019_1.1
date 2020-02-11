@@ -52,5 +52,9 @@ def output_json(data, code, headers=None):
 
 ## 所有蓝图设置
 
+创建common包
+
+![](/assets/project_common.png)
+
 
 
