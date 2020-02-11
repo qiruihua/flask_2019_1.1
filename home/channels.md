@@ -126,6 +126,13 @@ class AllChannelsCache(object):
         return results
 ```
 
+### 添加缓存时间变量
+
+```
+# 全部频道缓存有效期，秒
+ALL_CHANNELS_CACHE_TTL = 24 * 60 * 60
+```
+
 ### 修改获取所有频道视图实现逻辑
 
 ```
@@ -134,7 +141,6 @@ class ChannelsResource(Resource):
 
     def get(self):
         return AllChannelsCache.get()
-        
 ```
 
 
