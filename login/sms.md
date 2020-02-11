@@ -89,11 +89,11 @@ def register_converters(app):
     app.url_map.converters['mobile'] = MobileConverter
 ```
 
-在`project`的`__init__.py`文件中注册转换器
+在`toutiao`的`__init__.py`文件中注册转换器
 
 ```
 # 注册url转换器
-from project.utils.converters import register_converters
+from toutiao.utils.converters import register_converters
 register_converters(app)
 ```
 
