@@ -5,9 +5,11 @@
 * 按功能模块来分，比如：用户模块、订单模块
 * 按接口版本来分，某个版本的接口放一个文件夹下面
 
-* 在`project`目录下创建`apps`Package，创建完成如下：
+* 在整个项目文件夹中，除了启动文件`manage.py`和配置文件`setings.py`放在根目录，其他具体业务逻辑文件都放在一个单独的文件包内，与`manage.py`同级
 
-![](/assets/子应用.png)
+* 创建`apps`Package，与`manage.py`同级
+
+![](/assets/project.png)
 
 > apps 存放当前项目所有的模块
 

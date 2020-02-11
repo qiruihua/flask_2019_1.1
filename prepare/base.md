@@ -58,6 +58,10 @@ db = SQLAlchemy(app)
 redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
 #添加CORS
 CORS(app)
+
+@app.route('/')
+def index():
+    return 'index'
 ```
 
 ### `manage.py`文件代码
@@ -73,67 +77,13 @@ manager = Manager(app)
 Migrate(app, db)
 manager.add_command('db', MigrateCommand)
 
-@app.route('/')
-def index():
-    return 'index'
-
 if __name__ == '__main__':
     manager.run()
 ```
 
 > 测试运行
 
-## 业务逻辑独立
-
-在整个项目文件夹中，除了启动文件`manage.py`和配置文件`setings.py`放在根目录，其他具体业务逻辑文件都放在一个单独的文件夹内，与`manage.py`同级
-
-* 创建`apps`Package，与`manage.py`同级
-
-![](/assets/project.png)
-
-* `manage.py`只做最基本的启动工作，将`manager`的创建操作移动到`project`的`__init__.py`文件中
-
-```
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-import redis
-from flask_session import Session
-from settings import Config
-
-app = Flask(__name__)
-
-#加载配置文件
-app.config.from_object(Config)
-# 数据库
-db = SQLAlchemy(app)
-# redis设置
-redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
-
-
-@app.route('/')
-def index():
-    return 'index'
-```
-
-* `manage.py`的代码为
-
-```
-from project import app,db
-from flask_script import Manager
-from flask_migrate import Migrate,MigrateCommand
-
-#Manager
-manager=Manager(app)
-#数据模型管理
-Migrate(app, db)
-manager.add_command('db', MigrateCommand)
-
-
-if __name__ == '__main__':
-    manager.run()
-```
-
-> 运行测试
+## 
 
 ## 项目多种配置
 
