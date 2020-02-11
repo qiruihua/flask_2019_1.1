@@ -55,7 +55,7 @@ app.config.from_object(Config)
 #创建db
 db = SQLAlchemy(app)
 #创建redis客户端
-redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
+app.redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
 #添加CORS
 CORS(app)
 
@@ -126,7 +126,7 @@ Config=config_dict['dev']
 #加载配置文件
 app.config.from_object(Config)
 db = SQLAlchemy(app)
-redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
+app.redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
 
 @app.route('/')
 def index():
