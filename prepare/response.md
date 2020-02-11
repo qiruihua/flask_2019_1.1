@@ -54,6 +54,8 @@ def output_json(data, code, headers=None):
 
 ### 创建common包
 
+common包中主要存放一些抽取的公共的类，这些类在其他系统中也可以用到
+
 ![](/assets/project_common.png)
 
 ### 再在common包中继续创建toutiaoapi包，并创建restful.py文件
