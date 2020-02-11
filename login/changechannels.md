@@ -43,9 +43,16 @@
 ## 后端实现
 
 ```
-from project.models.news import UserChannel
+from models.news import UserChannel
+from flask import g,request
+from toutiao.utils.decorators import loginrequired
+from toutiao import db
+
 class UserChannelsResource(Resource):
-    method_decorators = [loginrequired]
+
+    method_decorators = {
+        'put':[loginrequired]
+    }
 
     def put(self):
         """
@@ -53,21 +60,21 @@ class UserChannelsResource(Resource):
         2.更新数据
         3.返回相应
         """
-        user_id=current_app.user_id
+        user_id = g.user_id
         # 1.接收数据
-        channel_list=request.json.get('channels')
+        channel_list = request.json.get('channels')
         # 2.更新数据
         UserChannel.query.filter_by(user_id=user_id, is_deleted=False).update({'is_deleted': True})
 
         for channel in channel_list:
-            data={"sequence":channel['seq'], "is_deleted":False}
-            flag=UserChannel.query.filter_by(user_id=user_id,
-                                        channel_id=channel['id']).update(data)
+            data = {"sequence": channel['seq'], "is_deleted": False}
+            flag = UserChannel.query.filter_by(user_id=user_id,
+                                               channel_id=channel['id']).update(data)
             if flag == 0:
-                user_channel=UserChannel()
-                user_channel.user_id=user_id
-                user_channel.sequence=channel.get('seq')
-                user_channel.channel_id=channel.get('id')
+                user_channel = UserChannel()
+                user_channel.user_id = user_id
+                user_channel.sequence = channel.get('seq')
+                user_channel.channel_id = channel.get('id')
                 db.session.add(user_channel)
 
             db.session.commit()
@@ -76,7 +83,9 @@ class UserChannelsResource(Resource):
         return {'channels': channel_list}, 201
 ```
 
-设置缓存
+> 修改用户关注频道之后，要清除缓存
+
+### 添加清除缓存功能
 
 
 
