@@ -74,7 +74,7 @@ class ChannelsResource(Resource):
         :return:
         """
         # 1.获取所有频道
-        channels = Channel.query.all()
+        channels = Channel.query.filter(Channel.is_visible == True).order_by(Channel.sequence, Channel.id).all()
         # 3.返回数据
         return marshal(channels, channels_fields,envelope='channels')
 ```
@@ -113,7 +113,7 @@ class AllChannelsCache(object):
             results = json.loads(ret.decode())
             return results
 
-        channels = Channel.query.order_by(Channel.sequence,Channel.id).all()
+        channels = Channel.query.filter(Channel.is_visible == True).order_by(Channel.sequence, Channel.id).all()
         # 取不到缓存数据，则进行数据库查询
         results=marshal(channels, channels_fields, envelope='channels')
 

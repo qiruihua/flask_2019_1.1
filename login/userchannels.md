@@ -62,21 +62,35 @@ class UserChannel(db.Model):
 
 ```
 from models.news import UserChannel
+from flask import g
+
 class UserChannelsResource(Resource):
-    
 
     def get(self):
         """
         1.获取用户id
-        2.根据用户进行数据查询
-        3.返回数据
+        2.根据用户id进行判断
+        3.登陆用户进行数据查询
+        4.未登录用户返回默认频道数据
+        5.返回数据
         :return:
         """
         # 1.获取用户id
-        user_id=current_app.user_id
-        # 2.根据用户进行数据查询
-        channels=UserChannel.query.filter_by(user_id=user_id,is_deleted=False).all()
-        # 3.返回数据
+        user_id=g.user_id
+        # 2.根据用户id进行判断
+        if user_id:
+            # 3.登陆用户进行数据查询
+            channels = UserChannel.query.filter(UserChannel.user_id==user_id,
+                                                UserChannel.is_deleted==False).\
+                order_by(UserChannel.sequence).all()
+        else:
+            # 4.未登录用户返回默认频道数据
+            channels = Channel.query.filter(Channel.is_default == True,
+                                        Channel.is_visible == True).\
+            order_by(Channel.sequence, Channel.id).all()
+
+
+        # 5.处理数据
         data_list=[{
             'id':0,
             'name':'推荐'
@@ -84,12 +98,34 @@ class UserChannelsResource(Resource):
         for channel in channels:
             data_list.append({
                 'id':channel.id,
-                'name':channel.channel.name
+                'name':channel.channel.name if user_id else channel.name
             })
         return {"channels":data_list}
 ```
 
 ## 添加缓存
+
+###  {#3-article-cache}
+
+| key | 类型 | 说明 | 举例 |
+| :--- | :--- | :--- | :--- |
+| ch:all | string | 所有频道 |  |
+| user:{user\_id}:ch | string | 用户频道 |  |
+
+###  {#4-announcement-cache}
+
+定义默认用户频道缓存
+
+定义登录用户频道缓存
+
+### 添加缓存时间变量
+
+```
+# 默认用户频道缓存有效期，秒
+DEFAULT_USER_CHANNELS_CACHE_TTL = 24 * 60 * 60
+```
+
+### 修改获取所有频道视图实现逻辑
 
 
 
