@@ -63,9 +63,13 @@ def loginrequired(func):
 from project.utils.decorators import loginrequired
 ```
 
-返回用户信息
+### 返回用户信息
 
 ```
+from toutiao.utils.decorators import loginrequired
+from flask import g
+from cache.user import UserProfileCache
+
 class UserInfoResource(Resource):
 
     method_decorators = [loginrequired]
@@ -78,12 +82,13 @@ class UserInfoResource(Resource):
         :return:
         """
         user_data=UserProfileCache(g.user_id).get()
-        user_data['id']=g.user_id
-        del user_data['mobile']
         return user_data
+
+#获取用户信息
+user_api.add_resource(views.UserInfoResource,'/user')
 ```
 
-缓存类完善
+### 缓存类完善
 
 ```
 class UserProfileCache(object):
@@ -94,7 +99,6 @@ class UserProfileCache(object):
     def get(self):
         """
         获取用户数据
-        :return:
         """
         try:
             ret = current_app.redis_store.get(self.key)
@@ -104,11 +108,22 @@ class UserProfileCache(object):
 
         user_data = None
         if ret:
-            user_data = json.loads(ret)
+            user_data = json.loads(ret.decode())
+        else:
+            #没有缓存则添加缓存
+            user_data=self.save()
 
         if not user_data['photo']:
             user_data['photo'] = constants.DEFAULT_USER_PROFILE_PHOTO
         return user_data
+```
+
+在cache的constants中定义用户头像路由
+
+```
+# 默认用户头像
+DEFAULT_USER_PROFILE_PHOTO = 'http://140.143.37.139:10000/media/avatar/20191210/2017072915070200.jpg'
+
 ```
 
 

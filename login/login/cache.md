@@ -67,6 +67,7 @@ class UserProfileCache(object):
                 if user is None:
                     return None
             user_data = {
+                'id':user.id,
                 'mobile': user.mobile,
                 'name': user.name,
                 'photo': user.profile_photo or '',
