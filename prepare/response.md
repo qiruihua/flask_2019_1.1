@@ -48,5 +48,9 @@ def output_json(data, code, headers=None):
     return resp
 ```
 
+## 单个蓝图设置
+
+## 所有蓝图设置
+
 
 
