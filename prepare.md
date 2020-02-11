@@ -11,15 +11,7 @@ mkvirtualenv -p python3 py3_toutiao
 安装依赖包
 
 ```
-pip install Flask
-pip install flask-mysqldb
-pip install flask-sqlalchemy
-pip install redis
-pip install flask-session
-pip install flask-script
-pip install flask_migrate
-pip install flask_restful
-pip install flask-cors
+pip install -r requirements.txt
 ```
 
 ## 创建项目
