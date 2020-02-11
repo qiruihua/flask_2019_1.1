@@ -7,7 +7,6 @@
 * 在与`manage.py`同级目录下创建`setting.py`文件，用作于项目的配置文件
 
 ```
-import redis
 
 class Config(object):
     """工程配置信息"""
@@ -25,7 +24,7 @@ class Config(object):
 在`manager.py`中引入`Config`类，直接使用
 
 ```
-from settings import Config
+from toutiao.settings import Config
 
 app = Flask(__name__)
 
