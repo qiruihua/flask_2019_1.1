@@ -48,16 +48,15 @@
 def loginrequired(func):
 
     def wrapper(*args,**kwargs):
-        is_login=True
-        if is_login:
-            return func(*args,**kwargs)
-        else:
+        
+        if g.user_id is None:
             return {'message': 'login'}, 403
+        else:
+            return func(*args,**kwargs)
 
     return wrapper
 
 from project.utils.decorators import loginrequired
-
 ```
 
 返回用户信息
@@ -78,7 +77,6 @@ class UserInfoResource(Resource):
         user_data['id']=g.user_id
         del user_data['mobile']
         return user_data
-    
 ```
 
 缓存类完善
@@ -99,7 +97,7 @@ class UserProfileCache(object):
         except RedisError as e:
             current_app.logger.error(e)
             ret = None
-            
+
         user_data = None
         if ret:
             user_data = json.loads(ret)
@@ -107,7 +105,6 @@ class UserProfileCache(object):
         if not user_data['photo']:
             user_data['photo'] = constants.DEFAULT_USER_PROFILE_PHOTO
         return user_data
-  
 ```
 
 
