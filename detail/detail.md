@@ -74,14 +74,7 @@ class DetailResource(Resource):
         # 1.根据文章id查询文章详情
         article=None
         try:
-            article = Article.query.options(load_only(
-                Article.id,
-                Article.user_id,
-                Article.title,
-                Article.is_advertising,
-                Article.ctime,
-                Article.channel_id
-            )).filter_by(id=article_id, status=Article.STATUS.APPROVED).first()
+            article = Article.query.filter_by(id=article_id, status=Article.STATUS.APPROVED).first()
         except Exception as e:
             current_app.logger.error(e)
             abort(404)
@@ -154,14 +147,7 @@ class ArticleDetailCache(object):
             article_dict = json.loads(article_bytes.decode())
         else:
             # 查询数据库
-            article = Article.query.options(load_only(
-                Article.id,
-                Article.user_id,
-                Article.title,
-                Article.is_advertising,
-                Article.ctime,
-                Article.channel_id
-            )).filter_by(id=self.article_id, status=Article.STATUS.APPROVED).first()
+            article = Article.query.filter_by(id=self.article_id, status=Article.STATUS.APPROVED).first()
 
             article_dict = marshal(article, article_fields)
 
