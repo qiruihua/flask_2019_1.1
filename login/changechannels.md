@@ -97,7 +97,7 @@ class UserChannelsCache(object):
     def __init__(self, user_id):
         self.key = 'user:{}:ch'.format(user_id)
         self.user_id = user_id
-    
+
     def clear(self):
         """
         清除
@@ -108,7 +108,14 @@ class UserChannelsCache(object):
             print(e)
 ```
 
-> 在UserChannelsResource的put方法中添加清除缓存功能
+在UserChannelsResource的put方法中添加清除缓存功能
+
+```
+        from cache.channel import UserChannelsCache
+        UserChannelsCache(user_id).clear()
+        # 3.返回相应
+        return {'channels': channel_list}, 201
+```
 
 
 
