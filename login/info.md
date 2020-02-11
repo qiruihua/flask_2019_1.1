@@ -106,7 +106,6 @@ class UserProfileCache(object):
             current_app.logger.error(e)
             ret = None
 
-        user_data = None
         if ret:
             user_data = json.loads(ret.decode())
         else:

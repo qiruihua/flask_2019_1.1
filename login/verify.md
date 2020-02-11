@@ -6,6 +6,8 @@
 
 我们通过请求钩子来获取请求头中的token信息
 
+在
+
 ```
 #验证请求钩子
 from flask import g,request
