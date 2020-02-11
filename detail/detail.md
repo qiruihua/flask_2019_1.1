@@ -169,6 +169,16 @@ class ArticleDetailCache(object):
         return article_dict
 ```
 
+添加详情数据缓存时间
+
+```
+   class ArticleDetailCacheTTL(BaseCacheTTL):
+    """
+    文章详细内容缓存时间，秒
+    """
+    TTL = 60 * 60
+```
+
 ## 详细页面添加缓存实现
 
 
