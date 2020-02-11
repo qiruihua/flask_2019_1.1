@@ -56,5 +56,7 @@ def output_json(data, code, headers=None):
 
 ![](/assets/project_common.png)
 
+再在common包中继续创建toutiaoapi包，并创建restful.py文件
 
+![](/assets/common_toutiaoapi.png)
 
