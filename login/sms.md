@@ -61,7 +61,7 @@ user_api.add_resource(SmsCodeResource,'/sms/codes/<mobile>/')
 SMS_VERIFICATION_CODE_EXPIRES = 5 * 60
 ```
 
-### 定义路由 {#23-定义路由}
+### 定义手机转换器 {#23-定义路由}
 
 我们从路由中传入手机号，为此我们先定义一个路由转换器**MobileConverter**\(**utils/converters.py**\)
 
