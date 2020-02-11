@@ -2,6 +2,10 @@
 
 ## 添加**id\_worker**文件
 
+将课件中的id\_worker.py文件拷贝到common目录下新建的snowflake中
+
+![](/assets/snowflake.png)
+
 ## 配置
 
 然后在中创建**id生成器**\(**app/**`__init__`**.py**\)：
