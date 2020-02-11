@@ -160,7 +160,7 @@ class BaseApi(Api):
         self.representations = {'application/json': output_json}
 ```
 
-> 运行测试
+### 修改蓝图中的Api为BaseApi
 
 
 
