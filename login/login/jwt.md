@@ -76,5 +76,14 @@ def verify_jwt(token,secret=None):
     return payload
 ```
 
+在setting.py文件中 添加配置信息
+
+```
+    #jwt配置相关
+    JWT_SECRET = 'YIgAAAAlxd2VkcmZnaGprbDt4ZGZnaGp1aW9wMTIzNDU2Nzg5MC1xA'
+    JWT_EXPIRY_HOURS = 2
+    JWT_REFRESH_DAYS = 14
+```
+
 
 
