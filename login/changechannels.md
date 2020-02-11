@@ -87,5 +87,28 @@ class UserChannelsResource(Resource):
 
 ### 添加清除缓存功能
 
+给UserChannelsCache添加clear函数
+
+```
+class UserChannelsCache(object):
+    """
+    用户频道缓存
+    """
+    def __init__(self, user_id):
+        self.key = 'user:{}:ch'.format(user_id)
+        self.user_id = user_id
+    
+    def clear(self):
+        """
+        清除
+        """
+        try:
+            current_app.redis_store.delete(self.key)
+        except RedisError as e:
+            print(e)
+```
+
+> 在UserChannelsResource的put方法中添加清除缓存功能
+
 
 
