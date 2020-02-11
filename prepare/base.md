@@ -83,8 +83,6 @@ if __name__ == '__main__':
 
 > 测试运行
 
-## 
-
 ## 项目多种配置
 
 [文档连接](http://docs.jinkan.org/docs/flask/config.html#id7)
@@ -123,6 +121,7 @@ import redis
 from settings import config_dict
 
 app = Flask(__name__)
+#获取配置类
 Config=config_dict['dev']
 #加载配置文件
 app.config.from_object(Config)
