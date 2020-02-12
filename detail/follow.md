@@ -97,16 +97,37 @@ class FollowResource(Resource):
 
 ## 缓存关注信息
 
-
-
 | key | 类型 | 说明 | 举例 |
 | :--- | :--- | :--- | :--- |
 | user:{user\_id}:following | zset | user\_id的关注用户 | key:\[1,2,3,4\] |
 
-###  {#2-comment-cache}
+我们需要更新用户关注的id
 
 ```
+class UserFollowingCache(object):
+    """
+    用户关注缓存数据
+    """
+    def __init__(self, user_id):
+        self.key = 'user:{}:following'.format(user_id)
+        self.user_id = user_id
 
+    def update(self, target_user_id, timestamp, increment=1):
+        """
+        更新用户的关注缓存数据
+        :param target_user_id: 被关注的目标用户
+        :param timestamp: 关注时间戳
+        :param increment: 增量 1表示增加 0表示删除
+        :return:
+        """
+
+        try:
+            if increment > 0:
+                current_app.redis_store.zadd(self.key, timestamp, target_user_id)
+            else:
+                current_app.redis_store.zrem(self.key, target_user_id)
+        except RedisError as e:
+            current_app.logger.error(e)
 ```
 
 
