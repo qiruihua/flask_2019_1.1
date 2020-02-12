@@ -97,6 +97,14 @@ class FollowResource(Resource):
 
 ## 缓存关注信息
 
+
+
+| key | 类型 | 说明 | 举例 |
+| :--- | :--- | :--- | :--- |
+| user:{user\_id}:following | zset | user\_id的关注用户 | key:\[1,2,3,4\] |
+
+###  {#2-comment-cache}
+
 ```
 
 ```
