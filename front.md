@@ -11,11 +11,11 @@
     port: '8081',
     open: true,
     proxy: {
-      '/api/app': {
+      '/api': {
         target: 'http://127.0.0.1:5000',
         changeOrigin: true,
         pathRewrite: {
-          '^/api/app': ''
+          '^/api': ''
         }
       }
     }
