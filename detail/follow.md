@@ -66,7 +66,7 @@ class FollowResource(Resource):
         4.返回相应
         :return:
         """
-        user_id=current_app.user_id
+        user_id=g.user_id
         # 1.接收参数
         # 2.验证参数
         parse=reqparse.RequestParser()
@@ -103,6 +103,8 @@ class FollowResource(Resource):
 
 我们需要更新用户关注的id
 
+我们可以在common的cache包中，在user.py文件中定义关注缓存类
+
 ```
 class UserFollowingCache(object):
     """
@@ -128,6 +130,12 @@ class UserFollowingCache(object):
                 current_app.redis_store.zrem(self.key, target_user_id)
         except RedisError as e:
             current_app.logger.error(e)
+```
+
+修改视图调用缓存类
+
+```
+
 ```
 
 
