@@ -41,17 +41,9 @@ class DisLikeDeleteResource(Resource):
         return {'message': 'OK'}, 204
 ```
 
-## 更新缓存数据
 
-```
 
-```
 
-## 完善详情页面是否不喜欢的功能
-
-```
-
-```
 
 
 
