@@ -38,20 +38,12 @@ class FollowDeleteResource(Resource):
             .update({'relation': Relation.RELATION.DELETE})
         db.session.commit()
 
+        # 修改缓存
+        from cache.user import UserFollowingCache
+        import time
+        UserFollowingCache(g.user_id).update(target, time.time(),-1)
 
         return {"message": "OK"}
-```
-
-## 更新缓存数据
-
-```
-
-```
-
-## 完善详情页面是否关注的功能
-
-```
-
 ```
 
 
