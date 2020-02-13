@@ -54,7 +54,7 @@ class Attitude(db.Model):
 ## 后端实现
 
 ```
-from project.utils.decorators import loginrequired
+from toutiao.utils.decorators import loginrequired
 from flask_restful.reqparse import RequestParser
 from models.news import Attitude
 
