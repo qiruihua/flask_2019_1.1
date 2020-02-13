@@ -99,7 +99,7 @@ class FollowResource(Resource):
 
 | key | 类型 | 说明 | 举例 |
 | :--- | :--- | :--- | :--- |
-| user:{user\_id}:following | zset | user\_id的关注用户 | key:\[1,2,3,4\] |
+| user:{user\_id}:following | zset | user\_id的关注用户 | - |
 
 我们需要更新用户关注的id
 
@@ -125,7 +125,7 @@ class UserFollowingCache(object):
 
         try:
             if increment > 0:
-                current_app.redis_store.zadd(self.key, timestamp, target_user_id)
+                current_app.redis_store.zadd(self.key, {timestamp:target_user_id})
             else:
                 current_app.redis_store.zrem(self.key, target_user_id)
         except RedisError as e:
@@ -135,6 +135,10 @@ class UserFollowingCache(object):
 修改视图调用缓存类
 
 ```
+ #添加缓存
+ from cache.user import UserFollowingCache
+ import time
+ UserFollowingCache(user_id).update(args.get('target'),time.time())
 
 ```
 
