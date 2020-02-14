@@ -88,15 +88,9 @@ class Comment(db.Model):
 ## 后端实现
 
 ```
-from project.apps.home import constants
-from flask_restful.inputs import positive,int_range
-
+from toutiao.apps.home import constants
+from flask_restful.inputs import positive, int_range
 class CommentsResource(Resource):
-    method_decorators = {
-        'post': [loginrequired]
-    }
-
-
 
     def get(self):
         qs_parser = RequestParser()
@@ -111,13 +105,13 @@ class CommentsResource(Resource):
         limit = args.limit if args.limit is not None else constants.DEFAULT_COMMENT_PER_PAGE_MIN
         offset = args.offset
 
-
         # 文章评论
         article_id = args.source
-        comments=Comment.query.filter(Comment.article_id == article_id,
-                                    Comment.parent_id == None,
-                                    Comment.status == Comment.STATUS.APPROVED).\
-            order_by(Comment.is_top.desc(),Comment.id.desc()).all()
+        comments = Comment.query.filter(Comment.article_id == article_id,
+                                        Comment.parent_id == None,
+                                        Comment.status == Comment.STATUS.APPROVED). \
+            order_by(Comment.is_top.desc(),
+                     Comment.id.desc()).all()
 
         page_comments = []
         page_count = 0
@@ -126,21 +120,19 @@ class CommentsResource(Resource):
 
         for comment in comments:
             score = comment.ctime.timestamp()
-            if comment.is_top:
-                score += constants.COMMENTS_CACHE_MAX_SCORE
 
             # 构造返回数据
             if ((offset is not None and score < offset) or offset is None) and page_count <= limit:
                 page_comments.append({
                     'com_id': comment.id,
                     'aut_id': comment.user.id,
-                    'aut_name':comment.user.name,
-                    'aut_photo':comment.user.profile_photo,
+                    'aut_name': comment.user.name,
+                    'aut_photo': comment.user.profile_photo,
                     'pubdate': '2020-01-01 12:12:12',
                     'content': comment.content,
                     'is_top': comment.is_top,
-                    'is_liking':False,
-                    'reply_count':0
+                    'is_liking': False,
+                    'reply_count': 0
                 })
                 page_count += 1
                 page_last_comment = comment
@@ -149,6 +141,17 @@ class CommentsResource(Resource):
         last_id = page_last_comment.ctime.timestamp() if page_last_comment else None
 
         return {'total_count': total_count, 'end_id': end_id, 'last_id': last_id, 'results': page_comments}
+```
+
+在home的constant中定义常量
+
+```
+# 设置下限的目地是保证置顶的评论在一页内请求完成
+# 评论分页默认每页数量 下限
+DEFAULT_COMMENT_PER_PAGE_MIN = 10
+
+# 评论分页默认每页数量 上限
+DEFAULT_COMMENT_PER_PAGE_MAX = 50
 ```
 
 
