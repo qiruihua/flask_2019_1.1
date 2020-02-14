@@ -11,6 +11,7 @@
 | token | str | 是 | 用户token |
 | target | str | 是 | 文章id |
 | content | str | 是 | 评论内容 |
+| art\_id | int | 否 | 对文章评论不需要传递此参数。对评论内容进行回复时，必须传递此参数 |
 
 **返回数据**： JSON
 
@@ -30,8 +31,6 @@
 | data | dict | 是 | 数据 |
 | com\_id | str | 是 | 评论id |
 | target | str | 是 | 文章id |
-
-
 
 ## 后端实现
 
