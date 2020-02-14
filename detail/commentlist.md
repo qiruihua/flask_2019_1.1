@@ -66,36 +66,7 @@ class CommentsResource(Resource):
         'post': [loginrequired]
     }
 
-    def post(self):
-        """
-        1.接收数据
-        2.验证数据
-        3.数据入库
-        4.返回相应
-        :return:
-        """
-
-        user_id = g.user_id
-
-        parse = reqparse.RequestParser()
-        parse.add_argument('target', required=True)
-        parse.add_argument('content', required=True)
-        args = parse.parse_args()
-
-        comment = Comment()
-        comment.article_id = args.get('target')
-        comment.content = args.get('content')
-        comment.user_id = user_id
-        try:
-            db.session.add(comment)
-            db.session.commit()
-        except Exception:
-            return {}
-
-        return {
-            "com_id": comment.id,
-            "target": comment.article_id
-        }
+    
 
     def get(self):
         qs_parser = RequestParser()
