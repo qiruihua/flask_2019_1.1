@@ -57,12 +57,19 @@ class CommentsResource(Resource):
         parse=reqparse.RequestParser()
         parse.add_argument('target',required=True)
         parse.add_argument('content',required=True)
+        parse.add_argument('art_id', type=int, required=False, location='json')
         args=parse.parse_args()
+
+        art_id=args.art_id
 
         comment=Comment()
         comment.article_id=args.get('target')
         comment.content=args.get('content')
         comment.user_id=user_id
+        #如果有回复id,则表示回复评论
+        if art_id:
+            comment.article_id=art_id
+            comment.parent_id=args.target
         try:
             db.session.add(comment)
             db.session.commit()
@@ -71,8 +78,10 @@ class CommentsResource(Resource):
 
         return {
             "com_id": comment.id,
-            "target": comment.article_id
+            "target": comment.article_id,
+            "art_id": art_id
         }
+
 ```
 
 
