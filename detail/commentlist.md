@@ -1,4 +1,4 @@
-# 评论列表
+# 评论/回复评论列表
 
 ## 接口分析
 
@@ -105,13 +105,20 @@ class CommentsResource(Resource):
         limit = args.limit if args.limit is not None else constants.DEFAULT_COMMENT_PER_PAGE_MIN
         offset = args.offset
 
-        # 文章评论
-        article_id = args.source
-        comments = Comment.query.filter(Comment.article_id == article_id,
-                                        Comment.parent_id == None,
-                                        Comment.status == Comment.STATUS.APPROVED). \
-            order_by(Comment.is_top.desc(),
-                     Comment.id.desc()).all()
+        if args.type == 'a':
+            # 文章评论
+            article_id = args.source
+            comments = Comment.query.filter(Comment.article_id == article_id,
+                                            Comment.parent_id == None,
+                                            Comment.status == Comment.STATUS.APPROVED). \
+                order_by(Comment.is_top.desc(),
+                         Comment.id.desc()).all()
+        else:
+            comment_id = args.source
+            comments = Comment.query.filter(Comment.parent_id == comment_id,
+                                            Comment.status == Comment.STATUS.APPROVED). \
+                order_by(Comment.is_top.desc(),
+                         Comment.id.desc()).all()
 
         page_comments = []
         page_count = 0
