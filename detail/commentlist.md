@@ -30,8 +30,8 @@
                 "aut_photo": "",
                 "pubdate": "2019-08-07T08:53:01",
                 "content": "你写的真好",
-                          "reply_count": 0,
-                          "like_count": 0
+               "is_top": 0,
+               "is_liking": 0
             }
         ]
     }
