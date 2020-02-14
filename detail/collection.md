@@ -85,7 +85,7 @@ class CollectionResource(Resource):
         return {'target': target}, 201
 ```
 
-## 缓存关注信息
+## 
 
 
 
