@@ -65,7 +65,9 @@ class Comment(db.Model):
 
 ```
 from flask_restful import reqparse
-from project.utils.user import loginrequired
+from toutiao.utils.decorators import loginrequired
+from models.news import Comment
+
 class CommentsResource(Resource):
     method_decorators = {
         'post':[loginrequired]
@@ -79,7 +81,7 @@ class CommentsResource(Resource):
         4.返回相应
         :return:
         """
-        user_id=current_app.user_id
+        user_id=g.user_id
 
         parse=reqparse.RequestParser()
         parse.add_argument('target',required=True)
@@ -101,8 +103,6 @@ class CommentsResource(Resource):
             "target": comment.article_id
         }
 ```
-
-
 
 
 
