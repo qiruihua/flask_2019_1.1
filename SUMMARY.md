@@ -39,7 +39,7 @@
   * [发布评论](detail/comment.md)
   * [评论列表](detail/commentlist.md)
   * [回复评论](detail/replycomment.md)
-  * [commentlike](detail/commentlike.md)
+  * [点赞评论](detail/commentlike.md)
 * [用户中心](center.md)
   * [用户收藏列表](center/collection.md)
   * [用户关注列表](center/following.md)
