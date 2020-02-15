@@ -100,7 +100,7 @@ class FollowResource(Resource):
 
 ### 添加缓存
 
-用户状态
+用户关注
 
 | key | 类型 | 说明 | 举例 |
 | :--- | :--- | :--- | :--- |
@@ -111,8 +111,6 @@ class FollowResource(Resource):
 ```
 #用户收藏缓存
 from models.news import Collection
-
-
 ```
 
 
