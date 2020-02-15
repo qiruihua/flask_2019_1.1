@@ -91,7 +91,7 @@ class CollectionListResource(Resource):
         collection_ids.append(collection.article_id)
         #获取指定页数的数据
         page_articles = collection_ids[(page - 1) * per_page:page * per_page]
-        
+
 
         results = []
         for article_id in page_articles:
@@ -102,6 +102,8 @@ class CollectionListResource(Resource):
 ```
 
 ### 添加缓存
+
+在common的cache包的user.py文件中添加缓存
 
 ```
 #用户收藏缓存
@@ -172,6 +174,14 @@ class UserArticleCollectionsCache(object):
 ```
 
 ### 缓存常量设置
+
+```
+class UserArticleCollectionsCacheTTL(BaseCacheTTL):
+    """
+    用户文章收藏缓存时间，秒
+    """
+    TTL = 10 * 60
+```
 
 
 
