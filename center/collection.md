@@ -185,11 +185,61 @@ class UserArticleCollectionsCacheTTL(BaseCacheTTL):
 
 ### 判断用户是否收藏文章
 
+#### 添加判断方法
+
+```
+class UserArticleCollectionsCache(object):
+    """
+    用户收藏文章缓存
+    """
+    def __init__(self, user_id):
+        self.user_id = user_id
+        self.key = 'user:{}:art:collection'.format(user_id)
+
+
+    def user_collect_target(self, target):
+        """
+        判断用户是否收藏了指定文章
+        :param target:
+        :return:
+        """
+        total_count, collections = self.get_page(1, -1)
+        return target in collections
+```
+
+#### 修改详情页面
+
 ```
 is_collected = False
 from cache.user import UserArticleCollectionsCache
 if g.user_id:
     is_collected=UserArticleCollectionsCache(g.user_id).user_collect_target(article_id)
+```
+
+### 添加收藏或取消收藏清除缓存数据
+
+#### 添加清除缓存方法
+
+```
+class UserArticleCollectionsCache(object):
+    """
+    用户收藏文章缓存
+    """
+    def __init__(self, user_id):
+        self.user_id = user_id
+        self.key = 'user:{}:art:collection'.format(user_id)
+
+
+    def clear(self):
+        current_app.redis_store.delete(self.key)
+```
+
+### 添加收藏或取消收藏调用
+
+```
+# 删除关注缓存
+from cache.user import UserArticleCollectionsCache
+UserArticleCollectionsCache(g.user_id).clear()
 
 ```
 
