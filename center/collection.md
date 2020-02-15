@@ -103,6 +103,14 @@ class CollectionListResource(Resource):
 
 ### 添加缓存
 
+用户状态
+
+| key | 类型 | 说明 | 举例 |
+| :--- | :--- | :--- | :--- |
+| user:{user\_id}:art:collection | zset | user\_id | \[{article\_id,update\_time}\] |
+
+###  {#2-comment-cache}
+
 在common的cache包的user.py文件中添加缓存
 
 ```
@@ -240,7 +248,6 @@ class UserArticleCollectionsCache(object):
 # 删除关注缓存
 from cache.user import UserArticleCollectionsCache
 UserArticleCollectionsCache(g.user_id).clear()
-
 ```
 
 
