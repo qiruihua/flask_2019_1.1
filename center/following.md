@@ -51,59 +51,68 @@
 ## 后端实现
 
 ```
-from project.models.user import Relation
 class FollowResource(Resource):
 
     method_decorators = [loginrequired]
 
     def get(self):
         """
-        1.获取用户id
-        2.查询关注列表
-        3.将对象列表转换为字典，返回相应
-        :return:
+        获取关注的用户列表
         """
-        page = request.args.get('page', 1)
-        per_page = request.args.get('per_page', 10)
+        # 参数验证
+        qs_parser = RequestParser()
+        qs_parser.add_argument('page', type=inputs.positive, required=False, location='args')
+        qs_parser.add_argument('per_page', type=inputs.int_range(constants.DEFAULT_USER_FOLLOWINGS_PER_PAGE_MIN,
+                                                                 constants.DEFAULT_USER_FOLLOWINGS_PER_PAGE_MAX,
+                                                                 'per_page'),
+                               required=False, location='args')
+        args = qs_parser.parse_args()
+        page = 1 if args.page is None else args.page
+        per_page = args.per_page if args.per_page else constants.DEFAULT_USER_FOLLOWINGS_PER_PAGE_MIN
 
-        try:
-            page = int(page)
-            per_page = int(per_page)
-        except Exception:
-            page = 1
-            per_page = 10
-        # 1.获取用户id
-        user_id=current_app.user_id
-        # 2.查询关注列表
-        page_relations=Relation.query.filter_by(user_id=user_id,
-                                          relation=Relation.RELATION.FOLLOW).paginate(page=page,
-                                                                                       per_page=per_page)
+        # 构造返回
+        #查询结果
+        followers = Relation.query.filter_by(user_id=g.user_id,
+                       relation=Relation.RELATION.FOLLOW) \
+            .order_by(Relation.utime.desc()).all()
+
+        total_count = len(followers)
+
+        #获取所有的关注人员id
+        follower_ids = []
+        for relation in followers:
+            follower_ids.append(relation.user_id)
+        #分页
+        page_followings = follower_ids[(page - 1) * per_page:page * per_page]
+        #遍历获取缓存信息
         results = []
-        for item in page_relations.items:
-            user=User.query.get(item.target_user_id)
+        for following_user_id in page_followings:
+            user = UserProfileCache(following_user_id).get()
+            results.append(dict(
+                id=following_user_id,
+                name=user['name'],
+                photo=user['photo'],
+                mutual_follow=False
+            ))
 
-            #相互关注判断
-            mutual_follow=False
-            for rel in user.followings:
-                if rel.target_user_id == user_id:
-                    mutual_follow=True
-                    break
+        return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
+```
 
-            results.append( {
-                    "id": item.id,
-                    "name": user.name,
-                    "photo": user.profile_photo,
-                    "fans_count": user.fans_count,
-                    "mutual_follow": mutual_follow  # 是否为互相关注
-                })
-        # 3.将对象列表转换为字典，返回相应
+### 添加缓存
 
-        return {
-            "total_count": page_relations.total,
-            "page": page,
-            "per_page": per_page,
-            "results": results
-        }
+用户状态
+
+| key | 类型 | 说明 | 举例 |
+| :--- | :--- | :--- | :--- |
+| user:{user\_id}:art:collection | zset | user\_id | \[{article\_id,update\_time}\] |
+
+在common的cache包的user.py文件中添加缓存
+
+```
+#用户收藏缓存
+from models.news import Collection
+
+
 ```
 
 
