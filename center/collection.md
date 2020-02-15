@@ -183,5 +183,15 @@ class UserArticleCollectionsCacheTTL(BaseCacheTTL):
     TTL = 10 * 60
 ```
 
+### 判断用户是否收藏文章
+
+```
+is_collected = False
+from cache.user import UserArticleCollectionsCache
+if g.user_id:
+    is_collected=UserArticleCollectionsCache(g.user_id).user_collect_target(article_id)
+
+```
+
 
 
