@@ -109,7 +109,7 @@ class CollectionListResource(Resource):
 | :--- | :--- | :--- | :--- |
 | user:{user\_id}:art:collection | zset | user\_id | \[{article\_id,update\_time}\] |
 
-###  {#2-comment-cache}
+
 
 在common的cache包的user.py文件中添加缓存
 
