@@ -104,13 +104,61 @@ class FollowResource(Resource):
 
 | key | 类型 | 说明 | 举例 |
 | :--- | :--- | :--- | :--- |
-| user:{user\_id}:art:collection | zset | user\_id | \[{article\_id,update\_time}\] |
+| user:{user\_id}:collection | zset | user\_id | \[{article\_id,update\_time}\] |
 
 在common的cache包的user.py文件中添加缓存
 
 ```
-#用户收藏缓存
-from models.news import Collection
+from models.user import Relation
+class UserFollowingCache(object):
+    """
+    用户关注缓存数据
+    """
+    def __init__(self, user_id):
+        self.key = 'user:{}:following'.format(user_id)
+        self.user_id = user_id
+
+    def get(self):
+        """
+        获取用户的关注列表
+        :return:
+        """
+        # 查询到缓存，则直接构造返回
+        try:
+            ret = current_app.redis_store.zrevrange(self.key, 0, -1)
+        except RedisError as e:
+            print(e)
+            ret = None
+
+        if ret:
+            # 为了与数据库类型保持一致
+            return [int(uid) for uid in ret]
+
+        # 查询不到缓存，则从数据库中查询并构造返回
+
+        ret = Relation.query.filter_by(user_id=self.user_id, relation=Relation.RELATION.FOLLOW) \
+            .order_by(Relation.utime.desc()).all()
+
+        followings = []
+        cache = []
+        for relation in ret:
+            followings.append(relation.target_user_id)
+
+            cache.append({
+                relation.target_user_id: relation.utime.timestamp()
+            })
+        # 将数据存入缓存
+        if cache:
+            try:
+                pl = current_app.redis_store.pipeline()
+                for item in cache:
+                    pl.zadd(self.key, item)
+                pl.expire(self.key, constants.UserFollowingsCacheTTL.get_val())
+                results = pl.execute()
+            except RedisError as e:
+                current_app.logger.error(e)
+
+        return followings
 ```
 
 
