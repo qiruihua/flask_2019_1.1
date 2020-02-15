@@ -161,5 +161,31 @@ class UserFollowingCache(object):
         return followings
 ```
 
+### 缓存常量设置
+
+```
+class UserFollowingsCacheTTL(BaseCacheTTL):
+    """
+    用户关注列表缓存时间，秒
+    """
+    TTL = 30 * 60
+```
+
+### 判断用户是否关注作者
+
+#### 添加判断方法
+
+```
+
+```
+
+#### 修改详情页面
+
+```
+
+```
+
+### 
+
 
 
