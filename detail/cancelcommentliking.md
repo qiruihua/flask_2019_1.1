@@ -2,7 +2,7 @@
 
 ## 接口分析
 
-**请求方式**：DELETE /app/v1\_0/article/likings/&lt;target&gt;/
+**请求方式**：DELETE /app/v1\_0/comment/likings/&lt;target&gt;/
 
 **请求参数**：
 
@@ -26,21 +26,19 @@
 ## 后端实现
 
 ```
-class ArticleLikeDeleteResource(Resource):
+class CommentLikingDeleteResource(Resource):
     """
-    文章点赞取消
+    评论点赞
     """
     method_decorators = [loginrequired]
 
     def delete(self, target):
         """
-        取消文章点赞
+        取消对评论点赞
         """
-        # 修改数据
-        ret = Attitude.query.filter_by(user_id=g.user_id, article_id=target, attitude=Attitude.ATTITUDE.LIKING) \
-            .update({'attitude': 0})
+        ret = CommentLiking.query.filter_by(user_id=g.user_id, comment_id=target, is_deleted=False) \
+            .update({'is_deleted': True})
         db.session.commit()
-
         return {'message': 'OK'}, 204
 ```
 
