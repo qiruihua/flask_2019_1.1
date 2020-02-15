@@ -57,9 +57,121 @@
 ## 后端实现
 
 ```
-from project.apps.home import constants
-from flask_restful.inputs import positive,int_range
+from cache.article import ArticleDetailCache
+from flask import g
+class CollectionListResource(Resource):
+
+    method_decorators = [loginrequired]
+
+    def get(self):
+        """
+        获取用户的收藏历史
+        """
+        # 参数检验
+        qs_parser = RequestParser()
+        qs_parser.add_argument('page', type=inputs.positive, required=False, location='args')
+        qs_parser.add_argument('per_page', type=inputs.int_range(constants.DEFAULT_ARTICLE_PER_PAGE_MIN,
+                                                                 constants.DEFAULT_ARTICLE_PER_PAGE_MAX,
+                                                                 'per_page'),
+                               required=False, location='args')
+        args = qs_parser.parse_args()
+        page = 1 if args.page is None else args.page
+        per_page = args.per_page if args.per_page else constants.DEFAULT_ARTICLE_PER_PAGE_MIN
+
+        # 构造返回
+        collections = Collection.query.filter_by(user_id=g.user_id,
+        is_deleted=False) \
+        .order_by(Collection.utime.desc()).all()
+
+        total_count = len(collections)
+        #获取收藏的所有文章id 为缓存做准备
+        collection_ids = []
+
+        for collection in collections:
+        collection_ids.append(collection.article_id)
+        #获取指定页数的数据
+        page_articles = collection_ids[(page - 1) * per_page:page * per_page]
+        
+
+        results = []
+        for article_id in page_articles:
+            article = ArticleDetailCache(article_id).get()
+            results.append(article)
+
+        return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
 ```
+
+### 添加缓存
+
+```
+#用户收藏缓存
+from models.news import Collection
+
+class UserArticleCollectionsCache(object):
+    """
+    用户收藏文章缓存
+    """
+    def __init__(self, user_id):
+        self.user_id = user_id
+        self.key = 'user:{}:art:collection'.format(user_id)
+
+    def get_page(self, page, per_page):
+        """
+        获取用户的文章列表
+        :param page: 页数
+        :param per_page: 每页数量
+        :return: total_count, [article_id, ..]
+        """
+        try:
+            pl = current_app.redis_store.pipeline()
+            pl.zcard(self.key)
+            pl.zrevrange(self.key, (page - 1) * per_page, page * per_page)
+            total_count, ret = pl.execute()
+        except RedisError as e:
+            current_app.logger.error(e)
+            total_count = 0
+            ret = []
+
+        if total_count > 0:
+            # Cache exists.
+            return total_count, [int(aid) for aid in ret]
+        else:
+            # No cache.
+            # 构造返回
+            collections = Collection.query.filter_by(user_id=self.user_id,
+                                                     is_deleted=False) \
+                .order_by(Collection.utime.desc()).all()
+
+            total_count = len(collections)
+            # 获取收藏的所有文章id 为缓存做准备
+            collection_ids = []
+            cache = []
+            for collection in collections:
+                collection_ids.append(collection.article_id)
+                # 缓存的数据结构
+                cache.append({
+                    collection.article_id:collection.utime.timestamp()
+                })
+
+            # 获取指定页数的数据
+            page_articles = collection_ids[(page - 1) * per_page:page * per_page]
+
+            if cache:
+                #重新更新缓存数据
+                try:
+                    pl = current_app.redis_store.pipeline()
+                    for item in cache:
+                        pl.zadd(self.key, item)
+                    pl.expire(self.key, constants.UserArticleCollectionsCacheTTL.get_val())
+                    results = pl.execute()
+
+                except RedisError as e:
+                    current_app.logger.error(e)
+
+            return total_count, page_articles
+```
+
+### 缓存常量设置
 
 
 
