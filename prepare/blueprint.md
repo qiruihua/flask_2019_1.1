@@ -38,7 +38,7 @@ home_api.add_resource(views.IndexResource, '/')
 ### view.py代码
 
 ```
-from project.apps.home import home_api
+from toutiao.apps.home import home_api
 from flask_restful import Resource
 
 class IndexResource(Resource):
@@ -47,9 +47,6 @@ class IndexResource(Resource):
         return {
                 "index": "index"
         }
-
-
-
 ```
 
 ### project包的\_\__init_\_.py中注册路由\_
@@ -91,9 +88,6 @@ class LoginResource(Resource):
         return {
               "login": "login"
             }
-
-
-
 ```
 
 ### project包的\_\__init_\_.py中注册路由\_
