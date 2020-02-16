@@ -176,7 +176,24 @@ class UserFollowingsCacheTTL(BaseCacheTTL):
 #### 添加判断方法
 
 ```
+class UserFollowingCache(object):
+    """
+    用户关注缓存数据
+    """
+    def __init__(self, user_id):
+        self.key = 'user:{}:following'.format(user_id)
+        self.user_id = user_id
 
+
+    def user_follows_target(self, target_user_id):
+        """
+        判断用户是否关注了目标用户
+        :param target_user_id: 被关注的用户id
+        :return:
+        """
+        followings = self.get()
+
+        return int(target_user_id) in followings
 ```
 
 #### 修改详情页面
