@@ -49,11 +49,11 @@ class IndexResource(Resource):
         }
 ```
 
-### project包的\_\__init_\_.py中注册路由\_
+### project包的\_\__init_\_.py中注册路由
 
 ```
 # 注册蓝图
-from project.apps.home import home_blueprint
+from toutiao.apps.home import home_blueprint
 app.register_blueprint(home_blueprint)
 ```
 
@@ -80,7 +80,7 @@ user_api.add_resource(views.LoginResource,'/login')
 
 ```
 from flask_restful import Resource
-from project.apps.user import user_api
+from toutiao.apps.user import user_api
 
 class LoginResource(Resource):
 
@@ -90,12 +90,12 @@ class LoginResource(Resource):
             }
 ```
 
-### project包的\_\__init_\_.py中注册路由\_
+### project包的\_\__init_\_.py中注册路由
 
 ```
 # 注册蓝图
 
-from project.apps.user import user_blueprint
+from toutiao.apps.user import user_blueprint
 app.register_blueprint(user_blueprint)
 ```
 
