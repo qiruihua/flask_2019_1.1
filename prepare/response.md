@@ -181,5 +181,9 @@ home_blueprint=Blueprint('home',__name__,url_prefix='/')
 home_api=BaseApi(home_blueprint)
 ```
 
+> 注意
+>
+> ![](/assets/common_source_root.png)
+
 
 
