@@ -50,7 +50,7 @@
 ## 后端实现
 
 ```
-class FollowResource(Resource):
+class FansResource(Resource):
 
     method_decorators = [loginrequired]
 
@@ -71,7 +71,7 @@ class FollowResource(Resource):
 
         # 构造返回
         #查询结果
-        followers = Relation.query.filter_by(user_id=g.user_id,
+        followers = Relation.query.filter_by(target_user_id=g.user_id,
                        relation=Relation.RELATION.FOLLOW) \
             .order_by(Relation.utime.desc()).all()
 
