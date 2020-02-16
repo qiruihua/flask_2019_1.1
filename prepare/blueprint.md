@@ -13,7 +13,7 @@
 
 > apps 存放当前项目所有的模块
 
-## Home蓝图
+## 1.Home蓝图
 
 在`apps`文件夹下创建`home`包， 并在此文件夹下创建`views.py`文件
 
@@ -49,7 +49,7 @@ class IndexResource(Resource):
         }
 ```
 
-### project包的\_\__init_\_.py中注册路由
+### toutiao包的\_\__init_\_.py中注册路由
 
 ```
 # 注册蓝图
@@ -59,7 +59,7 @@ app.register_blueprint(home_blueprint)
 
 > 测试访问首页
 
-## User蓝图
+## 2.User蓝图
 
 ### \_\__init_\_\_.py代码
 
@@ -90,7 +90,7 @@ class LoginResource(Resource):
             }
 ```
 
-### project包的\_\__init_\_.py中注册路由
+### toutiao包的\_\__init_\_.py中注册路由
 
 ```
 # 注册蓝图
