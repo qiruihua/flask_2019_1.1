@@ -26,6 +26,7 @@
                 "id": 1,
                 "name": "黑马头条号",
                 "photo": "Fph9hHDwU9UzMTUAqDwd6bFGaWbg",
+                "fans_count": 1,
                 "mutual_follow": false  # 是否为互相关注
             }
         ]
