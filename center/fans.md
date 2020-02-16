@@ -26,7 +26,6 @@
                 "id": 1,
                 "name": "黑马头条号",
                 "photo": "Fph9hHDwU9UzMTUAqDwd6bFGaWbg",
-                "fans_count": 1,
                 "mutual_follow": false  # 是否为互相关注
             }
         ]
@@ -45,7 +44,6 @@
 | id | str | 否 | id |
 | name | str | 否 | 名字 |
 | photo | str | 否 | 头像路由 |
-| fans\_count | int | 否 | 粉丝数量 |
 | mutual\_follow | bool | 否 | 是否互相关注 |
 
 ## 后端实现
