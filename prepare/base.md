@@ -6,7 +6,7 @@
 
 ![](/assets/setting文件.png)
 
-* 在与`manage.py`同级目录下创建`setting.py`文件，用作于项目的配置文件
+* 在与`manage.py`同级目录下创建`settings.py`文件，用作于项目的配置文件
 
 ```
 class Config(object):
