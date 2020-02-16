@@ -50,8 +50,51 @@
 ## 后端实现
 
 ```
-from project.apps.home import constants
-from flask_restful.inputs import positive,int_range
+class FollowResource(Resource):
+
+    method_decorators = [loginrequired]
+
+    def get(self):
+        """
+        获取关注的用户列表
+        """
+        # 参数验证
+        qs_parser = RequestParser()
+        qs_parser.add_argument('page', type=inputs.positive, required=False, location='args')
+        qs_parser.add_argument('per_page', type=inputs.int_range(constants.DEFAULT_USER_FOLLOWINGS_PER_PAGE_MIN,
+                                                                 constants.DEFAULT_USER_FOLLOWINGS_PER_PAGE_MAX,
+                                                                 'per_page'),
+                               required=False, location='args')
+        args = qs_parser.parse_args()
+        page = 1 if args.page is None else args.page
+        per_page = args.per_page if args.per_page else constants.DEFAULT_USER_FOLLOWINGS_PER_PAGE_MIN
+
+        # 构造返回
+        #查询结果
+        followers = Relation.query.filter_by(user_id=g.user_id,
+                       relation=Relation.RELATION.FOLLOW) \
+            .order_by(Relation.utime.desc()).all()
+
+        total_count = len(followers)
+
+        #获取所有的关注人员id
+        follower_ids = []
+        for relation in followers:
+            follower_ids.append(relation.user_id)
+        #分页
+        page_followings = follower_ids[(page - 1) * per_page:page * per_page]
+        #遍历获取缓存信息
+        results = []
+        for following_user_id in page_followings:
+            user = UserProfileCache(following_user_id).get()
+            results.append(dict(
+                id=following_user_id,
+                name=user['name'],
+                photo=user['photo'],
+                mutual_follow=False
+            ))
+
+        return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
 ```
 
 
