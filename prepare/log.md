@@ -135,6 +135,8 @@ logging.basicConfig(level=logging.DEBUG)
 * 在`settings.py`文件中在不同的环境的配置下添加日志级别
 
 ```
+import logging
+
 class Config(object):
     ...
 
