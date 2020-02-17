@@ -83,10 +83,10 @@ def get_user_token(user_id):
 ### 修改登录视图的返回数据
 
 ```
-        # 4.生成token
-        token,refresh_token = get_user_token(user.id)
-        # 5.返回相应
-        return {'token': token,'refresh_token':refresh_token}
+    # 4.生成token
+    token,refresh_token = get_user_token(user.id)
+    # 5.返回相应
+    return {'token': token,'refresh_token':refresh_token}
 ```
 
 
