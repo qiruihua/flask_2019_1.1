@@ -198,7 +198,7 @@ def check_mobile(mobile_str):
 
 ```
 from itsdangerous import TimedJSONWebSignatureSerializer
-from settings import Config
+from toutiao.settings import Config
 #生成token
 def get_user_token(user_id):
 
