@@ -51,7 +51,7 @@ class SmsCodeResource(Resource):
         }
 
 
-user_api.add_resource(SmsCodeResource,'/sms/codes/<mobile>/')
+user_api.add_resource(views.SmsCodeResource,'/sms/codes/<mobile>/')
 ```
 
 将系统常量提取出来集中管理\(**/user/constants.py**\)：
@@ -102,7 +102,7 @@ register_converters(app)
 修改路由
 
 ```
-user_api.add_resource(SmsCodeResource,'/sms/codes/<mobile:mobile>/')
+user_api.add_resource(views.SmsCodeResource,'/sms/codes/<mobile:mobile>/')
 ```
 
 ###  {#31-关于接口通用返回格式}
