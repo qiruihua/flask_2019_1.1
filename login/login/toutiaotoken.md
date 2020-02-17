@@ -89,5 +89,5 @@ def get_user_token(user_id):
     return {'token': token,'refresh_token':refresh_token}
 ```
 
-
+![](/assets/登录成功响应.png)
 
