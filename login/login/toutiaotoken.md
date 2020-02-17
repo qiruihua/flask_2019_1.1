@@ -56,6 +56,8 @@
 | token | str | 是 | 用户token |
 | refresh\_token | str | 是 | 刷新token |
 
+### 修改token.py文件中get\_user\_token方法实现
+
 ```
 from datetime import datetime, timedelta
 from flask import current_app
@@ -76,6 +78,15 @@ def get_user_token(user_id):
     refresh_expiry = now + timedelta(days=current_app.config['JWT_REFRESH_DAYS'])
     refresh_token = generate_jwt({'user_id': user_id, 'refresh': True}, refresh_expiry)
     return token, refresh_token
+```
+
+### 修改登录视图的返回数据
+
+```
+        # 4.生成token
+        token,refresh_token = get_user_token(user.id)
+        # 5.返回相应
+        return {'token': token,'refresh_token':refresh_token}
 ```
 
 
