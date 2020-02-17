@@ -108,7 +108,7 @@ from flask import request
 from flask_restful import reqparse
 from flask_restful.inputs import regex
 from models.user import User
-from project import db
+from toutiao import db
 from toutiao.utils.parsers import check_mobile
 from toutiao.utils.token import get_user_token
 
