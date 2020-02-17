@@ -219,3 +219,7 @@ SECRET_KEY = 'AHBvaWtqaGdmZHh6cXdlZHJmZ2hqbSwuLz0tMDk4NzY1NDMyMXEALg'
 
 ![](/assets/登录成功.png)
 
+> 报异常是正确的，是因为首页的业务逻辑我们还没有实现
+
+
+
