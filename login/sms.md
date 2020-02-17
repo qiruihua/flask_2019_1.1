@@ -105,7 +105,7 @@ register_converters(app)
 user_api.add_resource(views.SmsCodeResource,'/sms/codes/<mobile:mobile>/')
 ```
 
-###  {#31-关于接口通用返回格式}
+### ![](/assets/短信验证码发送成功.png) {#31-关于接口通用返回格式}
 
 
 
