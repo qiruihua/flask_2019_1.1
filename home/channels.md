@@ -135,13 +135,11 @@ class AllChannelsCache(object):
 ### 添加缓存时间变量
 
 ```
-
 class ALLCHANNELSCACHETTL(BaseCacheTTL):
     """
     全部频道缓存有效期，秒
     """
     TTL = 24 * 60 * 60
-
 ```
 
 ### 修改获取所有频道视图实现逻辑
