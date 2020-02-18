@@ -6,7 +6,7 @@
 
 我们通过请求钩子来获取请求头中的token信息
 
-在toutiao的_init_.py中添加token的获取和验证
+在toutiao的\_\__init.py\_\__中添加token的获取和验证
 
 ```
 #验证请求钩子

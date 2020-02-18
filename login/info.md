@@ -48,6 +48,7 @@
 判断用户是否登录的装饰器
 
 ```
+from flask import g
 #必须登录装饰器
 def loginrequired(func):
 
@@ -59,8 +60,6 @@ def loginrequired(func):
             return func(*args,**kwargs)
 
     return wrapper
-
-from project.utils.decorators import loginrequired
 ```
 
 ### 返回用户信息
