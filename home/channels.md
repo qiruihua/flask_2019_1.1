@@ -81,11 +81,11 @@ class ChannelsResource(Resource):
 
 ## 定义缓存类
 
+在common目录的cache包中新建一个channel.py文件
+
 | key | 类型 | 说明 | 举例 |
 | :--- | :--- | :--- | :--- |
 | ch:all | string | 所有频道 | key:value |
-
-
 
 ```
 from flask import current_app
@@ -125,7 +125,7 @@ class AllChannelsCache(object):
 
         # 返回前，先将数据缓存起来，这样下次就可以直接在缓存中取数据了
         try:
-            current_app.redis_store.setex(cls.key, constants.ALL_CHANNELS_CACHE_TTL, json.dumps(results))
+            current_app.redis_store.setex(cls.key, constants.ALLCHANNELSCACHETTL.get_val(), json.dumps(results))
         except RedisError as e:
             current_app.logger.error(e)
 
@@ -135,8 +135,13 @@ class AllChannelsCache(object):
 ### 添加缓存时间变量
 
 ```
-# 全部频道缓存有效期，秒
-ALL_CHANNELS_CACHE_TTL = 24 * 60 * 60
+
+class ALLCHANNELSCACHETTL(BaseCacheTTL):
+    """
+    全部频道缓存有效期，秒
+    """
+    TTL = 24 * 60 * 60
+
 ```
 
 ### 修改获取所有频道视图实现逻辑
