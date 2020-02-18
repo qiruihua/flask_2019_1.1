@@ -53,6 +53,8 @@ user_api.add_resource(views.UserInfoResource,'/user/')
 user_api.add_resource(views.CacheUserInfoResource,'/user/cache')
 ```
 
+### ![](/assets/数据库查询ab测试.png)
+
 ### 接口B查询Redis
 
 ```
@@ -85,5 +87,5 @@ class CacheUserInfoResource(Resource):
 user_api.add_resource(views.CacheUserInfoResource,'/user/cache')
 ```
 
-
+![](/assets/Redis查询ab测试.png)
 
