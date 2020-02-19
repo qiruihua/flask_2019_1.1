@@ -2,7 +2,7 @@
 
 ## 接口分析
 
-**请求方式**：DELETE /app/v1\_0/article/collections/&lt;target&gt;/
+**请求方式**：DELETE /app/v1\_0/article/collections/&lt;target&gt;
 
 **请求参数**：
 

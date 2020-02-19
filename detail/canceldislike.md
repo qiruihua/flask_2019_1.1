@@ -2,7 +2,7 @@
 
 ## 接口分析
 
-**请求方式**：DELETE /app/v1\_0/article/dislikes/&lt;target&gt;/
+**请求方式**：DELETE /app/v1\_0/article/dislikes/&lt;target&gt;
 
 **请求参数**：
 
@@ -40,10 +40,6 @@ class DisLikeDeleteResource(Resource):
         db.session.commit()
         return {'message': 'OK'}, 204
 ```
-
-
-
-
 
 
 
