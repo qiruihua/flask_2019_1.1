@@ -2,7 +2,7 @@
 
 ## 接口分析
 
-**请求方式**：GET /app/v1\_0/article/collections
+**请求方式**：GET /app/v1\_0/user/histories
 
 **请求参数**：
 
