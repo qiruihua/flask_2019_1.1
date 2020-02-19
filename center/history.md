@@ -53,5 +53,55 @@ class UserReadingHistoryStorage(object):
 READING_HISTORY_COUNT_PER_USER = 100
 ```
 
+添加阅读历史
+
+```
+        from cache.user import UserReadingHistoryStorage
+        if g.user_id:
+            is_collected = UserArticleCollectionsCache(g.user_id).user_collect_target(article_id)
+            # 是否关注
+            is_followed = UserFollowingCache(g.user_id).user_follows_target(article_dict.get('aut_id'))
+            #添加阅读历史
+            UserReadingHistoryStorage(g.user_id).save(article_id)
+```
+
+展示阅读历史
+
+```
+from cache.user import UserReadingHistoryStorage
+from cache.article import ArticleDetailCache
+
+class ReadingHistoryResource(Resource):
+    """
+    用户阅读历史
+    """
+    method_decorators = [loginrequired]
+
+    def get(self):
+        """
+        获取用户阅读历史
+        """
+        qs_parser = RequestParser()
+        qs_parser.add_argument('page', type=inputs.positive, required=False, location='args')
+        qs_parser.add_argument('per_page', type=inputs.int_range(constants.DEFAULT_ARTICLE_PER_PAGE_MIN,
+                                                                 constants.DEFAULT_ARTICLE_PER_PAGE_MAX,
+                                                                 'per_page'),
+                               required=False, location='args')
+        args = qs_parser.parse_args()
+        page = 1 if args.page is None else args.page
+        per_page = args.per_page if args.per_page else constants.DEFAULT_ARTICLE_PER_PAGE_MIN
+
+        user_id = g.user_id
+
+        results = []
+        total_count, article_ids = UserReadingHistoryStorage(user_id).get(page, per_page)
+
+        for article_id in article_ids:
+            article = ArticleDetailCache(int(article_id)).get()
+            results.append(article)
+
+        return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
+```
+
 
 
