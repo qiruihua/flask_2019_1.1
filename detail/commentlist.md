@@ -160,5 +160,5 @@ DEFAULT_COMMENT_PER_PAGE_MIN = 10
 DEFAULT_COMMENT_PER_PAGE_MAX = 50
 ```
 
-
+![](/assets/评论列表.png)
 
