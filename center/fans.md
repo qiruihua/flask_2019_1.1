@@ -230,7 +230,6 @@ class FansResource(Resource):
 添加粉丝相互关注的判断逻辑
 
 ```
-
         from cache.user import UserFollowingCache
 
         for following_user_id in page_followings:
@@ -242,13 +241,12 @@ class FansResource(Resource):
                 photo=user['photo'],
                 mutual_follow=mutual_follow
             ))
-
 ```
 
 添加用户关注是否相互关注的判断逻辑
 
 ```
- from cache.user import UserFansCache
+         from cache.user import UserFansCache
         fans=UserFansCache(g.user_id).get()
         for following_user_id in page_followings:
             user = UserProfileCache(following_user_id).get()
