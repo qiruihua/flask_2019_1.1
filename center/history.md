@@ -56,13 +56,13 @@ READING_HISTORY_COUNT_PER_USER = 100
 添加阅读历史
 
 ```
-        from cache.user import UserReadingHistoryStorage
-        if g.user_id:
-            is_collected = UserArticleCollectionsCache(g.user_id).user_collect_target(article_id)
-            # 是否关注
-            is_followed = UserFollowingCache(g.user_id).user_follows_target(article_dict.get('aut_id'))
-            #添加阅读历史
-            UserReadingHistoryStorage(g.user_id).save(article_id)
+from cache.user import UserReadingHistoryStorage
+if g.user_id:
+    is_collected = UserArticleCollectionsCache(g.user_id).user_collect_target(article_id)
+    # 是否关注
+    is_followed = UserFollowingCache(g.user_id).user_follows_target(article_dict.get('aut_id'))
+    #添加阅读历史
+    UserReadingHistoryStorage(g.user_id).save(article_id)
 ```
 
 展示阅读历史
