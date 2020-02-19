@@ -98,7 +98,16 @@ class FollowResource(Resource):
         return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
 ```
 
-### 添加缓存
+在home蓝图的constants中添加常量
+
+```
+# 用户关注列表每页数据量
+DEFAULT_USER_FOLLOWINGS_PER_PAGE_MIN = 10
+# 用户关注列表每页数据量
+DEFAULT_USER_FOLLOWINGS_PER_PAGE_MAX = 50
+```
+
+## 添加缓存
 
 用户关注
 
@@ -161,7 +170,7 @@ class UserFollowingCache(object):
         return followings
 ```
 
-### 缓存常量设置
+缓存常量设置
 
 ```
 class UserFollowingsCacheTTL(BaseCacheTTL):
@@ -171,9 +180,9 @@ class UserFollowingsCacheTTL(BaseCacheTTL):
     TTL = 30 * 60
 ```
 
-### 判断用户是否关注作者
+## 判断用户是否关注作者
 
-#### 添加判断方法
+添加判断方法
 
 ```
 class UserFollowingCache(object):
@@ -196,7 +205,7 @@ class UserFollowingCache(object):
         return int(target_user_id) in followings
 ```
 
-#### 修改详情页面
+修改详情页面
 
 ```
 from cache.user import UserFollowingCache
