@@ -46,5 +46,5 @@
   * [用户收藏列表](center/collection.md)
   * [用户关注列表](center/following.md)
   * [用户粉丝列表](center/fans.md)
-  * [用户历史](center/history.md)
+  * [用户历史列表](center/history.md)
 
