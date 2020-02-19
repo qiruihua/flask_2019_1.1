@@ -74,6 +74,7 @@ class FollowResource(Resource):
         parse=reqparse.RequestParser()
         parse.add_argument('target',location='json',required=True)
         args=parse.parse_args()
+        
         user=None
         try:
             user=User.query.get(args.get('target'))
@@ -91,8 +92,11 @@ class FollowResource(Resource):
             db.session.add(relation)
             db.session.commit()
         except Exception as e:
-            current_app.logger.error(e)
-            return {'message':'error','data':{}}
+            db.session.rollback()
+            Relation.query.filter(Relation.user_id == g.user_id,
+                                  Relation.target_user_id == args.get('target')) \
+                .update({'relation': Relation.RELATION.FOLLOW})
+            db.session.commit()
         # 4.返回相应
         return {'target':args.get('target')}
 ```
