@@ -176,7 +176,7 @@ class ArticleDetailCache(object):
 添加详情数据缓存时间
 
 ```
-   class ArticleDetailCacheTTL(BaseCacheTTL):
+class ArticleDetailCacheTTL(BaseCacheTTL):
     """
     文章详细内容缓存时间，秒
     """
