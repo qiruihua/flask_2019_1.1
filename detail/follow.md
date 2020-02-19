@@ -97,6 +97,8 @@ class FollowResource(Resource):
         return {'target':args.get('target')}
 ```
 
+## ![](/assets/已关注.png)
+
 ## 缓存关注信息
 
 | key | 类型 | 说明 | 举例 |
