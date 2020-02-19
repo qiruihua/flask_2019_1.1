@@ -72,14 +72,13 @@ class CollectionResource(Resource):
         target = args.target
 
         # 创建或更新数据
-        ret = 1
         try:
             collection = Collection(user_id=g.user_id, article_id=target)
             db.session.add(collection)
             db.session.commit()
         except IntegrityError:
             db.session.rollback()
-            ret = Collection.query.filter_by(user_id=g.user_id, article_id=target, is_deleted=True) \
+            Collection.query.filter_by(user_id=g.user_id, article_id=target, is_deleted=True) \
                 .update({'is_deleted': False})
             db.session.commit()
 
