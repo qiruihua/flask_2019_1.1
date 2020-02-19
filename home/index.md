@@ -228,7 +228,6 @@ class AllChannelsCache(object):
             if channel_id == ch['id']:
                 return True
         return False
-
 ```
 
 
