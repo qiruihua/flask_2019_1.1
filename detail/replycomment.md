@@ -60,13 +60,12 @@ class CommentsResource(Resource):
         parse.add_argument('art_id', type=int, required=False, location='json')
         args=parse.parse_args()
 
-        art_id=args.art_id
-
         comment=Comment()
         comment.article_id=args.get('target')
         comment.content=args.get('content')
         comment.user_id=user_id
         #如果有回复id,则表示回复评论
+        art_id=args.art_id
         if art_id:
             comment.article_id=art_id
             comment.parent_id=args.target
@@ -81,7 +80,6 @@ class CommentsResource(Resource):
             "target": comment.article_id,
             "art_id": art_id
         }
-
 ```
 
 
