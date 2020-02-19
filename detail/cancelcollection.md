@@ -34,7 +34,7 @@ class CollectionDeleteResource(Resource):
         """
         用户取消收藏
         """
-        ret = Collection.query.filter_by(user_id=g.user_id, article_id=target, is_deleted=False) \
+        Collection.query.filter_by(user_id=g.user_id, article_id=target, is_deleted=False) \
             .update({'is_deleted': True})
         db.session.commit()
 
