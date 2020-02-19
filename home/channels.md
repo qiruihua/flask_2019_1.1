@@ -110,7 +110,7 @@ class AllChannelsCache(object):
     def get(cls):
         """
         获取
-        :return: [{'name': 'python', 'id': '123'}, {}]
+        :return: {'channels':[{'name': 'python', 'id': '123'}, {}]}
         """
 
         # 先从缓存取数据，能取到缓存数据就直接返回

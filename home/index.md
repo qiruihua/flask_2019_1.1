@@ -177,5 +177,9 @@ DEFAULT_ARTICLE_PER_PAGE_MIN = 10
 DEFAULT_ARTICLE_PER_PAGE_MAX = 50
 ```
 
+### 添加对channel\_id的验证
+
+
+
 
 
