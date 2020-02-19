@@ -90,9 +90,9 @@ class DetailResource(Resource):
         ## 判断是否关注
         is_followed=False
         # 判断是否喜欢
-        attitude=1
+        attitude=None
         # 判断是否收藏
-        is_collected = True
+        is_collected = False
 
         article_dict['is_followed']=is_followed
         article_dict['attitude']=attitude
@@ -203,9 +203,9 @@ class DetailResource(Resource):
         ## 判断是否关注
         is_followed=False
         # 判断是否喜欢
-        attitude=1
+        attitude=None
         # 判断是否收藏
-        is_collected = True
+        is_collected = False
 
         article_dict['is_followed']=is_followed
         article_dict['attitude']=attitude
