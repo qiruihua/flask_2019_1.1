@@ -74,7 +74,7 @@ class CommentLikingResource(Resource):
             db.session.commit()
         except IntegrityError:
             db.session.rollback()
-            ret = CommentLiking.query.filter_by(user_id=g.user_id, comment_id=target, is_deleted=True) \
+            CommentLiking.query.filter_by(user_id=g.user_id, comment_id=target, is_deleted=True) \
                 .update({'is_deleted': False})
             db.session.commit()
 
