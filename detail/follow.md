@@ -74,7 +74,7 @@ class FollowResource(Resource):
         parse=reqparse.RequestParser()
         parse.add_argument('target',location='json',required=True)
         args=parse.parse_args()
-        
+
         user=None
         try:
             user=User.query.get(args.get('target'))
@@ -133,7 +133,7 @@ class UserFollowingCache(object):
 
         try:
             if increment > 0:
-                current_app.redis_store.zadd(self.key, {timestamp:target_user_id})
+                current_app.redis_store.zadd(self.key, {target_user_id:timestamp})
             else:
                 current_app.redis_store.zrem(self.key, target_user_id)
         except RedisError as e:
