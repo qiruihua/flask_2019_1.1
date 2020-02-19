@@ -10,9 +10,9 @@
 
 | 参数 | 类型 | 是否必须 | 说明 |
 | :--- | :--- | :--- | :--- |
-| token | str | 是 | 用户token |
-| channels | list | 是 | 频道列表 |
-| id | str | 是 | 频道id |
+| token（**Header**） | str | 是 | 用户token |
+| channels\(**body**\) | list | 是 | 频道列表 |
+| id\(**body**\) | str | 是 | 频道id |
 
 **返回数据**： JSON
 
