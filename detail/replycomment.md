@@ -69,7 +69,7 @@ class CommentsResource(Resource):
         if art_id:
             comment.article_id=art_id
             comment.parent_id=args.target
-            
+
         try:
             db.session.add(comment)
             db.session.commit()
@@ -83,5 +83,5 @@ class CommentsResource(Resource):
         }
 ```
 
-
+![](/assets/回复评论.png)
 
