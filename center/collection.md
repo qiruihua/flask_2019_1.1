@@ -173,7 +173,7 @@ class UserArticleCollectionsCache(object):
                     for item in cache:
                         pl.zadd(self.key, item)
                     pl.expire(self.key, constants.UserArticleCollectionsCacheTTL.get_val())
-                    results = pl.execute()
+                    pl.execute()
 
                 except RedisError as e:
                     current_app.logger.error(e)
