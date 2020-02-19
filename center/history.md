@@ -160,5 +160,5 @@ class ReadingHistoryResource(Resource):
         return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
 ```
 
-
+![](/assets/历史记录.png)
 
