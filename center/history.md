@@ -46,5 +46,12 @@ class UserReadingHistoryStorage(object):
         return total_count, article_ids
 ```
 
+在constants.py文件中定义常量
+
+```
+# 阅读历史每人保存数目
+READING_HISTORY_COUNT_PER_USER = 100
+```
+
 
 
