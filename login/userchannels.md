@@ -1,5 +1,7 @@
 # 用户关注频道
 
+![](/assets/用户频道页面.png)
+
 ## 接口分析
 
 **请求方式**：GET /app/v1\_0/user/channels
