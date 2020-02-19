@@ -2,7 +2,7 @@
 
 ## 接口分析
 
-**请求方式**：GET /app/v1\_0/articles/&lt;article\_id&gt;/
+**请求方式**：GET /app/v1\_0/articles/&lt;article\_id&gt;
 
 **请求参数**：
 
