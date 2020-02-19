@@ -27,9 +27,7 @@
 
 ```
 class CommentLikingDeleteResource(Resource):
-    """
-    评论点赞
-    """
+    
     method_decorators = [loginrequired]
 
     def delete(self, target):
