@@ -53,7 +53,7 @@ class Relation(db.Model):
 ## 后端实现
 
 ```
-from project.models.user import Relation
+from models.user import Relation
 class FollowResource(Resource):
 
     method_decorators = [loginrequired]
@@ -139,7 +139,6 @@ class UserFollowingCache(object):
  from cache.user import UserFollowingCache
  import time
  UserFollowingCache(user_id).update(args.get('target'),time.time())
-
 ```
 
 
