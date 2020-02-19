@@ -67,7 +67,7 @@ class LoginResource(Resource):
         if status is not None:
             return status.decode()
         else:
-            user = User.query.query.filter_by(id=self.user_id).first()
+            user = User.query.filter_by(id=self.user_id).first()
             if user:
                 self.save(user.status)
                 return user.status
