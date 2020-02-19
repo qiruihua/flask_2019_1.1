@@ -101,7 +101,9 @@ class CollectionListResource(Resource):
         return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
 ```
 
-### 添加缓存
+### ![](/assets/我的收藏列表.png)
+
+## 添加缓存
 
 用户收藏
 
