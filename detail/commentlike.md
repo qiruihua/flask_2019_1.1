@@ -83,6 +83,14 @@ class CommentLikingResource(Resource):
 
 ## 缓存用户评论点赞数据
 
+###  {#1-阅读历史}
+
+| key | 类型 | 说明 | 举例 |
+| :--- | :--- | :--- | :--- |
+| user:{user\_id}:comm:liking | set | - | \[1,2,3\] |
+
+
+
 在cache的user.p文件中，实现评论点赞缓存
 
 ```
