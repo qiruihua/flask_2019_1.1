@@ -192,7 +192,7 @@ class UserCommentLikingNotExistsCacheTTL(BaseCacheTTL):
 ## 在点赞和取消点赞评论视图处添加清除缓存功能
 
 ```
-from cache.user import UserCommentLikingCache
+        from cache.user import UserCommentLikingCache
         UserCommentLikingCache(g.user_id).clear()
 ```
 
