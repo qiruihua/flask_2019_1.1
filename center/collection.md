@@ -59,7 +59,7 @@
 ```
 from cache.article import ArticleDetailCache
 from flask import g
-class CollectionListResource(Resource):
+class CollectionResource(Resource):
 
     method_decorators = [loginrequired]
 
@@ -189,6 +189,12 @@ class UserArticleCollectionsCacheTTL(BaseCacheTTL):
     用户文章收藏缓存时间，秒
     """
     TTL = 10 * 60
+```
+
+视图修改使用缓存
+
+```
+
 ```
 
 ## 判断用户是否收藏文章
