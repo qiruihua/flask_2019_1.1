@@ -96,5 +96,23 @@ class FansResource(Resource):
         return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
 ```
 
+## 添加缓存
 
+关注和粉丝的业务逻辑是相似的。
+
+```
+
+```
+
+添加缓存时间常量
+
+```
+class UserFanssCacheTTL(BaseCacheTTL):
+    """
+    用户关注列表缓存时间，秒
+    """
+    TTL = 30 * 60
+```
+
+## 修改视图缓存实现
 
