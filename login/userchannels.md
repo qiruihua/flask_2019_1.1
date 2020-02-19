@@ -114,7 +114,7 @@ class UserChannelsResource(Resource):
 | ch:user:default | string | 默认用户频道 | key:value |
 | user:{user\_id}:ch | string | 用户频道 | key:value |
 
-###  {#4-announcement-cache}
+
 
 定义默认用户频道缓存
 
