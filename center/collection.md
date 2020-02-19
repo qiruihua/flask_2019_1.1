@@ -223,7 +223,6 @@ class CollectionResource(Resource):
             results.append(article)
 
         return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
-
 ```
 
 ## 判断用户是否收藏文章
