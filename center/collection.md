@@ -194,6 +194,35 @@ class UserArticleCollectionsCacheTTL(BaseCacheTTL):
 视图修改使用缓存
 
 ```
+class CollectionResource(Resource):
+    """
+    文章收藏
+    """
+    def get(self):
+        """
+        获取用户的收藏历史
+        """
+        # 参数检验
+        qs_parser = RequestParser()
+        qs_parser.add_argument('page', type=inputs.positive, required=False, location='args')
+        qs_parser.add_argument('per_page', type=inputs.int_range(constants.DEFAULT_ARTICLE_PER_PAGE_MIN,
+                                                                 constants.DEFAULT_ARTICLE_PER_PAGE_MAX,
+                                                                 'per_page'),
+                               required=False, location='args')
+        args = qs_parser.parse_args()
+        page = 1 if args.page is None else args.page
+        per_page = args.per_page if args.per_page else constants.DEFAULT_ARTICLE_PER_PAGE_MIN
+
+        # 构造返回
+        from cache.user import UserArticleCollectionsCache
+        total_count, page_articles = UserArticleCollectionsCache(g.user_id).get_page(page, per_page)
+
+        results = []
+        for article_id in page_articles:
+            article = ArticleDetailCache(article_id).get()
+            results.append(article)
+
+        return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
 
 ```
 
@@ -218,7 +247,7 @@ class UserArticleCollectionsCache(object):
         :return:
         """
         total_count, collections = self.get_page(1, -1)
-        return target in collections
+        return int(target) in collections
 ```
 
 修改详情页面
