@@ -2,7 +2,7 @@
 
 ## 接口分析
 
-**请求方式**：GET /app/v1\_0/followers?_page=xxx&per\_page=xxx_
+**请求方式**：GET /app/v1\_0/user/followers?_page=xxx&per\_page=xxx_
 
 **请求参数**：
 
