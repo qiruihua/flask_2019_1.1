@@ -85,7 +85,7 @@ class CollectionResource(Resource):
         return {'target': target}, 201
 ```
 
-## 
+## ![](/assets/详情页面.png)
 
 
 
