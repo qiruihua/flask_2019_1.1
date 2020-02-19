@@ -181,7 +181,7 @@ class UserArticleCollectionsCache(object):
             return total_count, page_articles
 ```
 
-### 缓存常量设置
+缓存常量设置
 
 ```
 class UserArticleCollectionsCacheTTL(BaseCacheTTL):
@@ -193,7 +193,7 @@ class UserArticleCollectionsCacheTTL(BaseCacheTTL):
 
 ## 判断用户是否收藏文章
 
-### 添加判断方法
+添加判断方法
 
 ```
 class UserArticleCollectionsCache(object):
@@ -215,7 +215,7 @@ class UserArticleCollectionsCache(object):
         return target in collections
 ```
 
-### 修改详情页面
+修改详情页面
 
 ```
 is_collected = False
@@ -226,7 +226,7 @@ if g.user_id:
 
 ## 添加收藏或取消收藏清除缓存数据
 
-### 添加清除缓存方法
+添加清除缓存方法
 
 ```
 class UserArticleCollectionsCache(object):
@@ -242,7 +242,7 @@ class UserArticleCollectionsCache(object):
         current_app.redis_store.delete(self.key)
 ```
 
-### 添加收藏或取消收藏调用
+添加收藏或取消收藏调用
 
 ```
 # 删除关注缓存
