@@ -225,5 +225,41 @@ class FansResource(Resource):
         return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
 ```
 
+## 添加是否相互关注判断
+
+添加粉丝相互关注的判断逻辑
+
+```
+
+        from cache.user import UserFollowingCache
+
+        for following_user_id in page_followings:
+            user = UserProfileCache(following_user_id).get()
+            mutual_follow=UserFollowingCache(g.user_id).user_follows_target(user.get('id'))
+            results.append(dict(
+                id=following_user_id,
+                name=user['name'],
+                photo=user['photo'],
+                mutual_follow=mutual_follow
+            ))
+
+```
+
+添加用户关注是否相互关注的判断逻辑
+
+```
+ from cache.user import UserFansCache
+        fans=UserFansCache(g.user_id).get()
+        for following_user_id in page_followings:
+            user = UserProfileCache(following_user_id).get()
+
+            results.append(dict(
+                id=following_user_id,
+                name=user['name'],
+                photo=user['photo'],
+                mutual_follow=user.get('id') in fans
+            ))
+```
+
 
 
