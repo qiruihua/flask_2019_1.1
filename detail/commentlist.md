@@ -143,9 +143,11 @@ class CommentsResource(Resource):
                 })
                 page_count += 1
                 page_last_comment = comment
-
-        end_id = comments[-1].ctime.timestamp()
-        last_id = page_last_comment.ctime.timestamp() if page_last_comment else None
+                end_id=0
+        last_id=0
+        if len(comments)>0:
+            end_id = comments[-1].ctime.timestamp()
+            last_id = page_last_comment.ctime.timestamp() if page_last_comment else None
 
         return {'total_count': total_count, 'end_id': end_id, 'last_id': last_id, 'results': page_comments}
 ```
