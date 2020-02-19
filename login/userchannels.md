@@ -114,9 +114,7 @@ class UserChannelsResource(Resource):
 | ch:user:default | string | 默认用户频道 | key:value |
 | user:{user\_id}:ch | string | 用户频道 | key:value |
 
-
-
-定义默认用户频道缓存
+### 定义默认用户频道缓存
 
 ```
 class UserDefaultChannelsCache(object):
@@ -160,14 +158,26 @@ class UserDefaultChannelsCache(object):
 
         # 设置缓存
         try:
-            current_app.redis_store.setex(cls.key, constants.DEFAULT_USER_CHANNELS_CACHE_TTL, json.dumps(results))
+            current_app.redis_store.setex(cls.key, constants.DEFAULTUSERCHANNELSCACHETTL.get_val(), json.dumps(results))
         except RedisError as e:
             current_app.logger.error(e)
 
         return results
 ```
 
-定义登录用户频道缓存
+### 添加缓存时间变量
+
+```
+class DEFAULTUSERCHANNELSCACHETTL (BaseCacheTTL):
+    """
+    默认用户频道缓存有效期，秒
+    """
+    TTL = 24 * 60 * 60
+
+
+```
+
+### 定义登录用户频道缓存
 
 ```
 from models.news import UserChannel
