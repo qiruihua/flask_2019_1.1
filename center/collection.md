@@ -88,7 +88,7 @@ class CollectionListResource(Resource):
         collection_ids = []
 
         for collection in collections:
-        collection_ids.append(collection.article_id)
+            collection_ids.append(collection.article_id)
         #获取指定页数的数据
         page_articles = collection_ids[(page - 1) * per_page:page * per_page]
 
