@@ -69,7 +69,6 @@ class FansResource(Resource):
         page = 1 if args.page is None else args.page
         per_page = args.per_page if args.per_page else constants.DEFAULT_USER_FOLLOWINGS_PER_PAGE_MIN
 
-        # 构造返回
         #查询结果
         followers = Relation.query.filter_by(target_user_id=g.user_id,
                        relation=Relation.RELATION.FOLLOW) \

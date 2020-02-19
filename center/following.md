@@ -70,7 +70,7 @@ class FollowResource(Resource):
         page = 1 if args.page is None else args.page
         per_page = args.per_page if args.per_page else constants.DEFAULT_USER_FOLLOWINGS_PER_PAGE_MIN
 
-        # 构造返回
+        
         #查询结果
         followers = Relation.query.filter_by(user_id=g.user_id,
                        relation=Relation.RELATION.FOLLOW) \
@@ -94,7 +94,7 @@ class FollowResource(Resource):
                 photo=user['photo'],
                 mutual_follow=False
             ))
-
+        
         return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
 ```
 
