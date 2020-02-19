@@ -64,7 +64,7 @@ class DislikeResource(Resource):
         return {'target': target}, 201
 ```
 
-## 
+## ![](/assets/不喜欢文章.png)
 
 
 
