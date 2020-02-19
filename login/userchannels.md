@@ -107,7 +107,7 @@ class UserChannelsResource(Resource):
 
 ## 添加缓存
 
-###  {#3-article-cache}
+在common目录的cache包中的channel.py文件中定义实现
 
 | key | 类型 | 说明 | 举例 |
 | :--- | :--- | :--- | :--- |
