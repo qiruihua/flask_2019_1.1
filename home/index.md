@@ -168,5 +168,14 @@ class IndexResource(Resource):
         return {'pre_timestamp': pre_timestamp, 'results': results}
 ```
 
+在home蓝图中创建constants.py文件
+
+```
+# 文章分页默认每页数量 下限
+DEFAULT_ARTICLE_PER_PAGE_MIN = 10
+# 文章分页默认每页数量 上限
+DEFAULT_ARTICLE_PER_PAGE_MAX = 50
+```
+
 
 
