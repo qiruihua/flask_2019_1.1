@@ -135,7 +135,7 @@ class CommentsResource(Resource):
                     'aut_id': comment.user.id,
                     'aut_name': comment.user.name,
                     'aut_photo': comment.user.profile_photo,
-                    'pubdate': '2020-01-01 12:12:12',
+                    'pubdate': comment.strftime('%Y-%m-%d %H:%M:%S'),
                     'content': comment.content,
                     'is_top': comment.is_top,
                     'is_liking': False,
