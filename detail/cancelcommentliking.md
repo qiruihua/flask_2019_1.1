@@ -2,7 +2,7 @@
 
 ## 接口分析
 
-**请求方式**：DELETE /app/v1\_0/comment/likings/&lt;target&gt;/
+**请求方式**：DELETE /app/v1\_0/comment/likings/&lt;target&gt;
 
 **请求参数**：
 
@@ -36,7 +36,7 @@ class CommentLikingDeleteResource(Resource):
         """
         取消对评论点赞
         """
-        ret = CommentLiking.query.filter_by(user_id=g.user_id, comment_id=target, is_deleted=False) \
+        CommentLiking.query.filter_by(user_id=g.user_id, comment_id=target, is_deleted=False) \
             .update({'is_deleted': True})
         db.session.commit()
         return {'message': 'OK'}, 204
