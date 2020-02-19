@@ -44,7 +44,7 @@
   * [取消点赞评论](detail/cancelcommentliking.md)
 * [用户中心](center.md)
   * [用户收藏列表](center/collection.md)
-  * [用户历史列表](center/history.md)
+  * [阅读历史列表](center/history.md)
   * [用户关注列表](center/following.md)
   * [用户粉丝列表](center/fans.md)
 
