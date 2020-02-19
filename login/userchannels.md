@@ -10,7 +10,7 @@
 
 | 参数 | 类型 | 是否必须 | 说明 |
 | :--- | :--- | :--- | :--- |
-| token | str | 是 | 用户token |
+| token\(**Header**\) | str | 是 | 用户token |
 
 **返回数据**： JSON
 
@@ -173,8 +173,6 @@ class DEFAULTUSERCHANNELSCACHETTL (BaseCacheTTL):
     默认用户频道缓存有效期，秒
     """
     TTL = 24 * 60 * 60
-
-
 ```
 
 ### 定义登录用户频道缓存
