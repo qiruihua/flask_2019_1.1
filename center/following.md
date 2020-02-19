@@ -165,7 +165,7 @@ class UserFollowingCache(object):
                 for item in cache:
                     pl.zadd(self.key, item)
                 pl.expire(self.key, constants.UserFollowingsCacheTTL.get_val())
-                results = pl.execute()
+                pl.execute()
             except RedisError as e:
                 current_app.logger.error(e)
 
@@ -204,7 +204,7 @@ class FollowResource(Resource):
         page = 1 if args.page is None else args.page
         per_page = args.per_page if args.per_page else constants.DEFAULT_USER_FOLLOWINGS_PER_PAGE_MIN
 
-        
+
         #查询结果
         from cache.user import UserFollowingCache
         follower_ids = UserFollowingCache(g.user_id).get()
@@ -223,7 +223,6 @@ class FollowResource(Resource):
             ))
 
         return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
-
 ```
 
 ## 判断用户是否关注作者
