@@ -66,7 +66,7 @@ class CommentLikingResource(Resource):
         json_parser.add_argument('target', type=int, required=True, location='json')
         args = json_parser.parse_args()
         target = args.target
-        ret = 1
+        
         # 创建或更新数据
         try:
             comment_liking = CommentLiking(user_id=g.user_id, comment_id=target)
