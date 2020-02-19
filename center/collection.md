@@ -191,9 +191,9 @@ class UserArticleCollectionsCacheTTL(BaseCacheTTL):
     TTL = 10 * 60
 ```
 
-### 判断用户是否收藏文章
+## 判断用户是否收藏文章
 
-#### 添加判断方法
+### 添加判断方法
 
 ```
 class UserArticleCollectionsCache(object):
@@ -215,7 +215,7 @@ class UserArticleCollectionsCache(object):
         return target in collections
 ```
 
-#### 修改详情页面
+### 修改详情页面
 
 ```
 is_collected = False
@@ -224,9 +224,9 @@ if g.user_id:
     is_collected=UserArticleCollectionsCache(g.user_id).user_collect_target(article_id)
 ```
 
-### 添加收藏或取消收藏清除缓存数据
+## 添加收藏或取消收藏清除缓存数据
 
-#### 添加清除缓存方法
+### 添加清除缓存方法
 
 ```
 class UserArticleCollectionsCache(object):
