@@ -53,7 +53,9 @@ class Relation(db.Model):
 ## 后端实现
 
 ```
-from models.user import Relation
+from models.user import Relation,User
+from flask_restful import reqparse
+
 class FollowResource(Resource):
 
     method_decorators = [loginrequired]
