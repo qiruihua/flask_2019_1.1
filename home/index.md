@@ -179,7 +179,57 @@ DEFAULT_ARTICLE_PER_PAGE_MAX = 50
 
 ### 添加对channel\_id的验证
 
+在utils的parsers.py文件中添加验证方法
 
+```
+from cache.channel import AllChannelsCache
+def channel_id(value):
+    """
+    检查是否是频道id
+    :param value: 被检验的值
+    :return: channel_id
+    """
+    try:
+        _channel_id = int(value)
+    except Exception:
+        raise ValueError('Invalid channel id.')
+    else:
+        if _channel_id < 0:
+            raise ValueError('Invalid channel id.')
+        if _channel_id == 0:
+            # 推荐频道
+            return _channel_id
+        else:
+            ret = AllChannelsCache.exists(_channel_id)
+            if ret:
+                return _channel_id
+            else:
+                raise ValueError('Invalid channel id.')
+```
+
+在cache的channel.py文件中，对AllChannelsCache类添加判断channel\_id是否存在
+
+```
+class AllChannelsCache(object):
+    """
+    全部频道缓存
+    """
+    key = 'ch:all'
+
+    @classmethod
+    def exists(cls, channel_id):
+        """
+        判断channel_id是否存在
+        :param channel_id: 频道id
+        :return: bool
+        """
+        chs = cls.get().get('channels')
+        for ch in chs:
+            if channel_id == ch['id']:
+                return True
+        return False
+
+```
 
 
 
