@@ -66,7 +66,7 @@ class CommentLikingResource(Resource):
         json_parser.add_argument('target', type=int, required=True, location='json')
         args = json_parser.parse_args()
         target = args.target
-        
+
         # 创建或更新数据
         try:
             comment_liking = CommentLiking(user_id=g.user_id, comment_id=target)
@@ -79,6 +79,114 @@ class CommentLikingResource(Resource):
             db.session.commit()
 
         return {'target': target}, 201
+```
+
+## 缓存用户评论点赞数据
+
+在cache的user.p文件中，实现评论点赞缓存
+
+```
+from models.news import CommentLiking
+class UserCommentLikingCache(object):
+    """
+    用户评论点赞缓存数据
+    """
+
+    def __init__(self, user_id):
+        self.key = 'user:{}:comm:liking'.format(user_id)
+        self.user_id = user_id
+
+    def get(self):
+        """
+        获取用户文章评论点赞数据
+        :return:
+        """
+
+        try:
+            ret = current_app.redis_store.smembers(self.key)
+        except RedisError as e:
+            current_app.logger.error(e)
+            ret = None
+
+        if ret:
+            return set([int(cid) for cid in ret])
+
+        ret = CommentLiking.query.filter(CommentLiking.user_id == self.user_id,
+                    CommentLiking.is_deleted == False).all()
+
+        cids = [com.comment_id for com in ret]
+        pl = current_app.redis_store.pipeline()
+        try:
+            if cids:
+                pl.sadd(self.key, *cids)
+                pl.expire(self.key, constants.UserCommentLikingCacheTTL.get_val())
+            else:
+                pl.sadd(self.key, -1)
+                pl.expire(self.key, constants.UserCommentLikingNotExistsCacheTTL.get_val())
+            results = pl.execute()
+            if results[0] and not results[1]:
+                current_app.redis_store.delete(self.key)
+        except RedisError as e:
+            current_app.logger.error(e)
+
+        return set(cids)
+
+    def user_liking_comment(self, comment_id):
+        """
+        判断是否对文章点赞
+        :param comment_id:
+        :return:
+        """
+        liking_comments = self.get()
+
+        return comment_id in liking_comments
+
+    def clear(self):
+        """
+        清除
+        """
+        current_app.redis_store.delete(self.key)
+```
+
+在constants.py文件中定义缓存时间常量
+
+```
+class UserCommentLikingCacheTTL(BaseCacheTTL):
+    """
+    用户文章评论点赞缓存时间，秒
+    """
+    TTL = 10 * 60
+class UserCommentLikingNotExistsCacheTTL(BaseCacheTTL):
+    """
+    用户文章评论点赞不存在数据缓存时间，秒
+    """
+    TTL = 3 * 60
+```
+
+在视图中添加判断
+
+```
+ from cache.user import UserCommentLikingCache
+        for comment in comments:
+            score = comment.ctime.timestamp()
+
+            # 构造返回数据
+
+            if ((offset is not None and score < offset) or offset is None) and page_count <= limit:
+                is_liking=UserCommentLikingCache(g.user_id).user_liking_comment(comment.id)
+                page_comments.append({
+                    'com_id': comment.id,
+                    'aut_id': comment.user.id,
+                    'aut_name': comment.user.name,
+                    'aut_photo': comment.user.profile_photo,
+                    'pubdate': comment.ctime.strftime('%Y-%m-%d %H:%M:%S'),
+                    'content': comment.content,
+                    'is_top': comment.is_top,
+                    'is_liking': is_liking,
+                    'reply_count': 0
+                })
+                page_count += 1
+                page_last_comment = comment
 ```
 
 
