@@ -1,5 +1,7 @@
 # 修改关注频道
 
+![](/assets/修改关注频道.png)
+
 ## 接口分析
 
 **请求方式**：PUT /app/v1\_0/user/channels
