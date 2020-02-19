@@ -107,6 +107,8 @@ DEFAULT_USER_FOLLOWINGS_PER_PAGE_MIN = 10
 DEFAULT_USER_FOLLOWINGS_PER_PAGE_MAX = 50
 ```
 
+![](/assets/关注列表.png)
+
 ## 添加缓存
 
 用户关注
