@@ -163,7 +163,7 @@ class UserCommentLikingNotExistsCacheTTL(BaseCacheTTL):
     TTL = 3 * 60
 ```
 
-在视图中添加判断
+## 在视图中添加是否点赞评论判断
 
 ```
          from cache.user import UserCommentLikingCache
@@ -187,6 +187,13 @@ class UserCommentLikingNotExistsCacheTTL(BaseCacheTTL):
                 })
                 page_count += 1
                 page_last_comment = comment
+```
+
+## 在点赞和取消点赞评论视图处添加清除缓存功能
+
+```
+from cache.user import UserCommentLikingCache
+        UserCommentLikingCache(g.user_id).clear()
 ```
 
 
