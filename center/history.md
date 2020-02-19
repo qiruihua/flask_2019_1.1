@@ -29,11 +29,6 @@
                 "aut_name": "18310820688",
                 "aut_photo": "",
                 "pubdate": "2019-08-07T08:53:01",
-                "cover": "封面",
-                  "type": 0,
-                  "images":[]
-                  "is_liking": 0
-            }
         ]
     }
 }
@@ -51,7 +46,6 @@
 | aut\_photo | str | 是 | 用户头像 |
 | pubdate | str | 是 | 创建时间 |
 | content | str | 是 | 评论或回复内容 |
-| is\_top | int | 是 | 是否置顶，0表示不置顶 1表示置顶 |
 | is\_liking | bool | 是 | 当前用户是否点赞 |
 
 ## 后端实现
