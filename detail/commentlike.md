@@ -166,7 +166,7 @@ class UserCommentLikingNotExistsCacheTTL(BaseCacheTTL):
 在视图中添加判断
 
 ```
- from cache.user import UserCommentLikingCache
+         from cache.user import UserCommentLikingCache
         for comment in comments:
             score = comment.ctime.timestamp()
 
