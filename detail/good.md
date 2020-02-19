@@ -84,5 +84,5 @@ class ArticleLikeResource(Resource):
         return {'target': target}, 201
 ```
 
-
+![](/assets/点赞.png)
 
