@@ -98,6 +98,8 @@ class FansResource(Resource):
         return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
 ```
 
+![](/assets/粉丝列表.png)
+
 ## 添加缓存
 
 关注和粉丝的业务逻辑是相似的。
