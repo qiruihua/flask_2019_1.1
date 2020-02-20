@@ -121,6 +121,7 @@ if g.user_id:
 ```
 from cache.user import UserReadingHistoryStorage
 from cache.article import ArticleDetailCache
+from cache.user import UserArticleAttitudeCache
 
 class ReadingHistoryResource(Resource):
     """
@@ -149,6 +150,7 @@ class ReadingHistoryResource(Resource):
 
         for article_id in article_ids:
             article = ArticleDetailCache(int(article_id)).get()
+            article['is_liking']=UserArticleAttitudeCache(g.user_id).user_liking_article(article_id)
             results.append(article)
 
         return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
