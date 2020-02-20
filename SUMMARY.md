@@ -35,7 +35,7 @@
   * [取消点赞](detail/ungood.md)
   * [不喜欢](detail/like.md)
   * [取消不喜欢](detail/canceldislike.md)
-  * [attitudecache](detail/attitudecache.md)
+  * [态度缓存实现](detail/attitudecache.md)
   * [收藏](detail/collection.md)
   * [取消收藏](detail/cancelcollection.md)
   * [发布评论](detail/comment.md)

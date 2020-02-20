@@ -1,4 +1,4 @@
-态度缓存
+# 态度缓存实现
 
 ```
 from models.news import Attitude
