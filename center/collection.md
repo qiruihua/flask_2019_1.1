@@ -94,8 +94,10 @@ class CollectionResource(Resource):
 
 
         results = []
+        from cache.user import UserArticleAttitudeCache
         for article_id in page_articles:
             article = ArticleDetailCache(article_id).get()
+            article['is_liking']=UserArticleAttitudeCache(g.user_id).user_liking_article(article_id)
             results.append(article)
 
         return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
