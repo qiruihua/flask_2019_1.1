@@ -99,5 +99,28 @@ class UserArticleAttitudeNotExistsCacheTTL(BaseCacheTTL):
     TTL = 5 * 60
 ```
 
+## 修改视图态度判断
+
+```
+         # 判断是否关注
+        is_followed=False
+        # 判断是否喜欢
+        attitude=None
+        # 判断是否收藏
+        is_collected = False
+
+        if g.user_id:
+            # 查询登录用户对文章的态度（点赞or不喜欢）
+            from cache.user import UserArticleAttitudeCache
+            try:
+                attitude = UserArticleAttitudeCache(g.user_id).get_article_attitude(article_id)
+            except Exception as e:
+                current_app.logger.error(e)
+                attitude = -1
+        article_dict['is_followed']=is_followed
+        article_dict['attitude']=attitude
+        article_dict['is_collected']=is_collected
+```
+
 
 
