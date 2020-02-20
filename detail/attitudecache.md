@@ -1,5 +1,13 @@
 # 态度缓存实现
 
+###  {#2-搜索历史}
+
+| key | 类型 | 说明 | 举例 |
+| :--- | :--- | :--- | :--- |
+| user:{user\_id}:art:attitude | hash | 用户的所有态度数据 | {art\_id:attitude} |
+
+在cache包中的user.py文件添加实现代码
+
 ```
 from models.news import Attitude
 class UserArticleAttitudeCache(object):
