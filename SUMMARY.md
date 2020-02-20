@@ -42,6 +42,7 @@
   * [评论列表](detail/commentlist.md)
   * [回复评论](detail/replycomment.md)
   * [点赞评论](detail/commentlike.md)
+  * [statistic](detail/statistic.md)
 * [用户中心](center.md)
   * [用户收藏列表](center/collection.md)
   * [阅读历史列表](center/history.md)
