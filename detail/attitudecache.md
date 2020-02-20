@@ -122,5 +122,12 @@ class UserArticleAttitudeNotExistsCacheTTL(BaseCacheTTL):
         article_dict['is_collected']=is_collected
 ```
 
+## 当态度变化时清除缓存
+
+```
+        from cache.user import UserArticleAttitudeCache
+        UserArticleAttitudeCache(g.user_id).clear()
+```
+
 
 
