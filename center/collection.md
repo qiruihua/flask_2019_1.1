@@ -59,6 +59,8 @@
 ```
 from cache.article import ArticleDetailCache
 from flask import g
+from cache.user import UserArticleAttitudeCache
+
 class CollectionResource(Resource):
 
     method_decorators = [loginrequired]
@@ -94,7 +96,7 @@ class CollectionResource(Resource):
 
 
         results = []
-        from cache.user import UserArticleAttitudeCache
+        
         for article_id in page_articles:
             article = ArticleDetailCache(article_id).get()
             article['is_liking']=UserArticleAttitudeCache(g.user_id).user_liking_article(article_id)
