@@ -12,6 +12,8 @@
 ## 定义存储基类
 
 ```
+from redis.exceptions import RedisError
+
 class CountStorageBase(object):
     """
     数据存储父类
@@ -51,4 +53,6 @@ class CountStorageBase(object):
 ```
 
 ## 在视图中调用实现
+
+
 
