@@ -89,5 +89,15 @@ class CommentReplyCountStorage(CountStorageBase):
 
 ## 在视图中调用实现
 
+### 记录回复评论数据
+
+```
+        if art_id:
+            comment.article_id = art_id
+            comment.parent_id = args.target
+            from cache.statistic import CommentReplyCountStorage
+            CommentReplyCountStorage.incr(args.target)
+```
+
 
 
