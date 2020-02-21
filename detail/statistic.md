@@ -42,15 +42,13 @@ class CountStorageBase(object):
             current_app.redis_store.zincrby(cls.key, id_value, increment)
         except RedisError as e:
             current_app.logge.error(e)
-
 ```
 
 ## 定义其他存储类
 
 ```
 
-
 ```
 
-
+## 在视图中调用实现
 
