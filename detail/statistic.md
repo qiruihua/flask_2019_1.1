@@ -13,6 +13,7 @@
 
 ```
 from redis.exceptions import RedisError
+from flask import current_app
 
 class CountStorageBase(object):
     """
@@ -49,7 +50,41 @@ class CountStorageBase(object):
 ## 定义其他存储类
 
 ```
+class ArticleReadingCountStorage(CountStorageBase):
+    """
+    文章阅读量
+    """
+    key = 'count:art:reading'
 
+class ArticleCollectingCountStorage(CountStorageBase):
+    """
+    文章收藏数量
+    """
+    key = 'count:art:collecting'
+
+class ArticleDislikeCountStorage(CountStorageBase):
+    """
+    文章不喜欢数据
+    """
+    key = 'count:art:dislike'
+
+class ArticleLikingCountStorage(CountStorageBase):
+    """
+    文章点赞数据
+    """
+    key = 'count:art:liking'
+
+class ArticleCommentCountStorage(CountStorageBase):
+    """
+    文章评论数量
+    """
+    key = 'count:art:comm'
+
+class CommentReplyCountStorage(CountStorageBase):
+    """
+    评论回复数量
+    """
+    key = 'count:art:reply'
 ```
 
 ## 在视图中调用实现
