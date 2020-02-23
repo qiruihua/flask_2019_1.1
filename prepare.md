@@ -37,11 +37,11 @@ if __name__ == '__main__':
     app.run()
 ```
 
+> 运行manage文件
+
 ## 新建工程包（例如 toutiao）
 
 ![](/assets/创建项目.png)
-
-> 运行manage文件
 
 
 
