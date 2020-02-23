@@ -120,7 +120,7 @@ config_dict = {
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import redis
-from settings import config_dict
+from toutiao.settings import config_dict
 
 app = Flask(__name__)
 #获取配置类
@@ -136,4 +136,6 @@ def index():
 ```
 
 > 测试运行
+
+
 
