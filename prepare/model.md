@@ -11,8 +11,7 @@
 执行sql文件,创建数据表并导入数据
 
 ```
-source create_table.sql
-source article_data.sql
+toutiao.sql
 ```
 
 
