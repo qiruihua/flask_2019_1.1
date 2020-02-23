@@ -20,9 +20,9 @@ pip install -r requirements.txt
 
 ![](/assets/toutiaoproject.png)
 
-## 创建头条包
+## 创建manage文件
 
-* 新建包（例如 toutiao），并创建`manage.py`文件
+* 并创建`manage.py`文件
 
 ```
 from flask import Flask
@@ -36,6 +36,8 @@ def index():
 if __name__ == '__main__':
     app.run()
 ```
+
+## 新建工程包（例如 toutiao）
 
 ![](/assets/创建项目.png)
 
