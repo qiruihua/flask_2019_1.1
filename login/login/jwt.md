@@ -53,7 +53,7 @@ def generate_jwt(payload, expiry, secret=None):
     _payload.update(payload)
 
     if not secret:
-        secret = current_app.config['JWT_SECRET']
+        secret = current_app.config.get('JWT_SECRET')
 
     token = jwt.encode(_payload, secret, algorithm='HS256')
     return token.decode()
@@ -66,7 +66,7 @@ def verify_jwt(token,secret=None):
     :return: dict: payload
     """
     if not secret:
-        secret = current_app.config['JWT_SECRET']
+        secret = current_app.config.get('JWT_SECRET')
 
     try:
         payload = jwt.decode(token, secret, algorithm=['HS256'])

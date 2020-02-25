@@ -72,10 +72,10 @@ def get_user_token(user_id):
     # 颁发JWT
     now = datetime.utcnow()
 
-    expiry = now + timedelta(hours=current_app.config['JWT_EXPIRY_HOURS'])
+    expiry = now + timedelta(hours=current_app.config.get('JWT_EXPIRY_HOURS'))
     token = generate_jwt({'user_id': user_id, 'refresh': False}, expiry)
 
-    refresh_expiry = now + timedelta(days=current_app.config['JWT_REFRESH_DAYS'])
+    refresh_expiry = now + timedelta(days=current_app.config.get('JWT_REFRESH_DAYS'))
     refresh_token = generate_jwt({'user_id': user_id, 'refresh': True}, refresh_expiry)
     return token, refresh_token
 ```
