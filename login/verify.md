@@ -6,7 +6,7 @@
 
 我们通过请求钩子来获取请求头中的token信息
 
-在toutiao的\_\__init.py\_\__中添加token的获取和验证
+在toutiao的\_\__init.py\_\_\_中添加token的获取和验证
 
 ```
 #验证请求钩子
@@ -21,7 +21,7 @@ def before_request():
     # 对token进行解析验证，获取用户信息
     if authorization and authorization.startswith('Bearer '):
         token = authorization[7:]
-        payload = verify_jwt(token)
+        payload = verify_token(token)
         if payload:
             g.user_id = payload.get('user_id')
             g.is_refresh_token = payload.get('refresh')
@@ -32,7 +32,7 @@ def before_request():
 验证token的代码在common目录中auth\_jwt.py文件中
 
 ```
-def verify_jwt(token,secret=None):
+def verify_token(token,secret=None):
     """
     检验jwt
     :param token: jwt
@@ -40,7 +40,7 @@ def verify_jwt(token,secret=None):
     :return: dict: payload
     """
     if not secret:
-        secret = current_app.config['JWT_SECRET']
+        secret = current_app.config.get('JWT_SECRET')
 
     try:
         payload = jwt.decode(token, secret, algorithm=['HS256'])

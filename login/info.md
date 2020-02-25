@@ -48,13 +48,12 @@
 判断用户是否登录的装饰器
 
 ```
-from flask import g
 #必须登录装饰器
 def loginrequired(func):
 
     def wrapper(*args,**kwargs):
-        g.user_id=1
-        if g.user_id is None:
+        user_id=1
+        if user_id is None:
             return {'message': 'login'}, 401
         else:
             return func(*args,**kwargs)
