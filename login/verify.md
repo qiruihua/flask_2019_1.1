@@ -14,8 +14,9 @@ from flask import g,request
 from auth.auth_jwt import verify_jwt
 @app.before_request
 def before_request():
-    #初始化 user_id
+    #初始化 user_id,is_refresh_token
     g.user_id=None
+    g.is_refresh_token=None
     #获取请求头的token
     authorization = request.headers.get('Authorization')
     # 对token进行解析验证，获取用户信息
