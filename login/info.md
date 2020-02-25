@@ -79,7 +79,8 @@ class UserInfoResource(Resource):
         2.返回用户信息
         :return:
         """
-        user_data=UserProfileCache(g.user_id).get()
+        user_id=1
+        user_data=UserProfileCache(user_id).get()
         return user_data
 
 #获取用户信息
