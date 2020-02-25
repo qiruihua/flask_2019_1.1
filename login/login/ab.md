@@ -50,7 +50,6 @@ class UserInfoResource(Resource):
         return user_data
 #路由
 user_api.add_resource(views.UserInfoResource,'/user/')
-user_api.add_resource(views.CacheUserInfoResource,'/user/cache')
 ```
 
 ### ![](/assets/数据库查询ab测试.png)
