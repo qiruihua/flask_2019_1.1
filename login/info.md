@@ -65,7 +65,6 @@ def loginrequired(func):
 
 ```
 from toutiao.utils.decorators import loginrequired
-from flask import g
 from cache.user import UserProfileCache
 
 class UserInfoResource(Resource):
