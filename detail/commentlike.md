@@ -120,9 +120,9 @@ class UserCommentLikingCache(object):
 
         cids = [com.comment_id for com in ret]
         pl = current_app.redis_store.pipeline()
-        
+
         try:
-            
+
             pl.sadd(self.key, *cids)
             pl.expire(self.key, constants.UserCommentLikingCacheTTL.get_val())
             pl.execute()
@@ -159,7 +159,7 @@ class UserCommentLikingCacheTTL(BaseCacheTTL):
     TTL = 10 * 60
 ```
 
-## 在视图中添加是否点赞评论判断
+## 添加是否点赞评论判断
 
 ```
          from cache.user import UserCommentLikingCache
