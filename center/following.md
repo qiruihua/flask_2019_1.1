@@ -8,9 +8,9 @@
 
 | 参数 | 类型 | 是否必须 | 说明 |
 | :--- | :--- | :--- | :--- |
-| token | str | 是 | 用户Token |
-| page | str | 否 | 页码 |
-| per\_page | str | 否 | 每页多少条数据 |
+| token\(**header**\) | str | 是 | 用户Token |
+| page\(**query**\) | str | 否 | 页码 |
+| per\_page\(**query**\) | str | 否 | 每页多少条数据 |
 
 **返回数据**： JSON
 
@@ -70,7 +70,7 @@ class FollowResource(Resource):
         page = 1 if args.page is None else args.page
         per_page = args.per_page if args.per_page else constants.DEFAULT_USER_FOLLOWINGS_PER_PAGE_MIN
 
-        
+
         #查询结果
         followers = Relation.query.filter_by(user_id=g.user_id,
                        relation=Relation.RELATION.FOLLOW) \
@@ -94,7 +94,7 @@ class FollowResource(Resource):
                 photo=user['photo'],
                 mutual_follow=False
             ))
-        
+
         return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
 ```
 
