@@ -83,8 +83,6 @@ class CommentLikingResource(Resource):
 
 ## 缓存用户评论点赞数据
 
-
-
 | key | 类型 | 说明 | 举例 |
 | :--- | :--- | :--- | :--- |
 | user:{user\_id}:comm:liking | set | - | \[1,2,3\] |

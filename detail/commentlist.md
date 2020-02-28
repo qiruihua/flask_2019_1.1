@@ -141,7 +141,7 @@ class CommentsResource(Resource):
                 })
                 page_count += 1
                 page_last_comment = comment
-        
+
         end_id=0
         last_id=0
         if len(comments)>0:
@@ -162,4 +162,253 @@ DEFAULT_COMMENT_PER_PAGE_MAX = 50
 ```
 
 ![](/assets/评论列表.png)
+
+## 缓存评论列表数据
+
+| key | 类型 | 说明 | 举例 |
+| :--- | :--- | :--- | :--- |
+| art:{art\_id}:comm | zset | - | - |
+
+在cache包下创建comment.p文件中
+
+```
+import json
+from flask import current_app
+from redis import RedisError
+from cache import constants
+from models.news import Comment
+
+
+class ArticleCommentsCache(object):
+    """
+    文章评论列表缓存
+    """
+    def __init__(self, article_id):
+        self.article_id = article_id
+        self.key = 'art:{}:comm'.format(article_id)
+
+    def get_page(self, offset, limit):
+        """
+        分页获取
+        :param offset:
+        :param limit:
+        :return: total_count, end_id, last_id, []
+        """
+
+        # 查询缓存
+        try:
+            pl = current_app.redis_store.pipeline()
+            pl.zcard(self.key)
+            pl.zrange(self.key, 0, 0, withscores=True)
+            if offset is None:
+                # 从头开始取
+                pl.zrevrange(self.key, 0, limit - 1, withscores=True)
+            else:
+                pl.zrevrangebyscore(self.key, offset - 1, 0, 0, limit - 1, withscores=True)
+            total_count, end_id, ret = pl.execute()
+        except RedisError as e:
+            current_app.logger.error(e)
+            total_count = 0
+            end_id = None
+            last_id = None
+            ret = []
+
+        if total_count > 0:
+            # 可以查询到缓存，则直接构造返回
+            end_id = int(end_id[0][1])
+            last_id = int(ret[-1][1]) if ret else None
+            return total_count, end_id, last_id, [int(cid[0]) for cid in ret]
+        else:
+            # 查询不到缓存
+            # 查询数据库
+            comments = Comment.query.filter(Comment.article_id == self.article_id,
+                                            Comment.parent_id == None,
+                                            Comment.status == Comment.STATUS.APPROVED). \
+                order_by(Comment.id.desc()).all()
+
+            total_count = len(comments)
+            if total_count == 0:
+                return 0, None, None, []
+
+
+            cache = {}
+            page_comments = []
+            page_count = 0
+            page_last_comment = None
+
+            for comment in comments:
+                score = comment.ctime.timestamp()
+
+                # 构造返回数据
+                if ((offset is not None and score < offset) or offset is None) and page_count <= limit:
+                    page_comments.append(comment.id)
+                    page_count += 1
+                    page_last_comment = comment
+
+                # 构造缓存数据
+                cache[comment.id]=score
+
+
+            end_id = comments[-1].ctime.timestamp()
+            last_id = page_last_comment.ctime.timestamp() if page_last_comment else None
+
+            # 设置缓存
+            if cache:
+                try:
+                    pl = current_app.redis_store.pipeline()
+                    pl.zadd(self.key, cache)
+                    pl.expire(self.key,constants.ArticleCommentsCacheTTL.get_val())
+                    pl.execute()
+
+                except RedisError as e:
+                    current_app.logger.error(e)
+
+            return total_count, end_id, last_id, page_comments
+
+    def clear(self):
+        current_app.redis_store.delete(self.key)
+
+class CommentCache(object):
+
+    def __init__(self, comment_id):
+        self.key = 'comm:{}'.format(comment_id)
+        self.comment_id = comment_id
+
+    def get(self):
+        """
+        获取
+        """
+        try:
+            ret = current_app.redis_store.get(self.key)
+        except RedisError as e:
+            current_app.logger.error(e)
+            return None
+
+        if ret:
+            return json.loads(ret.decode())
+
+        try:
+            comment=Comment.query.get(self.comment_id)
+        except Exception as e:
+            current_app.logger.error(e)
+            return None
+        else:
+            comment_dict = {
+                'com_id': comment.id,
+                'aut_id': comment.user.id,
+                'aut_name': comment.user.name,
+                'aut_photo': comment.user.profile_photo,
+                'pubdate': comment.ctime.strftime('%Y-%m-%d %H:%M:%S'),
+                'content': comment.content,
+                'is_top': comment.is_top,
+                'is_liking': False,
+                'reply_count': 0
+            }
+            current_app.redis_store.setex(self.key, constants.CommentCacheTTL.get_val(), json.dumps(comment_dict))
+
+        return comment_dict
+
+    @staticmethod
+    def get_list(comment_ids):
+        """
+        批量获取
+        """
+        comment_dict = []
+        for id in comment_ids:
+            comment=CommentCache(id).get()
+            comment_dict.append(comment)
+
+        return comment_dict
+
+class CommentsReplyCache(object):
+    """
+    评论列表缓存
+    """
+    def __init__(self, comment_id):
+        self.comment_id = comment_id
+        self.key = 'comm:{}:reply'.format(comment_id)
+
+    def get_page(self, offset, limit):
+        """
+        分页获取
+        :param offset:
+        :param limit:
+        :return: total_count, end_id, last_id, []
+        """
+
+        # 查询缓存
+        try:
+            pl = current_app.redis_store.pipeline()
+            pl.zcard(self.key)
+            pl.zrange(self.key, 0, 0, withscores=True)
+            if offset is None:
+                # 从头开始取
+                pl.zrevrange(self.key, 0, limit - 1, withscores=True)
+            else:
+                pl.zrevrangebyscore(self.key, offset - 1, 0, 0, limit - 1, withscores=True)
+            total_count, end_id, ret = pl.execute()
+        except RedisError as e:
+            current_app.logger.error(e)
+            total_count = 0
+            end_id = None
+            last_id = None
+            ret = []
+
+        if total_count > 0:
+            # 可以查询到缓存，则直接构造返回
+            end_id = int(end_id[0][1])
+            last_id = int(ret[-1][1]) if ret else None
+            return total_count, end_id, last_id, [int(cid[0]) for cid in ret]
+        else:
+            # 查询不到缓存
+            # 查询数据库
+            comments = Comment.query.filter(Comment.parent_id == self.comment_id,
+                                            Comment.status == Comment.STATUS.APPROVED). \
+                order_by(Comment.id.desc()).all()
+
+            total_count = len(comments)
+            if total_count == 0:
+                return 0, None, None, []
+
+
+            cache = {}
+            page_comments = []
+            page_count = 0
+            page_last_comment = None
+
+            for comment in comments:
+                score = comment.ctime.timestamp()
+
+                # 构造返回数据
+                if ((offset is not None and score < offset) or offset is None) and page_count <= limit:
+                    page_comments.append(comment.id)
+                    page_count += 1
+                    page_last_comment = comment
+
+                # 构造缓存数据
+                cache[comment.id]=score
+
+
+            end_id = comments[-1].ctime.timestamp()
+            last_id = page_last_comment.ctime.timestamp() if page_last_comment else None
+
+            # 设置缓存
+            if cache:
+                try:
+                    pl = current_app.redis_store.pipeline()
+                    pl.zadd(self.key, cache)
+                    pl.expire(self.key,constants.ArticleCommentsCacheTTL.get_val())
+                    pl.execute()
+
+                except RedisError as e:
+                    current_app.logger.error(e)
+
+            return total_count, end_id, last_id, page_comments
+
+    def clear(self):
+        current_app.redis_store.delete(self.key)
+
+```
+
+
 
