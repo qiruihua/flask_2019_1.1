@@ -8,7 +8,7 @@
 
 | 参数 | 类型 | 是否必须 | 说明 |
 | :--- | :--- | :--- | :--- |
-| article\_id | str | 是 | 文章id |
+| article\_id（**query**） | str | 是 | 文章id |
 
 **返回数据**： JSON
 
