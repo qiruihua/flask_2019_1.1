@@ -162,19 +162,19 @@ class UserCommentLikingCacheTTL(BaseCacheTTL):
 ## 添加是否点赞评论判断
 
 ```
-            from cache.user import UserCommentLikingCache
-            is_liking=UserCommentLikingCache(comment.user_id).user_liking_comment(comment.id)
-            comment_dict = {
-                'com_id': comment.id,
-                'aut_id': comment.user.id,
-                'aut_name': comment.user.name,
-                'aut_photo': comment.user.profile_photo,
-                'pubdate': comment.ctime.strftime('%Y-%m-%d %H:%M:%S'),
-                'content': comment.content,
-                'is_top': comment.is_top,
-                'is_liking': is_liking,
-                'reply_count': 0
-            }
+from cache.user import UserCommentLikingCache
+is_liking=UserCommentLikingCache(comment.user_id).user_liking_comment(comment.id)
+comment_dict = {
+    'com_id': comment.id,
+    'aut_id': comment.user.id,
+    'aut_name': comment.user.name,
+    'aut_photo': comment.user.profile_photo,
+    'pubdate': comment.ctime.strftime('%Y-%m-%d %H:%M:%S'),
+    'content': comment.content,
+    'is_top': comment.is_top,
+    'is_liking': is_liking,
+    'reply_count': 0
+}
 ```
 
 ## 在点赞和取消点赞评论视图处添加清除缓存功能
