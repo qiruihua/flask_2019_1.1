@@ -78,7 +78,10 @@ class ArticleLikeResource(Resource):
         atti = Attitude.query.filter_by(user_id=g.user_id, article_id=target).first()
         if atti is None:
             atti = Attitude(user_id=g.user_id, article_id=target, attitude=Attitude.ATTITUDE.LIKING)
-        db.session.add(atti)
+            db.session.add(atti)
+        else:
+            atti.attitude=Attitude.ATTITUDE.LIKING
+            
         db.session.commit()
 
         return {'target': target}, 201
