@@ -120,16 +120,13 @@ class UserCommentLikingCache(object):
 
         cids = [com.comment_id for com in ret]
         pl = current_app.redis_store.pipeline()
+        
         try:
-            if cids:
-                pl.sadd(self.key, *cids)
-                pl.expire(self.key, constants.UserCommentLikingCacheTTL.get_val())
-            else:
-                pl.sadd(self.key, -1)
-                pl.expire(self.key, constants.UserCommentLikingNotExistsCacheTTL.get_val())
-            results = pl.execute()
-            if results[0] and not results[1]:
-                current_app.redis_store.delete(self.key)
+            
+            pl.sadd(self.key, *cids)
+            pl.expire(self.key, constants.UserCommentLikingCacheTTL.get_val())
+            pl.execute()
+
         except RedisError as e:
             current_app.logger.error(e)
 
@@ -160,11 +157,6 @@ class UserCommentLikingCacheTTL(BaseCacheTTL):
     用户文章评论点赞缓存时间，秒
     """
     TTL = 10 * 60
-class UserCommentLikingNotExistsCacheTTL(BaseCacheTTL):
-    """
-    用户文章评论点赞不存在数据缓存时间，秒
-    """
-    TTL = 3 * 60
 ```
 
 ## 在视图中添加是否点赞评论判断
