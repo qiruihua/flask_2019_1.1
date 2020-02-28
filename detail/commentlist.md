@@ -133,7 +133,7 @@ class CommentsResource(Resource):
                     'aut_id': comment.user.id,
                     'aut_name': comment.user.name,
                     'aut_photo': comment.user.profile_photo,
-                    'pubdate': comment.strftime('%Y-%m-%d %H:%M:%S'),
+                    'pubdate': comment.ctime.strftime('%Y-%m-%d %H:%M:%S'),
                     'content': comment.content,
                     'is_top': comment.is_top,
                     'is_liking': False,
@@ -141,7 +141,8 @@ class CommentsResource(Resource):
                 })
                 page_count += 1
                 page_last_comment = comment
-                end_id=0
+        
+        end_id=0
         last_id=0
         if len(comments)>0:
             end_id = comments[-1].ctime.timestamp()
