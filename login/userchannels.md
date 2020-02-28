@@ -226,9 +226,6 @@ class UserChannelsCache(object):
 ### 添加缓存时间变量
 
 ```
-# 默认用户频道缓存有效期，秒
-DEFAULT_USER_CHANNELS_CACHE_TTL = 24 * 60 * 60
-
 class UserChannelsCacheTTL(BaseCacheTTL):
     """
     用户频道缓存时间，秒
