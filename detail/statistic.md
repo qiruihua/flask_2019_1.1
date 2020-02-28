@@ -11,6 +11,8 @@
 
 ## 定义存储基类
 
+在cache包中新建statistic.py文件
+
 ```
 from redis.exceptions import RedisError
 from flask import current_app
