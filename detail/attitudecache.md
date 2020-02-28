@@ -40,7 +40,6 @@ class UserArticleAttitudeCache(object):
 
         pl = current_app.redis_store.pipeline()
         try:
-            
             pl.hmset(self.key, attitudes)
             pl.expire(self.key, constants.UserArticleAttitudeCacheTTL.get_val())
             pl.execute()
