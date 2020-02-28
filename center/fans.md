@@ -8,9 +8,9 @@
 
 | 参数 | 类型 | 是否必须 | 说明 |
 | :--- | :--- | :--- | :--- |
-| token | str | 是 | 用户Token |
-| page | str | 否 | 页码 |
-| per\_page | str | 否 | 每页多少条数据 |
+| token\(**header**\) | str | 是 | 用户Token |
+| page\(**query**\) | str | 否 | 页码 |
+| per\_page\(**query**\) | str | 否 | 每页多少条数据 |
 
 **返回数据**： JSON
 
