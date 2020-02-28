@@ -1,7 +1,5 @@
 # 态度缓存实现
 
-
-
 | key | 类型 | 说明 | 举例 |
 | :--- | :--- | :--- | :--- |
 | user:{user\_id}:art:attitude | hash | 用户的所有态度数据 | {art\_id:attitude} |
@@ -42,15 +40,10 @@ class UserArticleAttitudeCache(object):
 
         pl = current_app.redis_store.pipeline()
         try:
-            if attitudes:
-                pl.hmset(self.key, attitudes)
-                pl.expire(self.key, constants.UserArticleAttitudeCacheTTL.get_val())
-            else:
-                pl.hmset(self.key, {-1: -1})
-                pl.expire(self.key, constants.UserArticleAttitudeNotExistsCacheTTL.get_val())
-            results = pl.execute()
-            if results[0] and not results[1]:
-                current_app.redis_store.delete(self.key)
+            
+            pl.hmset(self.key, attitudes)
+            pl.expire(self.key, constants.UserArticleAttitudeCacheTTL.get_val())
+            pl.execute()
         except RedisError as e:
             current_app.logger.error(e)
 
