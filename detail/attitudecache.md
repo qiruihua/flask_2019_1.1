@@ -82,13 +82,6 @@ class UserArticleAttitudeCacheTTL(BaseCacheTTL):
     用户文章态度缓存时间，秒
     """
     TTL = 30 * 60
-
-
-class UserArticleAttitudeNotExistsCacheTTL(BaseCacheTTL):
-    """
-    用户文章态度不存在数据缓存时间，秒
-    """
-    TTL = 5 * 60
 ```
 
 ## 修改视图态度判断
