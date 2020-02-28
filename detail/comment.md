@@ -8,9 +8,9 @@
 
 | 参数 | 类型 | 是否必须 | 说明 |
 | :--- | :--- | :--- | :--- |
-| token | str | 是 | 用户token |
-| target | str | 是 | 文章id |
-| content | str | 是 | 评论内容 |
+| token\(**header**\) | str | 是 | 用户token |
+| target\(**body**\) | str | 是 | 文章id |
+| content\(**body**\) | str | 是 | 评论内容 |
 
 **返回数据**： JSON
 

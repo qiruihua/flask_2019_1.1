@@ -8,8 +8,8 @@
 
 | 参数 | 类型 | 是否必须 | 说明 |
 | :--- | :--- | :--- | :--- |
-| token | str | 是 | token |
-| target | str | 是 | 取消喜欢的文章id |
+| token\(**header**\) | str | 是 | token |
+| target\(**body**\) | str | 是 | 取消喜欢的文章id |
 
 **返回数据**： JSON
 

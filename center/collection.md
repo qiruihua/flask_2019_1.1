@@ -8,9 +8,9 @@
 
 | 参数 | 类型 | 是否必须 | 说明 |
 | :--- | :--- | :--- | :--- |
-| token | str | 是 | 用户token |
-| page | int | 否 | 页数，默认是1 |
-| per\_page | int | 否 | 每页数量 |
+| token\(**header**\) | str | 是 | 用户token |
+| page\(**query**\) | int | 否 | 页数，默认是1 |
+| per\_page\(**query**\) | int | 否 | 每页数量 |
 
 **返回数据**： JSON
 
@@ -96,7 +96,7 @@ class CollectionResource(Resource):
 
 
         results = []
-        
+
         for article_id in page_articles:
             article = ArticleDetailCache(article_id).get()
             article['is_liking']=UserArticleAttitudeCache(g.user_id).user_liking_article(article_id)

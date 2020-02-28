@@ -8,10 +8,10 @@
 
 | 参数 | 类型 | 是否必须 | 说明 |
 | :--- | :--- | :--- | :--- |
-| type | str | 是 | 评论类型，a表示文章评论 c表示回复评论 |
-| source | int | 是 | 文章id或者评论id |
-| offset | int | 否 | 获取评论数据的偏移量 |
-| limit | int | 否 | 评论条数 |
+| type\(**query**\) | str | 是 | 评论类型，a表示文章评论 c表示回复评论 |
+| source\(**query**\) | int | 是 | 文章id或者评论id |
+| offset\(**query**\) | int | 否 | 获取评论数据的偏移量 |
+| limit\(**query**\) | int | 否 | 评论条数 |
 
 **返回数据**： JSON
 
