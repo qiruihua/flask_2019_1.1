@@ -462,12 +462,12 @@ class CommentResource(Resource):
         limit = args.get('limit') if args.get('limit') is not None else constants.DEFAULT_COMMENT_PER_PAGE_MIN
 
         if type == 'a':
-           
+
             from cache.comment import ArticleCommentsCache, CommentCache
             total_count, end_id, last_id, page_comments_ids = ArticleCommentsCache(source).get_page(offset, limit)
             page_comments = CommentCache.get_list(page_comments_ids)
         else:
-        
+
             from cache.comment import CommentsReplyCache, CommentCache
             total_count, end_id, last_id, page_comments_ids = CommentsReplyCache(source).get_page(offset, limit)
             page_comments = CommentCache.get_list(page_comments_ids)
@@ -478,7 +478,32 @@ class CommentResource(Resource):
             'last_id': last_id,
             'results': page_comments
         }
+```
 
+## 添加发布评论或回复评论清除缓存数据 {#添加收藏或取消收藏清除缓存数据}
+
+添加清除缓存方法
+
+```
+class ArticleCommentsCache(object):
+    """
+    文章评论列表缓存
+    """
+    def __init__(self, article_id):
+        self.article_id = article_id
+        self.key = 'art:{}:comm'.format(article_id)
+
+    def clear(self):
+        current_app.redis_store.delete(self.key)
+
+```
+
+添加收藏或取消收藏调用
+
+```
+# 删除关注缓存
+from cache.comment import ArticleCommentsCache
+ArticleCommentsCache(article_id).clear()
 ```
 
 

@@ -98,7 +98,7 @@ if art_id:
     comment.article_id = art_id
     comment.parent_id = args.target
     from cache.statistic import CommentReplyCountStorage
-    CommentReplyCountStorage.incr(args.target)
+    CommentReplyCountStorage.incr(args.get('target'))
 ```
 
 
