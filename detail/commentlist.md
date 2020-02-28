@@ -397,7 +397,7 @@ class CommentsReplyCache(object):
                 try:
                     pl = current_app.redis_store.pipeline()
                     pl.zadd(self.key, cache)
-                    pl.expire(self.key,constants.ArticleCommentsCacheTTL.get_val())
+                    pl.expire(self.key,constants.CommentReplyCacheTTL.get_val())
                     pl.execute()
 
                 except RedisError as e:
@@ -407,6 +407,77 @@ class CommentsReplyCache(object):
 
     def clear(self):
         current_app.redis_store.delete(self.key)
+```
+
+定义缓存时间常量
+
+```
+class ArticleCommentsCacheTTL(BaseCacheTTL):
+    """
+    文章评论列表缓存时间，秒
+    """
+    TTL = 30 * 60
+
+
+class CommentReplyCacheTTL(BaseCacheTTL):
+    """
+    评论回复列表缓存时间，秒
+    """
+    TTL = 30 * 60
+
+
+class CommentCacheTTL(BaseCacheTTL):
+    """
+    评论信息缓存时间，秒
+    """
+    TTL = 30 * 60
+```
+
+## 修改视图实现
+
+```
+class CommentResource(Resource):
+
+    def get(self):
+        """
+        1.接收数据，验证数据
+        2.判断是评论数据还是回复评论
+        3.分页
+        4.将
+        :return:
+        """
+        parse = reqparse.RequestParser()
+        parse.add_argument('type', location='args', required=True)
+        parse.add_argument('source', location='args', required=True, type=int)
+        parse.add_argument('offset', location='args',type=inputs.positive)
+        parse.add_argument('limit', location='args', type=inputs.int_range(constants.DEFAULT_COMMENT_PER_PAGE_MIN,
+                                                                           constants.DEFAULT_COMMENT_PER_PAGE_MAX,
+                                                                           argument='limit'))
+
+        args = parse.parse_args()
+
+        type = args.get('type')
+        source = args.get('source')
+        offset = args.get('offset', constants.DEFAULT_COMMENT_PER_PAGE_MIN)
+        limit = args.get('limit') if args.get('limit') is not None else constants.DEFAULT_COMMENT_PER_PAGE_MIN
+
+        if type == 'a':
+           
+            from cache.comment import ArticleCommentsCache, CommentCache
+            total_count, end_id, last_id, page_comments_ids = ArticleCommentsCache(source).get_page(offset, limit)
+            page_comments = CommentCache.get_list(page_comments_ids)
+        else:
+        
+            from cache.comment import CommentsReplyCache, CommentCache
+            total_count, end_id, last_id, page_comments_ids = CommentsReplyCache(source).get_page(offset, limit)
+            page_comments = CommentCache.get_list(page_comments_ids)
+
+        return {
+            'total_count': total_count,
+            'end_id': end_id,
+            'last_id': last_id,
+            'results': page_comments
+        }
 
 ```
 
