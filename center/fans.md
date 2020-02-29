@@ -161,7 +161,7 @@ class UserFansCache(object):
             try:
                 pl = current_app.redis_store.pipeline()
                 pl.zadd(self.key, cache)
-                pl.expire(self.key, constants.UserFollowingsCacheTTL.get_val())
+                pl.expire(self.key, constants.UserFansCacheTTL.get_val())
                 pl.execute()
             except RedisError as e:
                 current_app.logger.error(e)
@@ -172,7 +172,7 @@ class UserFansCache(object):
 添加缓存时间常量
 
 ```
-class UserFanssCacheTTL(BaseCacheTTL):
+class UserFansCacheTTL(BaseCacheTTL):
     """
     用户关注列表缓存时间，秒
     """
