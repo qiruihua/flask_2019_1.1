@@ -167,9 +167,9 @@ DEFAULT_COMMENT_PER_PAGE_MAX = 50
 
 | key | 类型 | 说明 | 举例 |
 | :--- | :--- | :--- | :--- |
-| art:{art\_id}:comm | zset | 缓存评论列表 | - |
+| art:{art\_id}:comm | zset | 缓存评论列表 | \[{art\_id:time}\] |
 | comm:{common\_id} | string | 缓存评论 | - |
-| comm:{common\_id}:reply | zset | 缓存回复评论数据 | - |
+| comm:{common\_id}:reply | zset | 缓存回复评论数据 | \[{com\_id:time}\] |
 
 在cache包下创建comment.p文件中
 
