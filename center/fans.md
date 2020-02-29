@@ -86,12 +86,12 @@ class FansResource(Resource):
         results = []
         for following_user_id in page_followings:
             user = UserProfileCache(following_user_id).get()
-            results.append(dict(
-                id=following_user_id,
-                name=user['name'],
-                photo=user['photo'],
-                mutual_follow=False
-            ))
+            results.append({
+                'id':id,
+                'name':user.get('name'),
+                'photo':user.get('photo'),
+                'mutual_follow':False
+            })
 
         return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
 ```
@@ -213,12 +213,12 @@ class FansResource(Resource):
         results = []
         for following_user_id in page_followings:
             user = UserProfileCache(following_user_id).get()
-            results.append(dict(
-                id=following_user_id,
-                name=user['name'],
-                photo=user['photo'],
-                mutual_follow=False
-            ))
+            results.append({
+                'id':id,
+                'name':user.get('name'),
+                'photo':user.get('photo'),
+                'mutual_follow':False
+            })
 
         return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
 ```
@@ -233,12 +233,12 @@ class FansResource(Resource):
         for following_user_id in page_followings:
             user = UserProfileCache(following_user_id).get()
             mutual_follow=UserFollowingCache(g.user_id).user_follows_target(user.get('id'))
-            results.append(dict(
-                id=following_user_id,
-                name=user['name'],
-                photo=user['photo'],
-                mutual_follow=mutual_follow
-            ))
+            results.append({
+                'id':id,
+                'name':user.get('name'),
+                'photo':user.get('photo'),
+                'mutual_follow':mutual_follow
+            })
 ```
 
 添加用户关注是否相互关注的判断逻辑
@@ -249,12 +249,12 @@ class FansResource(Resource):
         for following_user_id in page_followings:
             user = UserProfileCache(following_user_id).get()
 
-            results.append(dict(
-                id=following_user_id,
-                name=user['name'],
-                photo=user['photo'],
-                mutual_follow=user.get('id') in fans
-            ))
+            results.append({
+                'id':id,
+                'name':user.get('name'),
+                'photo':user.get('photo'),
+                'mutual_follow':user.get('id') in fans
+            })
 ```
 
 
