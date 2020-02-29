@@ -81,7 +81,7 @@ class FollowResource(Resource):
         #获取所有的关注人员id
         follower_ids = []
         for relation in followers:
-            follower_ids.append(relation.user_id)
+            follower_ids.append(relation.target_user_id)
         #分页
         page_followings = follower_ids[(page - 1) * per_page:page * per_page]
         #遍历获取缓存信息
