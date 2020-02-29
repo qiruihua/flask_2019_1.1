@@ -168,6 +168,8 @@ DEFAULT_COMMENT_PER_PAGE_MAX = 50
 | key | 类型 | 说明 | 举例 |
 | :--- | :--- | :--- | :--- |
 | art:{art\_id}:comm | zset | - | - |
+| comm:{common\_id} | string | - | - |
+| comm:{}:reply | zset | - | - |
 
 在cache包下创建comment.p文件中
 
@@ -495,7 +497,6 @@ class ArticleCommentsCache(object):
 
     def clear(self):
         current_app.redis_store.delete(self.key)
-
 ```
 
 添加收藏或取消收藏调用
