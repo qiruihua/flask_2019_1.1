@@ -172,7 +172,7 @@ class UserArticleCollectionsCache(object):
                 #重新更新缓存数据
                 try:
                     pl = current_app.redis_store.pipeline()
-                    pl.zadd(self.key, *cache)
+                    pl.zadd(self.key, cache)
                     pl.expire(self.key, constants.UserArticleCollectionsCacheTTL.get_val())
                     pl.execute()
 
