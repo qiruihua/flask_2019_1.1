@@ -151,13 +151,10 @@ class UserFollowingCache(object):
             .order_by(Relation.utime.desc()).all()
 
         followings = []
-        cache = []
+        cache = {}
         for relation in ret:
             followings.append(relation.target_user_id)
-
-            cache.append({
-                relation.target_user_id: relation.utime.timestamp()
-            })
+            cache[relation.target_user_id]=relation.utime.timestamp()
         # 将数据存入缓存
         if cache:
             try:
@@ -215,12 +212,12 @@ class FollowResource(Resource):
         results = []
         for following_user_id in page_followings:
             user = UserProfileCache(following_user_id).get()
-            results.append(dict(
-                id=following_user_id,
-                name=user['name'],
-                photo=user['photo'],
-                mutual_follow=False
-            ))
+            results.append({
+                'id':id,
+                'name':user.get('name'),
+                'photo':user.get('photo'),
+                'mutual_follow':False
+            })
 
         return {'total_count': total_count, 'page': page, 'per_page': per_page, 'results': results}
 ```
