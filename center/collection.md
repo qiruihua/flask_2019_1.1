@@ -159,13 +159,11 @@ class UserArticleCollectionsCache(object):
             total_count = len(collections)
             # 获取收藏的所有文章id 为缓存做准备
             collection_ids = []
-            cache = []
+            cache = {}
             for collection in collections:
                 collection_ids.append(collection.article_id)
                 # 缓存的数据结构
-                cache.append({
-                    collection.article_id:collection.utime.timestamp()
-                })
+                cache[collection.article_id]=collection.utime.timestamp()
 
             # 获取指定页数的数据
             page_articles = collection_ids[(page - 1) * per_page:page * per_page]
@@ -174,8 +172,7 @@ class UserArticleCollectionsCache(object):
                 #重新更新缓存数据
                 try:
                     pl = current_app.redis_store.pipeline()
-                    for item in cache:
-                        pl.zadd(self.key, item)
+                    pl.zadd(self.key, *cache)
                     pl.expire(self.key, constants.UserArticleCollectionsCacheTTL.get_val())
                     pl.execute()
 
