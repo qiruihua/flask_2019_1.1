@@ -159,8 +159,7 @@ class UserFollowingCache(object):
         if cache:
             try:
                 pl = current_app.redis_store.pipeline()
-                for item in cache:
-                    pl.zadd(self.key, item)
+                pl.zadd(self.key, cache)
                 pl.expire(self.key, constants.UserFollowingsCacheTTL.get_val())
                 pl.execute()
             except RedisError as e:
