@@ -54,7 +54,7 @@
 
 | key | 类型 | 说明 | 举例 |
 | :--- | :--- | :--- | :--- |
-| user:{user\_id}:his:reading | zset |  | \[{article\_id, read\_time}\] |
+| user:{user\_id}:his:reading | zset |  | \[{article\_id:read\_time}\] |
 
 在cache的user.py文件中定义实现阅读历史
 
