@@ -151,19 +151,17 @@ class UserFansCache(object):
             .order_by(Relation.utime.desc()).all()
 
         followings = []
-        cache = []
+        cache = {}
         for relation in ret:
             followings.append(relation.target_user_id)
-
-            cache.append({
-                relation.target_user_id: relation.utime.timestamp()
-            })
+            cache[relation.target_user_id]=relation.utime.timestamp()
+            
         # 将数据存入缓存
         if cache:
             try:
                 pl = current_app.redis_store.pipeline()
-                for item in cache:
-                    pl.zadd(self.key, item)
+                
+                pl.zadd(self.key, cache)
                 pl.expire(self.key, constants.UserFollowingsCacheTTL.get_val())
                 pl.execute()
             except RedisError as e:
