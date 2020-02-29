@@ -155,12 +155,11 @@ class UserFansCache(object):
         for relation in ret:
             followings.append(relation.target_user_id)
             cache[relation.target_user_id]=relation.utime.timestamp()
-            
+
         # 将数据存入缓存
         if cache:
             try:
                 pl = current_app.redis_store.pipeline()
-                
                 pl.zadd(self.key, cache)
                 pl.expire(self.key, constants.UserFollowingsCacheTTL.get_val())
                 pl.execute()
